@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>i3.gazetteerCompare</title>
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<!-- jQuery -->
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<!-- version 0.7.5 -->
+		<script src="../vendor/leaflet/leaflet-src.js"></script>
+		<link rel="stylesheet" href="../vendor/leaflet/leaflet.css" />
+		<!--https://github.com/Leaflet/Leaflet.draw-->
+		<link rel="stylesheet" href="../vendor/leaflet.draw/dist/leaflet.draw.css" />
+		<script src="../vendor/leaflet.draw/src/Leaflet.draw.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.Poly.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.SimpleShape.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.Circle.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.Rectangle.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Feature.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Polyline.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Polygon.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.SimpleShape.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Rectangle.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Circle.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Marker.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/LatLngUtil.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/GeometryUtil.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/LineUtil.Intersect.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/Polyline.Intersect.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/Polygon.Intersect.js"></script>
+		<script src="../vendor/leaflet.draw/src/Control.Draw.js"></script>
+		<script src="../vendor/leaflet.draw/src/Tooltip.js"></script>
+		<script src="../vendor/leaflet.draw/src/Toolbar.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/DrawToolbar.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/EditToolbar.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/EditToolbar.Edit.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/EditToolbar.Delete.js"></script>
+		<!-- https://github.com/Leaflet/Leaflet.markercluster -->
+		<link rel="stylesheet" href="../vendor/leaflet.markercluster/MarkerCluster.css" />
+		<link rel="stylesheet" href="../vendor/leaflet.markercluster/MarkerCluster.Default.css" />
+		<script src="../vendor/leaflet.markercluster/leaflet.markercluster-src.js"></script>
+		<!-- https://github.com/fgnass/spin.js -->
+		<script src="../vendor/spin.js/spin.js"></script>
+		<!-- https://github.com/makinacorpus/Leaflet.Spin -->
+		<script src="../vendor/leaflet.spin/leaflet.spin.js"></script>
+		<!-- https://github.com/mapbox/leaflet-geodesy -->
+		<script src="../vendor/leaflet.geodesy/leaflet-geodesy.js"></script>
+		<!-- https://github.com/zenorocha/clipboard.js -->
+		<script src="../vendor/clipboard.js/clipboard.js"></script>
+		<!-- Config File -->
+		<script src="../Config.js"></script>
+
+		<style>
+			#div_header { width: 100%; height: 45px; float:right; margin-top: 2px; margin-left:0px; margin-right:0px; background-color: transparent;}
+			#div_autocomplete { width: 930px; height: 45px; float:right; margin-top: 0px; margin-left:0px; margin-right:10px; background-color: transparent;}
+			#title { font-size: 20px; margin-left: 20px; margin-top: 11px; float: left; font-weight: normal; background-color: transparent;}
+			.map { width:100%; height: calc(100% - 50px); margin-top: 2px; float:left; }
+			.button { float:right; font-size: 18px; padding: 10px; line-height: 1.6em; background-color: #FFF; background-repeat: repeat-x; border-color: #888; color: #fff; border-radius: 0px; border-style: solid; border-width: 1px; cursor: pointer; text-align: center; vertical-align: middle; line-height: 20px; height: 23px; margin-right: 10px; }
+			.inputname { float:right; font-size: 18px; padding: 10px; line-height: 1.6em; border-color: #888; color: #000; border-radius: 0px; border-style: solid; border-width: 1px; vertical-align: middle; height: 23px; margin-right: 10px; width: 250px;}
+		</style>
+	</head>
+	<body>
+		<div id="div_header">
+			<span id="title">i3.gazetteerCompare</span>
+			<input type='image' src='../img/reset.png' class='button' id='reset' alt="clear map" title="clear map">
+			<input type='image' src='../img/table.png' class='button' id='table' alt="see data" title="see data">
+			<input type='image' src='../img/copy.png' class="button btn" id="copy" data-clipboard-text="" alt="copy geojson url" title="copy geojson url">
+			<input type="text" class="inputname" id="inputname" value="enter placename">
+		</div>
+		<div id="map" class="map newline"></div>
+		<script>
+			var url = "http://localhost:8084/spatialapi/";
+			var pointsURL = url + "gazetteercompare";
+			var maxAreaSize = 25000; //km²
+			var copyurl = "";
+			var dataurl = "";
+			var clipboard = new Clipboard('.btn');
+			// SET MAP
+			var baseLayer = Config.baseLayer;
+			var mapY = 50.009167;
+			var mapX = 4.666389;
+			var mapZOOM = 5;
+			var map = new L.Map('map', {
+				center: new L.LatLng(mapY, mapX),
+				zoom: mapZOOM,
+				layers: [baseLayer]
+			});
+			var markers;
+			var MarkerIcon = L.Icon.extend({
+				options: {
+					iconAnchor: [9, 30],
+					popupAnchor: [0, -30]
+				}
+			});
+			var blueMarker = new MarkerIcon({iconUrl: '../vendor/leaflet/images/marker-icon_blue.png'});
+			var greenMarker = new MarkerIcon({iconUrl: '../vendor/leaflet/images/marker-icon_green.png'});
+			var redMarker = new MarkerIcon({iconUrl: '../vendor/leaflet/images/marker-icon_red.png'});
+			var dummyMarker = new MarkerIcon({iconUrl: '../vendor/leaflet/images/marker-icon_dummy.png'});
+			var centerMarker = new MarkerIcon({iconUrl: '../vendor/leaflet/images/marker_center.png'});
+			var drawControl;
+			var drawnItems = new L.FeatureGroup();
+			L.drawLocal.draw.toolbar.buttons.rectangle = 'Draw a boundingbox for selection';
+			L.drawLocal.draw.toolbar.buttons.marker = 'Select a point';
+			function drawControlbar() {
+				drawControl = new L.Control.Draw({
+					position: 'topleft',
+					draw: {
+						polyline: false,
+						polygon: false,
+						circle: false,
+						marker: true,
+						rectangle: false,
+					},
+					edit: {
+						featureGroup: drawnItems,
+						remove: false,
+						edit: false
+					}
+				});
+				map.addControl(drawControl);
+			}
+			map.on('draw:created', function (e) {
+				getMarkergeoJSON(e.layer._latlng.lat, e.layer._latlng.lng, e);
+				setTimeout(function () {
+					map.setView([e.layer._latlng.lat, e.layer._latlng.lng], 11);
+				}, 1);
+			});
+
+			function getMarkergeoJSON(lat, lon, e) {
+				var name = $("#inputname").val();
+				copyurl = pointsURL + "?lat=" + lat + "&lon=" + lon + "&name=" + name;
+				dataurl = url + "apps/i3.gazetteerCompareTable" + "?lat=" + lat + "&lon=" + lon + "&name=" + name + "&sort=string";
+				map.spin(true, {top: '50%', left: '50%', lines: 15, length: 50, width: 15, radius: 50, opacity: 0.3, shadow: true});
+				$.ajax({
+					type: 'GET',
+					url: pointsURL,
+					data: {
+						lat: lat,
+						lon: lon,
+						name: name
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						map.spin(false);
+						console.info(errorThrown);
+					},
+					success: function (geojson) {
+						try {
+							geojson = JSON.parse(geojson);
+						} catch (e) {
+						}
+						map.spin(false);
+						map.removeLayer(drawnItems);
+						setMarker(geojson);
+						$("#reset").prop('disabled', false).css('opacity', 1).css('cursor', "pointer");
+						$("#copy").prop('disabled', false).css('opacity', 1).css('cursor', "pointer");
+						$("#table").prop('disabled', false).css('opacity', 1).css('cursor', "pointer");
+						map.removeControl(drawControl);
+					}
+				});
+			}
+
+			function setMarker(geojson) {
+				markers = null;
+				markers = L.markerClusterGroup();
+				var marker = L.geoJson(geojson, {
+					onEachFeature: onEachFeature,
+					pointToLayer: function (feature, latlng) {
+						if (feature.properties.provenance === "geonames") {
+							return L.marker(latlng, {icon: blueMarker});
+						} else if (feature.properties.provenance === "gettytgn") {
+							return L.marker(latlng, {icon: redMarker});
+						} else if (feature.properties.type === "startpoint") {
+							return L.circleMarker(latlng, { radius: 15, fillColor: "#ff7800", color: "#000", weight: 1, opacity: 1, fillOpacity: 1});
+						} else {
+							return L.marker(latlng, {icon: greenMarker});
+						}
+					},
+					style: function (feature) {
+						switch (feature.properties.type) {
+							case 'boundingbox':
+								return {color: "#ff0000", fillOpacity: 0, weight: 3};
+								break;
+						}
+					}
+				});
+				markers.addLayer(marker);
+				map.addLayer(markers);
+			}
+
+			function onEachFeature(feature, layer) {
+				var popupContent = "";
+				if (feature.properties.uri) {
+					popupContent = "name: " + feature.properties.name + "<br>provenance: " + feature.properties.provenance + "<br>uri: <a href='" + feature.properties.uri + "' target='_blank'>" + feature.properties.uri + "</a><br>distance: " + feature.properties.distance + "km";
+					popupContent += "<br>Levenshtein: " + feature.properties.similarity.levenshtein + "<br>normalized Levenshtein " + feature.properties.similarity.normalizedlevenshtein + "<br>Damerau-Levenshtein " + feature.properties.similarity.dameraulevenshtein + "<br>Jaro-Winkler " + feature.properties.similarity.jarowinkler;
+				} else if (feature.properties.type === "startpoint") {
+					popupContent = feature.properties.name + "<br>STARTPOINT";
+				} else if (feature.properties.type === "boundingbox") {
+					popupContent = "BOUNDINGBOX";
+				}
+				if (feature.properties && feature.properties.popupContent) {
+					popupContent += feature.properties.popupContent;
+				}
+				layer.bindPopup(popupContent);
+			}
+
+			// FUNCTIONS FOR BUTTONS
+			$('#reset').click(function (e) {
+				reset();
+			});
+			$('#copy').click(function (e) {
+				setAttributeForCopy();
+			});
+			$('#table').click(function (e) {
+				openNewTableWindow();
+			});
+
+			// GENERAL FUNCTIONS
+			function reset() {
+				drawControlbar();
+				map.removeLayer(markers);
+				drawnItems = new L.FeatureGroup();
+				$("#reset").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#copy").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#table").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#inputname").val("enter placename");
+				setTimeout(function () {
+					map.setView([mapY, mapX], mapZOOM);
+				}, 1);
+			}
+			function init() {
+				drawControlbar();
+				$("#reset").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#copy").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#table").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#inputname").val("enter placename");
+			}
+			function setAttributeForCopy() {
+				$("#copy").attr("data-clipboard-text", copyurl);
+			}
+			function openNewTableWindow() {
+				window.open(dataurl, '_blank');
+			}
+
+			// INIT
+			$(document).ready(function () {
+				init();
+			});
+
+		</script>
+	</body>
+</html>

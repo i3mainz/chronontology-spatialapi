@@ -4,9 +4,25 @@
         <servlet-name>geowidget</servlet-name>
         <servlet-class>widgets.geowidget</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>gazetteerlookup</servlet-name>
+        <servlet-class>tools.gazetteerlookup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>gazetteercompare</servlet-name>
+        <servlet-class>tools.gazetteercompare</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>geowidget</servlet-name>
         <url-pattern>/geowidget</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>gazetteerlookup</servlet-name>
+        <url-pattern>/gazetteerlookup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>gazetteercompare</servlet-name>
+        <url-pattern>/gazetteercompare</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

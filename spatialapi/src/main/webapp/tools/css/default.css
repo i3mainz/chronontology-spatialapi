@@ -1,0 +1,88 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,800italic,800,700italic,700,600italic,600);
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: normal;
+}
+
+.newline { clear: both }
+
+a:link {
+	color: #08c;
+	text-decoration:none;
+}
+a:visited {
+	color:#08c;
+	text-decoration:none;
+}
+a:hover {
+	color:#005580;
+	text-decoration:underline;
+}
+a:active  {
+	color:#005580;
+	text-decoration:underline;
+}
+html, body { 
+	height: 100%; 
+}
+body {
+	font-size: 14px;
+	line-height: 1.5em;
+	background-color: white;
+	margin: 0px;
+	background-position: top;
+}
+#header, #footer {
+	font-size: 10px;
+	width: 720px;
+	margin: 10px auto 0px auto;
+	text-align: center;
+	line-height: 1.2em;
+}
+p {
+	margin: 15px 15px 15px 15px;
+	padding: 0;
+}
+h1, h2, h3, h4, h5 {
+	font-weight: bold;
+	line-height: 1em;
+	padding: 0;
+	margin: 15px 15px;
+}
+h1 {
+	font-size: 36px;
+}
+h2 {
+	font-size: 24px;
+}
+h3 {
+	font-size: 18px;
+}
+h4 {
+	font-size: 12px;
+}
+h5 {
+	font-size: 10px;
+}
+ul {
+	margin: 15px 15px;
+	padding-left: 18px;
+}
+li {
+	margin: 7px 7px;
+	line-height: 2em;
+}
+hr {
+	height: 0px;
+	border-width: 1px 0px 0px 0px;
+	border-style: dotted none none none;
+	border-color: #CCC;
+	padding-bottom: 5px;
+	margin: 15px 15px;
+}
+cite, em {
+	font-style: italic;
+}

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>i3.gazetteerSearch</title>
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<!-- jQuery -->
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<!-- version 0.7.5 -->
+		<script src="../vendor/leaflet/leaflet-src.js"></script>
+		<link rel="stylesheet" href="../vendor/leaflet/leaflet.css" />
+		<!--https://github.com/Leaflet/Leaflet.draw-->
+		<link rel="stylesheet" href="../vendor/leaflet.draw/dist/leaflet.draw.css" />
+		<script src="../vendor/leaflet.draw/src/Leaflet.draw.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.Poly.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.SimpleShape.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.Circle.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/Edit.Rectangle.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Feature.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Polyline.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Polygon.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.SimpleShape.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Rectangle.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Circle.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/handler/Draw.Marker.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/LatLngUtil.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/GeometryUtil.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/LineUtil.Intersect.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/Polyline.Intersect.js"></script>
+		<script src="../vendor/leaflet.draw/src/ext/Polygon.Intersect.js"></script>
+		<script src="../vendor/leaflet.draw/src/Control.Draw.js"></script>
+		<script src="../vendor/leaflet.draw/src/Tooltip.js"></script>
+		<script src="../vendor/leaflet.draw/src/Toolbar.js"></script>
+		<script src="../vendor/leaflet.draw/src/draw/DrawToolbar.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/EditToolbar.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/EditToolbar.Edit.js"></script>
+		<script src="../vendor/leaflet.draw/src/edit/handler/EditToolbar.Delete.js"></script>
+		<!-- https://github.com/Leaflet/Leaflet.markercluster -->
+		<link rel="stylesheet" href="../vendor/leaflet.markercluster/MarkerCluster.css" />
+		<link rel="stylesheet" href="../vendor/leaflet.markercluster/MarkerCluster.Default.css" />
+		<script src="../vendor/leaflet.markercluster/leaflet.markercluster-src.js"></script>
+		<!-- https://github.com/fgnass/spin.js -->
+		<script src="../vendor/spin.js/spin.js"></script>
+		<!-- https://github.com/makinacorpus/Leaflet.Spin -->
+		<script src="../vendor/leaflet.spin/leaflet.spin.js"></script>
+		<!-- https://github.com/mapbox/leaflet-geodesy -->
+		<script src="../vendor/leaflet.geodesy/leaflet-geodesy.js"></script>
+		<!-- https://github.com/zenorocha/clipboard.js -->
+		<script src="../vendor/clipboard.js/clipboard.js"></script>
+		<!-- Config File -->
+		<script src="../Config.js"></script>
+
+		<style>
+			#div_header { width: 100%; height: 45px; float:right; margin-top: 2px; margin-left:0px; margin-right:0px; background-color: transparent;}
+			#div_autocomplete { width: 930px; height: 45px; float:right; margin-top: 0px; margin-left:0px; margin-right:10px; background-color: transparent;}
+			#title { font-size: 20px; margin-left: 20px; margin-top: 11px; float: left; font-weight: normal; background-color: transparent;}
+			.map { width:100%; height: calc(100% - 50px); margin-top: 2px; float:left; }
+			.button { float:right; font-size: 18px; padding: 10px; line-height: 1.6em; background-color: #FFF; background-repeat: repeat-x; border-color: #888; color: #fff; border-radius: 0px; border-style: solid; border-width: 1px; cursor: pointer; text-align: center; vertical-align: middle; line-height: 20px; height: 23px; margin-right: 10px; }
+		</style>
+	</head>
+	<body>
+		<div id="div_header">
+			<span id="title">i3.gazetteerSearch</span>
+			<input type='image' src='../img/reset.png' class='button' id='reset' alt="clear map" title="clear map">
+			<input type='image' src='../img/copy.png' class="button btn" id="copy" data-clipboard-text="" alt="copy geojson url" title="copy geojson url">
+		</div>
+		<div id="map" class="map newline"></div>
+		<script>
+			var pointsURL = "http://localhost:8084/spatialapi/gazetteerlookup";
+			var maxAreaSize = 25000; //km²
+			var copyurl = "";
+			var clipboard = new Clipboard('.btn');
+			var baseLayer = Config.baseLayer;
+			var mapY = 50.009167;
+			var mapX = 4.666389;
+			var mapZOOM = 5;
+			var map = new L.Map('map', {
+				center: new L.LatLng(mapY, mapX),
+				zoom: mapZOOM,
+				layers: [baseLayer]
+			});
+			var markers;
+			var MarkerIcon = L.Icon.extend({
+				options: {
+					iconAnchor: [9, 30],
+					popupAnchor: [0, -30]
+				}
+			});
+			var drawControl;
+			var drawnItems = new L.FeatureGroup();
+			L.drawLocal.draw.toolbar.buttons.rectangle = 'Draw a boundingbox for selection';
+			L.drawLocal.draw.toolbar.buttons.marker = 'Select a point';
+			function drawControlbar() {
+				drawControl = new L.Control.Draw({
+					position: 'topleft',
+					draw: {
+						polyline: false,
+						polygon: false,
+						circle: false,
+						marker: false,
+						rectangle: {
+							metric: true,
+							shapeOptions: {
+								color: '#0000FF'
+							}
+						}
+					},
+					edit: {
+						featureGroup: drawnItems,
+						remove: false,
+						edit: false
+					}
+				});
+				map.addControl(drawControl);
+			}
+			map.on('draw:created', function (e) {
+				if (e.layer._latlngs) {
+					var upperright = e.layer._latlngs[0].lat + ";" + e.layer._latlngs[0].lng;
+					var upperleft = e.layer._latlngs[1].lat + ";" + e.layer._latlngs[1].lng;
+					var lowerleft = e.layer._latlngs[2].lat + ";" + e.layer._latlngs[2].lng;
+					var lowerright = e.layer._latlngs[3].lat + ";" + e.layer._latlngs[3].lng;
+					var x = ((e.layer._latlngs[0].lng) + (e.layer._latlngs[3].lng)) / 2;
+					var y = ((e.layer._latlngs[0].lat) + (e.layer._latlngs[2].lat)) / 2;
+					var area = (LGeo.area(e.layer) / 1000000).toFixed(2);
+					var currentZoom = map.getZoom();
+					if (area < maxAreaSize) {
+						getMarkergeoJSON(upperright, upperleft, lowerleft, lowerright, e);
+						setTimeout(function () {
+							map.setView([y, x], 8);
+						}, 1);
+					} else {
+						alert("selected area is too big: " + area + " km2");
+						setTimeout(function () {
+							map.setView([y, x], currentZoom);
+						}, 1);
+					}
+				} else {
+					console.log("latlng=" + e.layer._latlng.lat + ";" + e.layer._latlng.lng);
+				}
+			});
+
+			function getMarkergeoJSON(upperright, upperleft, lowerleft, lowerright, e) {
+				copyurl = pointsURL + "?upperright=" + upperright + "&upperleft=" + upperleft + "&lowerleft=" + lowerleft + "&lowerright=" + lowerright;
+				map.spin(true, {top: '50%', left: '50%', lines: 15, length: 50, width: 15, radius: 50, opacity: 0.3, shadow: true});
+				$.ajax({
+					type: 'GET',
+					url: pointsURL,
+					data: {
+						upperright: upperright,
+						upperleft: upperleft,
+						lowerleft: lowerleft,
+						lowerright: lowerright
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						map.spin(false);
+						alert(errorThrown);
+					},
+					success: function (geojson) {
+						try {
+							geojson = JSON.parse(geojson);
+						} catch (e) {
+						}
+						map.spin(false);
+						map.removeLayer(drawnItems);
+						setMarker(geojson);
+						$("#reset").prop('disabled', false).css('opacity', 1).css('cursor', "pointer");
+						$("#copy").prop('disabled', false).css('opacity', 1).css('cursor', "pointer");
+						map.removeControl(drawControl);
+					}
+				});
+			}
+
+			function setMarker(geojson) {
+				markers = null;
+				markers = L.markerClusterGroup();
+				var marker = L.geoJson(geojson, {
+					onEachFeature: onEachFeature,
+					pointToLayer: function (feature, latlng) {
+						if (feature.properties.provenance === "geonames") {
+							return L.circleMarker(latlng, {radius: 10, fillColor: "blue", color: "blue", weight: 1, opacity: 1, fillOpacity: 1});
+						} else if (feature.properties.provenance === "gettytgn") {
+							return L.circleMarker(latlng, {radius: 10, fillColor: "red", color: "red", weight: 1, opacity: 1, fillOpacity: 1});
+						} else {
+							return L.circleMarker(latlng, {radius: 10, fillColor: "green", color: "green", weight: 1, opacity: 1, fillOpacity: 1});
+						}
+					},
+					style: function (feature) {
+						switch (feature.properties.type) {
+							case 'boundingbox':
+								return {color: "#ff0000", fillOpacity: 0, weight: 3};
+								break;
+						}
+					}
+				});
+				markers.addLayer(marker);
+				map.addLayer(markers);
+			}
+
+			function onEachFeature(feature, layer) {
+				var popupContent = "name: " + feature.properties.name + "<br>" + "uri: <a href='" + feature.properties.uri + "' target='_blank'>" + feature.properties.uri + "</a>";
+				if (feature.properties && feature.properties.popupContent) {
+					popupContent += feature.properties.popupContent;
+				}
+				layer.bindPopup(popupContent);
+			}
+
+			// FUNCTIONS FOR BUTTONS
+			$('#reset').click(function (e) {
+				reset();
+			});
+			$('#copy').click(function (e) {
+				setAttributeForCopy();
+			});
+
+			// GENERAL FUNCTIONS
+			function reset() {
+				drawControlbar();
+				map.removeLayer(markers);
+				drawnItems = new L.FeatureGroup();
+				$("#reset").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#copy").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				setTimeout(function () {
+					map.setView([mapY, mapX], mapZOOM);
+				}, 1);
+			}
+			function init() {
+				drawControlbar();
+				$("#reset").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+				$("#copy").prop('disabled', true).css('opacity', 0.5).css('cursor', "no-drop");
+			}
+			function setAttributeForCopy() {
+				$("#copy").attr("data-clipboard-text", copyurl);
+			}
+
+			// INIT
+			$(document).ready(function () {
+				init();
+			});
+
+		</script>
+	</body>
+</html>
