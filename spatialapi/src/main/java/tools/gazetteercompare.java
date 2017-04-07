@@ -146,8 +146,6 @@ public class gazetteercompare extends HttpServlet {
 			JsonObject json = parser.parse(geojson.toString()).getAsJsonObject();
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			out.print(gson.toJson(json));
-			// set outputformat
-			response.setContentType("application/json;charset=UTF-8");
 		} catch (Exception e) {
 			for (StackTraceElement element : e.getStackTrace()) {
 				String message = "element: \"" + element.getClassName() + " / " + element.getMethodName() + "() / " + element.getLineNumber() + "\"";
