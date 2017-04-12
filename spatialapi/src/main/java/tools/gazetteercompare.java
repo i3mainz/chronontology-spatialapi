@@ -47,14 +47,11 @@ public class gazetteercompare extends HttpServlet {
 			//StringBuffer resultTGN = getResultsFromGettyTGN(lowerleftSplit[0], lowerleftSplit[1], upperrightSplit[0], upperrightSplit[1]);
 			StringBuffer resultTGN = GazetteerGettyTGN.getResultsFromGettyTGN(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()));
 			List<GazetteerData> tgn = GazetteerGettyTGN.ParseTGNJSON(resultTGN);
-			System.out.println("TGN size: " + tgn.size());
 			StringBuffer resultGEONAMES = GazetteerGeonames.getResultsFromGeonames(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lon()));
 			List<GazetteerData> geonames = GazetteerGeonames.ParseGEONAMESJSON(resultGEONAMES);
-			System.out.println("GEONAMES size: " + geonames.size());
 			//StringBuffer resultDAI = getResultsFromDaiGazetteer(upperleftSplit[0], upperleftSplit[1], upperrightSplit[0], upperrightSplit[1], lowerrightSplit[0], lowerrightSplit[1], lowerleftSplit[0], lowerleftSplit[1]);
 			StringBuffer resultDAI = GazetteerDAI.getResultsFromDaiGazetteer(String.valueOf(bb.getUpperleft_lat()), String.valueOf(bb.getUpperleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerright_lat()), String.valueOf(bb.getLowerright_lon()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()));
 			List<GazetteerData> daigazetteer = GazetteerDAI.ParseDAIJSON(resultDAI);
-			System.out.println("DAI GAZETTEER size: " + daigazetteer.size());
 			// CALCULATE AND SET DISTANCES
 			// SET GETTY TGN
 			for (GazetteerData element : tgn) {

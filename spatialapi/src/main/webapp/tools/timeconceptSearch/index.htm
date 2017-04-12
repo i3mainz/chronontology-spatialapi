@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<title>i3.timeconceptSearch</title>
+		<title>timeconceptSearch</title>
 		<link rel="stylesheet" type="text/css" href="../css/default.css">
 		<!-- jQuery -->
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -54,6 +54,7 @@
 			.mapinput { font-size: 16px; padding: 8px; border: 1px solid #888; width: 130px; height:25px; border-radius: 5px; margin-right: 10px; float:left; margin-bottom: 8px; margin-top: 8px;}
 			.maplabel {  display:table-cell; vertical-align:bottom;  padding: 0px; border: none; width: auto; height:45px; float:left;}
 			.button { float:right; font-size: 18px; padding: 10px; line-height: 1.6em; background-color: #FFF; background-repeat: repeat-x; border-color: #888; color: #fff; border-radius: 5px; border-style: solid; border-width: 1px; cursor: pointer; text-align: center; vertical-align: middle; height: 23px; margin-left: 10px;}
+			#maptitle {float:left; width:150px; font-size: 24px; font-weight: 700; padding: 20px;}
 		</style>
 	</head>
 	<body>
@@ -87,7 +88,18 @@
 				zoom: mapZOOM,
 				layers: [baseLayer]
 			});
+			// SET SCALE
 			L.control.scale().addTo(map);
+			// SET maptitle
+			var maptitle = L.control({position: 'bottomleft'});
+			maptitle.onAdd = function (map) {
+				var div = L.DomUtil.create('div', '');
+				div.id = "maptitle";
+				div.innerHTML = '<span>ChronOntology<br>timeconceptSearch</span><br>';
+				div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
+				return div;
+			};
+			maptitle.addTo(map);
 			//L.control.mousePosition().addTo(map);
 
 			// ADD CONTROLS

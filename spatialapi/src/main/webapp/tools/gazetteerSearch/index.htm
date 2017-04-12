@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<title>i3.gazetteerSearch</title>
+		<title>gazetteerSearch</title>
 		<link rel="stylesheet" type="text/css" href="../css/default.css">
 		<!-- jQuery -->
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -54,16 +54,13 @@
 			#div_header { width: 100%; height: 45px; float:right; margin-top: 2px; margin-left:0px; margin-right:0px; background-color: transparent;}
 			#div_autocomplete { width: 930px; height: 45px; float:right; margin-top: 0px; margin-left:0px; margin-right:10px; background-color: transparent;}
 			#title { font-size: 20px; margin-left: 20px; margin-top: 11px; float: left; font-weight: normal; background-color: transparent;}
-			.map { width:100%; height: calc(100% - 50px); margin-top: 2px; float:left; }
-			.button { float:right; font-size: 18px; padding: 10px; line-height: 1.6em; background-color: #FFF; background-repeat: repeat-x; border-color: #888; color: #fff; border-radius: 0px; border-style: solid; border-width: 1px; cursor: pointer; text-align: center; vertical-align: middle; line-height: 20px; height: 23px; margin-right: 10px; }
+			.map { width:100%; height: 100%;}
+			.button { float:right; font-size: 18px; padding: 10px; line-height: 1.6em; background-color: #FFF; background-repeat: repeat-x; border-color: #888; color: #fff; border-radius: 0px; border-style: solid; border-width: 1px; cursor: pointer; text-align: center; vertical-align: middle; line-height: 20px; height: 23px; margin: 10px; }
+			#maptitle {float:left; font-size: 24px; font-weight: 700; padding: 20px; background-color: white; border-radius: 10px; opacity: 0.9;}
+			#mapselect {float:left; background: white; padding:10px; opacity: 1; border-radius: 10px;}
 		</style>
 	</head>
 	<body>
-		<div id="div_header">
-			<span id="title">i3.gazetteerSearch</span>
-			<input type='image' src='../img/reset.png' class='button' id='reset' alt="clear map" title="clear map">
-			<input type='image' src='../img/copy.png' class="button btn" id="copy" data-clipboard-text="" alt="copy geojson url" title="copy geojson url">
-		</div>
 		<div id="map" class="map newline"></div>
 		<script>
 			var pointsURL = "http://localhost:8084/spatialapi/gazetteerlookup";
@@ -79,6 +76,35 @@
 				zoom: mapZOOM,
 				layers: [baseLayer]
 			});
+			// SET SCALE
+			L.control.scale().addTo(map);
+			// SET maptitle
+			var maptitle = L.control({position: 'bottomleft'});
+			maptitle.onAdd = function (map) {
+				var div = L.DomUtil.create('div', '');
+				div.id = "maptitle";
+				div.innerHTML = '<span>ChronOntology<br>gazetteerSearch</span><br>';
+				div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
+				return div;
+			};
+			maptitle.addTo(map);
+			
+			
+			var mapselect = L.control({position: 'topright'});
+			mapselect.onAdd = function (map) {
+				var div = L.DomUtil.create('div', '');
+				div.id = "mapselect";
+				
+				
+				
+				div.innerHTML += '<input type="image" src="../img/reset.png" class="button" id="reset" alt="clear map" title="clear map">';
+				div.innerHTML += '<input type="image" src="../img/copy.png" class="button" id="copy" alt="show data" title="show data">';
+				
+				div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
+				return div;
+			};
+			mapselect.addTo(map);
+			
 			var markers;
 			var MarkerIcon = L.Icon.extend({
 				options: {

@@ -1,22 +1,20 @@
 package tools;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import classes.BoundingBox;
 import classes.GazetteerData;
+import errorlog.Logging;
 import functions.GazetteerDAI;
 import functions.GazetteerGeonames;
 import functions.GazetteerGettyTGN;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class gazetteerlookup extends HttpServlet {
 
@@ -47,69 +45,93 @@ public class gazetteerlookup extends HttpServlet {
 			String[] upperrightSplit = upperright.split(";"); //[0]=LAT [1]=LON
 			String[] lowerrightSplit = lowerright.split(";"); //[0]=LAT [1]=LON
 			// GET BOUNDINGBOX
-			BoundingBox bb = new BoundingBox(Double.parseDouble(upperleftSplit[0]),Double.parseDouble(upperleftSplit[1]),Double.parseDouble(lowerleftSplit[0]),Double.parseDouble(lowerleftSplit[1]),Double.parseDouble(upperrightSplit[0]),Double.parseDouble(upperrightSplit[1]),Double.parseDouble(lowerrightSplit[0]),Double.parseDouble(lowerrightSplit[1]));
+			BoundingBox bb = new BoundingBox(Double.parseDouble(upperleftSplit[0]), Double.parseDouble(upperleftSplit[1]), Double.parseDouble(lowerleftSplit[0]), Double.parseDouble(lowerleftSplit[1]), Double.parseDouble(upperrightSplit[0]), Double.parseDouble(upperrightSplit[1]), Double.parseDouble(lowerrightSplit[0]), Double.parseDouble(lowerrightSplit[1]));
 			// HARVEST DATA
 			StringBuffer resultTGN = GazetteerGettyTGN.getResultsFromGettyTGN(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()));
 			List<GazetteerData> tgn = GazetteerGettyTGN.ParseTGNJSON(resultTGN);
-			System.out.println("TGN size: " + tgn.size());
 			StringBuffer resultGEONAMES = GazetteerGeonames.getResultsFromGeonames(String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerleft_lon()));
 			List<GazetteerData> geonames = GazetteerGeonames.ParseGEONAMESJSON(resultGEONAMES);
-			System.out.println("GEONAMES size: " + geonames.size());
 			StringBuffer resultDAI = GazetteerDAI.getResultsFromDaiGazetteer(String.valueOf(bb.getUpperleft_lat()), String.valueOf(bb.getUpperleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerright_lat()), String.valueOf(bb.getLowerright_lon()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()));
 			List<GazetteerData> daigazetteer = GazetteerDAI.ParseDAIJSON(resultDAI);
-			System.out.println("DAI GAZETTEER size: " + daigazetteer.size());
 			// CREATE GEOJSON
-			StringBuilder geojson = new StringBuilder();
-			List<String> data = new ArrayList<>();
-			geojson.append("{ \"type\": \"FeatureCollection\", ");
-			geojson.append("\"elements\": { \"gettyTGN\": " + tgn.size() + ", \"geonames\": " + geonames.size() + ", \"daiGazetteer\": " + daigazetteer.size() + " },");
-			geojson.append("\"features\": [ ");
+			JSONObject outObject = new JSONObject();
+			outObject.put("type", "FeatureCollection");
+			// SET ELEMENTS
+			JSONObject elements = new JSONObject();
+			elements.put("gettyTGN", tgn.size());
+			elements.put("geonames", geonames.size());
+			elements.put("daiGazetteer", daigazetteer.size());
+			outObject.put("elements", elements);
+			// SET FEATURES
+			JSONArray features = new JSONArray();
 			// SET BOUNDING BOX
-			String bboxfeature = "{ \"type\": \"Feature\", \"geometry\": " + bb.getGeoJSON() + ", \"properties\": {\"type\": \"boundingbox\"} },";
-			data.add(bboxfeature);
+			features.add(bb.getGeoJSON());
 			// SET GETTY TGN
 			for (GazetteerData element : tgn) {
 				String lat = element.getLAT().replace("-.", "-0.");
 				String lon = element.getLON().replace("-.", "-0.");
-				String feature = "{ \"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [" + lon + ", " + lat + "]} , \"properties\": {\"uri\": \"" + element.getURI() + "\", \"name\": \"" + element.getNAME() + "\", \"provenance\": \"" + element.getPROVENANCE() + "\"} },";
-				data.add(feature);
+				JSONObject feature = new JSONObject();
+				feature.put("type", "Feature");
+				JSONObject geom = new JSONObject();
+				geom.put("type", "Point");
+				JSONArray coordinates = new JSONArray();
+				coordinates.add(Double.parseDouble(lon));
+				coordinates.add(Double.parseDouble(lat));
+				geom.put("coordinates", coordinates);
+				JSONObject properties = new JSONObject();
+				properties.put("uri", element.getURI());
+				properties.put("name", element.getNAME());
+				properties.put("provenance", element.getPROVENANCE());
+				feature.put("geometry", geom);
+				feature.put("properties", properties);
+				features.add(feature);
 			}
 			// SET GEONAMES
 			for (GazetteerData element : geonames) {
 				String lat = element.getLAT().replace("-.", "-0.");
 				String lon = element.getLON().replace("-.", "-0.");
-				String feature = "{ \"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [" + lon + ", " + lat + "]} , \"properties\": {\"uri\": \"" + element.getURI() + "\", \"name\": \"" + element.getNAME() + "\", \"provenance\": \"" + element.getPROVENANCE() + "\"} },";
-				data.add(feature);
+				JSONObject feature = new JSONObject();
+				feature.put("type", "Feature");
+				JSONObject geom = new JSONObject();
+				geom.put("type", "Point");
+				JSONArray coordinates = new JSONArray();
+				coordinates.add(Double.parseDouble(lon));
+				coordinates.add(Double.parseDouble(lat));
+				geom.put("coordinates", coordinates);
+				JSONObject properties = new JSONObject();
+				properties.put("uri", element.getURI());
+				properties.put("name", element.getNAME());
+				properties.put("provenance", element.getPROVENANCE());
+				feature.put("geometry", geom);
+				feature.put("properties", properties);
+				features.add(feature);
 			}
 			// SET DAI GAZETTEER
 			for (GazetteerData element : daigazetteer) {
 				String lat = element.getLAT().replace("-.", "-0.");
 				String lon = element.getLON().replace("-.", "-0.");
-				String feature = "{ \"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [" + lon + ", " + lat + "]} , \"properties\": {\"uri\": \"" + element.getURI() + "\", \"name\": \"" + element.getNAME() + "\", \"provenance\": \"" + element.getPROVENANCE() + "\"} },";
-				data.add(feature);
+				JSONObject feature = new JSONObject();
+				feature.put("type", "Feature");
+				JSONObject geom = new JSONObject();
+				geom.put("type", "Point");
+				JSONArray coordinates = new JSONArray();
+				coordinates.add(Double.parseDouble(lon));
+				coordinates.add(Double.parseDouble(lat));
+				geom.put("coordinates", coordinates);
+				JSONObject properties = new JSONObject();
+				properties.put("uri", element.getURI());
+				properties.put("name", element.getNAME());
+				properties.put("provenance", element.getPROVENANCE());
+				feature.put("geometry", geom);
+				feature.put("properties", properties);
+				features.add(feature);
 			}
-			String lastline = data.get(data.size() - 1).substring(0, data.get(data.size() - 1).length() - 1);
-			data.set(data.size() - 1, lastline);
-			for (String dataelement : data) {
-				geojson.append(dataelement);
-			}
-			geojson.append("] }");
-			// pretty print JSON output (Gson)
-			JsonParser parser = new JsonParser();
-			JsonObject json = parser.parse(geojson.toString()).getAsJsonObject();
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			out.print(gson.toJson(json));
+			outObject.put("features", features);
+			out.print(outObject);
 		} catch (Exception e) {
-			for (StackTraceElement element : e.getStackTrace()) {
-				String message = "element: \"" + element.getClassName() + " / " + element.getMethodName() + "() / " + element.getLineNumber() + "\"";
-				System.out.println(message);
-				out.println(message);
-			}
-			response.setContentType("text/plain;charset=UTF-8");
+			out.print(Logging.getMessageJSON(e, "tools.gazetteerlookup"));
 		} finally {
 			out.close();
-			response.setHeader("Access-Control-Allow-Origin", "*");
-			response.setCharacterEncoding("UTF-8");
 		}
 	}
 
