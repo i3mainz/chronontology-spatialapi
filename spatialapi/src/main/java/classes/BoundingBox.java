@@ -1,8 +1,9 @@
 package classes;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.esri.core.geometry.Envelope;
+import com.esri.core.geometry.Point;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class BoundingBox {
 
@@ -14,7 +15,7 @@ public class BoundingBox {
 	private double upperright_lon = -1.0;
 	private double lowerright_lat = -1.0;
 	private double lowerright_lon = -1.0;
-	private String geoJSON = "";
+	private JSONObject geoJSON;
 
 	public BoundingBox() {
 		this.upperleft_lat = -1.0;
@@ -36,49 +37,79 @@ public class BoundingBox {
 		this.upperright_lon = upperright_lon;
 		this.lowerright_lat = lowerright_lat;
 		this.lowerright_lon = lowerright_lon;
-		this.geoJSON = "{\"type\":\"Polygon\",\"coordinates\":[[[" + lowerleft_lon + "," + lowerleft_lat + "],[" + upperleft_lon + "," + upperleft_lat + "],[" + upperright_lon + "," + upperright_lat + "],[" + lowerright_lon + "," + lowerright_lat + "],[" + lowerleft_lon + "," + lowerleft_lat + "]]]}";
+		JSONObject bboxfeature = new JSONObject();
+		bboxfeature.put("type", "Feature");
+		JSONObject bboxgeojson = new JSONObject();
+		bboxgeojson.put("type", "Polygon");
+		JSONArray bboxarray = new JSONArray();
+		JSONArray bboxarray2 = new JSONArray();
+		JSONArray upperleft = new JSONArray();
+		upperleft.add(upperleft_lon);
+		upperleft.add(upperleft_lat);
+		JSONArray upperright = new JSONArray();
+		upperright.add(upperright_lon);
+		upperright.add(upperright_lat);
+		JSONArray lowerright = new JSONArray();
+		lowerright.add(lowerright_lon);
+		lowerright.add(lowerright_lat);
+		JSONArray lowerleft = new JSONArray();
+		lowerleft.add(lowerleft_lon);
+		lowerleft.add(lowerleft_lat);
+		bboxarray.add(upperleft);
+		bboxarray.add(upperright);
+		bboxarray.add(lowerright);
+		bboxarray.add(lowerleft);
+		bboxarray.add(upperleft);
+		bboxarray2.add(bboxarray);
+		bboxgeojson.put("coordinates", bboxarray2);
+		bboxfeature.put("geometry", bboxgeojson);
+		JSONObject prop = new JSONObject();
+		prop.put("type", "boundingbox");
+		bboxfeature.put("properties", prop);
+		this.geoJSON = bboxfeature;
 	}
 
-	public void getBoundingBoxFromPostgisBOX(String PostgisBOX) {
-		String extent[] = PostgisBOX.replace("BOX(", "").replace(")", "").split(",");
-		this.lowerleft_lon = Double.parseDouble(extent[0].split(" ")[0]);
-		this.lowerleft_lat = Double.parseDouble(extent[0].split(" ")[1]);
-		this.upperright_lon = Double.parseDouble(extent[1].split(" ")[0]);
-		this.upperright_lat = Double.parseDouble(extent[1].split(" ")[1]);
-		this.lowerright_lon = Double.parseDouble(extent[1].split(" ")[0]);
-		this.lowerright_lat = Double.parseDouble(extent[0].split(" ")[1]);
-		this.upperleft_lon = Double.parseDouble(extent[0].split(" ")[0]);
-		this.upperleft_lat = Double.parseDouble(extent[1].split(" ")[1]);
-	}
-
-	public void getBoundingBoxFromLatLon(String lat, String lon, String radius) throws IOException, ClassNotFoundException, SQLException {
-		/*PostGIS db = new PostGIS();
-		 ResultSet rs;
-		 rs = db.getBoundingBoxFromPoint4326(lat, lon, radius);
-		 while (rs.next()) {
-		 String extent[] = rs.getString("extent").replace("BOX(", "").replace(")", "").split(",");
-		 this.lowerleft_lon = Double.parseDouble(extent[0].split(" ")[0]);
-		 this.lowerleft_lat = Double.parseDouble(extent[0].split(" ")[1]);
-		 this.upperright_lon = Double.parseDouble(extent[1].split(" ")[0]);
-		 this.upperright_lat = Double.parseDouble(extent[1].split(" ")[1]);
-		 this.lowerright_lon = Double.parseDouble(extent[1].split(" ")[0]);
-		 this.lowerright_lat = Double.parseDouble(extent[0].split(" ")[1]);
-		 this.upperleft_lon = Double.parseDouble(extent[0].split(" ")[0]);
-		 this.upperleft_lat = Double.parseDouble(extent[1].split(" ")[1]);
-		 }
-		 rs = db.getBoundingBoxGeoJSONFromPoint4326(lat, lon, radius);
-		 while (rs.next()) {
-		 this.geoJSON = rs.getString("extent");
-		 }
-		 db.close();*/
-		this.lowerleft_lon = Double.parseDouble(lon)-10.0;
-		this.lowerleft_lat = Double.parseDouble(lat)-10.0;
-		this.upperright_lon = Double.parseDouble(lon)+10.0;
-		this.upperright_lat = Double.parseDouble(lat)+10.0;
-		this.lowerright_lon = Double.parseDouble(lon)+10.0;
-		this.lowerright_lat = Double.parseDouble(lat)+10.0;
-		this.upperleft_lon = Double.parseDouble(lon)-10.0;
-		this.upperleft_lat = Double.parseDouble(lat)-10.0;
+	public void getBoundingBoxFromLatLon(Double lat, Double lon, Double radius) {
+		Point center = new Point(lat, lon);
+		Envelope e = new Envelope(center, radius, radius);
+		this.lowerleft_lon = e.getLowerLeft().getY();
+		this.lowerleft_lat = e.getLowerLeft().getX();
+		this.upperright_lon = e.getUpperRight().getY();
+		this.upperright_lat = e.getUpperRight().getX();
+		this.lowerright_lon = e.getLowerRight().getY();
+		this.lowerright_lat = e.getLowerRight().getX();
+		this.upperleft_lon = e.getUpperLeft().getY();
+		this.upperleft_lat = e.getUpperLeft().getX();
+		JSONObject bboxfeature = new JSONObject();
+		bboxfeature.put("type", "Feature");
+		JSONObject bboxgeojson = new JSONObject();
+		bboxgeojson.put("type", "Polygon");
+		JSONArray bboxarray = new JSONArray();
+		JSONArray bboxarray2 = new JSONArray();
+		JSONArray upperleft = new JSONArray();
+		upperleft.add(e.getUpperLeft().getY());
+		upperleft.add(e.getUpperLeft().getX());
+		JSONArray upperright = new JSONArray();
+		upperright.add(e.getUpperRight().getY());
+		upperright.add(e.getUpperRight().getX());
+		JSONArray lowerright = new JSONArray();
+		lowerright.add(e.getLowerRight().getY());
+		lowerright.add(e.getLowerRight().getX());
+		JSONArray lowerleft = new JSONArray();
+		lowerleft.add(e.getLowerLeft().getY());
+		lowerleft.add(e.getLowerLeft().getX());
+		bboxarray.add(upperleft);
+		bboxarray.add(upperright);
+		bboxarray.add(lowerright);
+		bboxarray.add(lowerleft);
+		bboxarray.add(upperleft);
+		bboxarray2.add(bboxarray);
+		bboxgeojson.put("coordinates", bboxarray2);
+		bboxfeature.put("geometry", bboxgeojson);
+		JSONObject prop = new JSONObject();
+		prop.put("type", "boundingbox");
+		bboxfeature.put("properties", prop);
+		this.geoJSON = bboxfeature;
 	}
 
 	public double getUpperleft_lat() {
@@ -145,12 +176,12 @@ public class BoundingBox {
 		this.lowerright_lon = lowerright_lon;
 	}
 
-	public String getGeoJSON() {
+	public JSONObject getGeoJSON() {
 		return geoJSON;
 	}
 
-	public void setGeoJOSN(String geoJOSN) {
-		this.geoJSON = geoJOSN;
+	public void setGeoJOSN(JSONObject geoJSON) {
+		this.geoJSON = geoJSON;
 	}
 
 }

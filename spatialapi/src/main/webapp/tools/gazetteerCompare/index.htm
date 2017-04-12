@@ -162,23 +162,26 @@
 			function setMarker(geojson) {
 				markers = null;
 				markers = L.markerClusterGroup();
+				console.log("a");
 				var marker = L.geoJson(geojson, {
 					onEachFeature: onEachFeature,
 					pointToLayer: function (feature, latlng) {
 						if (feature.properties.provenance === "geonames") {
-							return L.marker(latlng, {icon: blueMarker});
+							return L.circleMarker(latlng, {radius: 10, fillColor: "blue", color: "blue", weight: 1, opacity: 1, fillOpacity: 1});
 						} else if (feature.properties.provenance === "gettytgn") {
-							return L.marker(latlng, {icon: redMarker});
+							return L.circleMarker(latlng, {radius: 10, fillColor: "red", color: "red", weight: 1, opacity: 1, fillOpacity: 1});
+						} else if (feature.properties.provenance === "daigazetteer") {
+							return L.circleMarker(latlng, {radius: 10, fillColor: "green", color: "green", weight: 1, opacity: 1, fillOpacity: 1});
 						} else if (feature.properties.type === "startpoint") {
 							return L.circleMarker(latlng, { radius: 15, fillColor: "#ff7800", color: "#000", weight: 1, opacity: 1, fillOpacity: 1});
 						} else {
-							return L.marker(latlng, {icon: greenMarker});
+							return L.circleMarker(latlng, { radius: 1, fillColor: "#ff7800", color: "white", weight: 1, opacity: 1, fillOpacity: 1});
 						}
 					},
 					style: function (feature) {
 						switch (feature.properties.type) {
 							case 'boundingbox':
-								return {color: "#ff0000", fillOpacity: 0, weight: 3};
+								return {color: "#ff0000", fillOpacity: 0.2, weight: 3};
 								break;
 						}
 					}

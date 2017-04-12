@@ -37,6 +37,12 @@
 			<artifactId>java-string-similarity</artifactId>
 			<version>RELEASE</version>
 		</dependency>
+		<!-- https://github.com/Esri/geometry-api-java -->
+		<dependency>
+			<groupId>com.esri.geometry</groupId>
+			<artifactId>esri-geometry-api</artifactId>
+			<version>1.2.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
