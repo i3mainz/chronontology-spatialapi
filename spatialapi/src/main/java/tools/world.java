@@ -1,17 +1,16 @@
-package widgets;
+package tools;
 
 import errorlog.Logging;
-import functions.ChronOntology;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
 
-public class geowidget extends HttpServlet {
+public class world extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -19,19 +18,15 @@ public class geowidget extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter out = response.getWriter();
 		try {
-			// parse params
-			String req_uri = "";
-			if (request.getParameter("uri") != null) {
-				req_uri = request.getParameter("uri");
+			BufferedReader reader = new BufferedReader(new FileReader(world.class.getClassLoader().getResource("world.json").getFile()));
+			String line;
+			String json = "";
+			while ((line = reader.readLine()) != null) {
+				json += line;
 			}
-			req_uri = URLDecoder.decode(req_uri, "UTF-8");
-			// get geojson
-			JSONObject geojson = new JSONObject();
-			geojson.put("type", "FeatureCollection");
-			geojson.put("features", ChronOntology.getSpatialData(req_uri));
-			out.print(geojson);
+			out.print(json);
 		} catch (Exception e) {
-			out.print(Logging.getMessageJSON(e, "widgets.geowidget"));
+			out.print(Logging.getMessageJSON(e, "tools.world"));
 		} finally {
 			out.close();
 		}

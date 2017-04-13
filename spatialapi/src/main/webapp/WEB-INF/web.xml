@@ -12,6 +12,10 @@
         <servlet-name>gazetteercompare</servlet-name>
         <servlet-class>tools.gazetteercompare</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>world</servlet-name>
+        <servlet-class>tools.world</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>geowidget</servlet-name>
         <url-pattern>/geowidget</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>gazetteercompare</servlet-name>
         <url-pattern>/gazetteercompare</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>world</servlet-name>
+        <url-pattern>/world</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

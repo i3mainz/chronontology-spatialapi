@@ -1,77 +1,103 @@
 package functions;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import tools.world;
 
 public class ChronOntology {
 
-	//private String host = "localhost:8084";
-	private static String host = "chronontology.i3mainz.hs-mainz.de";
-	
-	public static StringBuffer getResultsFromChronOntology(String uri) throws Exception {
+	public static JSONArray getSpatialData(String uri) throws Exception {
+		// init output
+		JSONArray spatialData = new JSONArray();
+		// get data from chronontology
 		String url = uri.replace("period", "data/period");
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Accept", "application/json");
-		int responseCode = con.getResponseCode();
-		System.out.println("ChronOntology Response Code : " + responseCode + " - " + url);
-		if (responseCode == 200) {
+		if (con.getResponseCode() == 200) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 			String inputLine;
-			StringBuffer response = new StringBuffer();
+			StringBuilder response = new StringBuilder();
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
 			in.close();
-			return response;
-		} else {
-			return null;
-		}
-	}
-
-	public static List<String> ParseChronOntologyJSON(StringBuffer JSON) throws IOException, ParseException {
-		List<String> resultList = new ArrayList<String>();
-		JSONObject jsonObject = (JSONObject) new JSONParser().parse(JSON.toString());
-		JSONObject resource = (JSONObject) jsonObject.get("resource");
-		try {
-			JSONArray spatial = (JSONArray) resource.get("spatiallyPartOfRegion");
-			for (Object element : spatial) {
-				resultList.add(element.toString().replace("http://gazetteer.dainst.org/place/", "") + "%" + "spatiallyPartOfRegion");
+			// parse data
+			JSONObject data = (JSONObject) new JSONParser().parse(response.toString());
+			JSONObject resource = (JSONObject) data.get("resource");
+			String[] types = {"spatiallyPartOfRegion", "namedAfter", "hasCoreRegion"};
+			for (String item : types) {
+				JSONArray spatial = (JSONArray) resource.get(item);
+				if (spatial != null) {
+					for (Object element : spatial) {
+						URL daiURL = new URL("https://gazetteer.dainst.org/doc/" + element.toString().replace("http://gazetteer.dainst.org/place/", "") + ".geojson");
+						HttpURLConnection con2 = (HttpURLConnection) daiURL.openConnection();
+						con2.setRequestMethod("GET");
+						con2.setRequestProperty("Accept", "application/json");
+						if (con2.getResponseCode() < 400) {
+							BufferedReader in2 = new BufferedReader(new InputStreamReader(con2.getInputStream(), "UTF-8"));
+							String inputLine2;
+							StringBuilder response2 = new StringBuilder();
+							while ((inputLine2 = in2.readLine()) != null) {
+								response2.append(inputLine2);
+							}
+							in2.close();
+							// parse data
+							JSONObject dataDAI = (JSONObject) new JSONParser().parse(response2.toString());
+							JSONObject propertiesDAI = (JSONObject) dataDAI.get("properties");
+							JSONObject prefName = (JSONObject) propertiesDAI.get("prefName");
+							JSONObject geometryDAI = (JSONObject) dataDAI.get("geometry");
+							JSONArray geometriesDAI = (JSONArray) geometryDAI.get("geometries");
+							JSONObject feature = new JSONObject();
+							feature.put("type", "Feature");
+							JSONObject properties = new JSONObject();
+							properties.put("name", (String) prefName.get("title"));
+							properties.put("relation", item);
+							properties.put("homepage", (String) dataDAI.get("id"));
+							feature.put("properties", properties);
+							for (Object geom : geometriesDAI) {
+								JSONObject geomEntry = (JSONObject) geom;
+								if (geomEntry.get("type").equals("MultiPolygon")) {
+									feature.put("geometry", geomEntry);
+								} else if (geomEntry.get("type").equals("Point")) {
+									feature.put("geometry", geomEntry);
+								}
+							}
+							spatialData.add(feature);
+						}
+					}
+				}
 			}
-		} catch (Exception e) {
 		}
-		try {
-			JSONArray spatial2 = (JSONArray) resource.get("namedAfter");
-			for (Object element : spatial2) {
-				resultList.add(element.toString().replace("http://gazetteer.dainst.org/place/", "") + "%" + "namedAfter");
+		// if no geom available load world json
+		if (spatialData.size() == 0) {
+			BufferedReader reader = new BufferedReader(new FileReader(ChronOntology.class.getClassLoader().getResource("world.json").getFile()));
+			String line;
+			String json = "";
+			while ((line = reader.readLine()) != null) {
+				json += line;
 			}
-		} catch (Exception e) {
+			JSONObject dataWORLD = (JSONObject) new JSONParser().parse(json.toString());
+			JSONArray featureWorldArray = (JSONArray) dataWORLD.get("features");
+			JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
+			JSONObject feature = new JSONObject();
+			feature.put("type", "Feature");
+			JSONObject properties = new JSONObject();
+			properties.put("name", "world");
+			properties.put("relation", "none");
+			properties.put("homepage", "none");
+			feature.put("properties", properties);
+			feature.put("geometry", dataWORLD);
+			spatialData.add(featureWorld);
 		}
-		try {
-			JSONArray spatial3 = (JSONArray) resource.get("hasCoreRegion");
-			for (Object element : spatial3) {
-				resultList.add(element.toString().replace("http://gazetteer.dainst.org/place/", "") + "%" + "hasCoreRegion");
-			}
-		} catch (Exception e) {
-		}
-		if (resultList.isEmpty()) {
-			resultList.add("http://"+host+"/stc/getWorldJSON%undefined");
-		}
-		return resultList;
-	}
-
-	public static List<String> ResultsFromChronOntology(String uri) throws Exception {
-		return ParseChronOntologyJSON(getResultsFromChronOntology(uri));
+		return spatialData;
 	}
 
 }
