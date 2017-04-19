@@ -32,7 +32,7 @@ public class ChronOntology {
 			// parse data
 			JSONObject data = (JSONObject) new JSONParser().parse(response.toString());
 			JSONObject resource = (JSONObject) data.get("resource");
-			String[] types = {"spatiallyPartOfRegion", "namedAfter", "hasCoreRegion"};
+			String[] types = {"spatiallyPartOfRegion", "isNamedAfter", "hasCoreArea"};
 			for (String item : types) {
 				JSONArray spatial = (JSONArray) resource.get(item);
 				if (spatial != null) {
