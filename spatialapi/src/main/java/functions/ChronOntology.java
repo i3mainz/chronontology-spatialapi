@@ -53,14 +53,49 @@ public class ChronOntology {
 							JSONObject dataDAI = (JSONObject) new JSONParser().parse(response2.toString());
 							JSONObject propertiesDAI = (JSONObject) dataDAI.get("properties");
 							JSONObject prefName = (JSONObject) propertiesDAI.get("prefName");
+							String parentURLStr = (String) propertiesDAI.get("parent");
 							JSONObject geometryDAI = (JSONObject) dataDAI.get("geometry");
 							JSONArray geometriesDAI = (JSONArray) geometryDAI.get("geometries");
+							JSONObject parentGeometry = new JSONObject();
+							while (geometriesDAI.size() == 0) {
+								// of geometry is empty get geometry from parent and loop it
+								String parentURLStrOrigin = parentURLStr;
+								parentURLStr = parentURLStr.replace("/place/", "/doc/");
+								parentURLStr += ".geojson";
+								URL parentURL = new URL(parentURLStr);
+								HttpURLConnection con3 = (HttpURLConnection) parentURL.openConnection();
+								con3.setRequestMethod("GET");
+								con3.setRequestProperty("Accept", "application/json");
+								if (con3.getResponseCode() < 400) {
+									BufferedReader in3 = new BufferedReader(new InputStreamReader(con3.getInputStream(), "UTF-8"));
+									String inputLine3;
+									StringBuilder response3 = new StringBuilder();
+									while ((inputLine3 = in3.readLine()) != null) {
+										response3.append(inputLine3);
+									}
+									in3.close();
+									// parse data
+									JSONObject dataDAIparent = (JSONObject) new JSONParser().parse(response3.toString());
+									JSONObject geometryDAIparent = (JSONObject) dataDAIparent.get("geometry");
+									JSONArray geometriesDAIparent = (JSONArray) geometryDAIparent.get("geometries");
+									JSONObject propertiesDAIparent = (JSONObject) dataDAIparent.get("properties");
+									JSONObject prefNameParent = (JSONObject) propertiesDAIparent.get("prefName");
+									String prefNameTitleParent = (String) prefNameParent.get("title");
+									parentURLStr = (String) propertiesDAIparent.get("parent");
+									if (geometriesDAIparent.size() > 0) {
+										parentGeometry.put("url", parentURLStrOrigin);
+										parentGeometry.put("name", prefNameTitleParent);
+										geometriesDAI = geometriesDAIparent;
+									}
+								}
+							}
 							JSONObject feature = new JSONObject();
 							feature.put("type", "Feature");
 							JSONObject properties = new JSONObject();
 							properties.put("name", (String) prefName.get("title"));
 							properties.put("relation", item);
 							properties.put("homepage", (String) dataDAI.get("id"));
+							properties.put("parentGeometry", parentGeometry);
 							feature.put("properties", properties);
 							for (Object geom : geometriesDAI) {
 								JSONObject geomEntry = (JSONObject) geom;
