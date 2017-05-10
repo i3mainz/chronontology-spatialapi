@@ -95,7 +95,11 @@ public class ChronOntology {
 							properties.put("name", (String) prefName.get("title"));
 							properties.put("relation", item);
 							properties.put("homepage", (String) dataDAI.get("id"));
-							properties.put("parentGeometry", parentGeometry);
+							if (parentGeometry.size() == 0) {
+								properties.put("parentGeometry", false);
+							} else {
+								properties.put("parentGeometry", parentGeometry);
+							}
 							feature.put("properties", properties);
 							for (Object geom : geometriesDAI) {
 								JSONObject geomEntry = (JSONObject) geom;
