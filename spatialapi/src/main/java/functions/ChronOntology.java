@@ -96,7 +96,9 @@ public class ChronOntology {
 							properties.put("relation", item);
 							properties.put("homepage", (String) dataDAI.get("id"));
 							if (parentGeometry.size() == 0) {
-								properties.put("parentGeometry", false);
+								parentGeometry.put("url", null);
+								parentGeometry.put("name", "geom origin");
+								properties.put("parentGeometry", parentGeometry);
 							} else {
 								properties.put("parentGeometry", parentGeometry);
 							}
