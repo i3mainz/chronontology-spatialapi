@@ -8,9 +8,14 @@ import java.net.URL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import tools.world;
 
 public class ChronOntology {
+
+	public static final String WELT_URI = "https://gazetteer.dainst.org/place/2042600";
+	public static final String[] TYPES = {"spatiallyPartOfRegion", "isNamedAfter", "hasCoreArea"};
+	public static final String GAZETTEER_HOST = "https://gazetteer.dainst.org";
+	public static final String GAZETTEER_DATA_INTERFACE = "doc";
+	public static final String GAZETTEER_RESOURCE_INTERFACE = "place";
 
 	public static JSONArray getSpatialData(String uri) throws Exception {
 		// init output
@@ -32,12 +37,16 @@ public class ChronOntology {
 			// parse data
 			JSONObject data = (JSONObject) new JSONParser().parse(response.toString());
 			JSONObject resource = (JSONObject) data.get("resource");
-			String[] types = {"spatiallyPartOfRegion", "isNamedAfter", "hasCoreArea"};
-			for (String item : types) {
+			for (String item : TYPES) {
 				JSONArray spatial = (JSONArray) resource.get(item);
 				if (spatial != null) {
+					JSONArray spatialHTTPS = new JSONArray();
 					for (Object element : spatial) {
-						URL daiURL = new URL("https://gazetteer.dainst.org/doc/" + element.toString().replace("http://gazetteer.dainst.org/place/", "") + ".geojson");
+						String tmp = element.toString().replace("http://", "https://");
+						spatialHTTPS.add(tmp);
+					}
+					for (Object element : spatialHTTPS) {
+						URL daiURL = new URL(GAZETTEER_HOST + "/" + GAZETTEER_DATA_INTERFACE + "/" + element.toString().replace(GAZETTEER_HOST + "/" + GAZETTEER_RESOURCE_INTERFACE + "/", "") + ".geojson");
 						HttpURLConnection con2 = (HttpURLConnection) daiURL.openConnection();
 						con2.setRequestMethod("GET");
 						con2.setRequestProperty("Accept", "application/json");
@@ -60,7 +69,13 @@ public class ChronOntology {
 							while (geometriesDAI.size() == 0) {
 								// of geometry is empty get geometry from parent and loop it
 								String parentURLStrOrigin = parentURLStr;
-								parentURLStr = parentURLStr.replace("/place/", "/doc/");
+								// if URI is "Welt" quit loop
+								if (parentURLStrOrigin.equals(WELT_URI)) {
+									// set spatialData to length zero if uri is "Welt"
+									spatialData = new JSONArray();
+									break;
+								}
+								parentURLStr = parentURLStr.replace("/" + GAZETTEER_RESOURCE_INTERFACE + "/", "/" + GAZETTEER_DATA_INTERFACE + "/");
 								parentURLStr += ".geojson";
 								URL parentURL = new URL(parentURLStr);
 								HttpURLConnection con3 = (HttpURLConnection) parentURL.openConnection();
@@ -89,6 +104,7 @@ public class ChronOntology {
 									}
 								}
 							}
+							// create output geojson
 							JSONObject feature = new JSONObject();
 							feature.put("type", "Feature");
 							JSONObject properties = new JSONObject();
@@ -118,7 +134,7 @@ public class ChronOntology {
 			}
 		}
 		// if no geom available load world json
-		if (spatialData.size() == 0) {
+		if (spatialData.isEmpty()) {
 			BufferedReader reader = new BufferedReader(new FileReader(ChronOntology.class.getClassLoader().getResource("world.json").getFile()));
 			String line;
 			String json = "";
@@ -128,14 +144,16 @@ public class ChronOntology {
 			JSONObject dataWORLD = (JSONObject) new JSONParser().parse(json.toString());
 			JSONArray featureWorldArray = (JSONArray) dataWORLD.get("features");
 			JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
-			JSONObject feature = new JSONObject();
-			feature.put("type", "Feature");
 			JSONObject properties = new JSONObject();
+			JSONObject parentGeometry = new JSONObject();
+			parentGeometry.put("url", null);
+			parentGeometry.put("name", "Welt GeoJSON");
+			properties.put("parentGeometry", parentGeometry);
 			properties.put("name", "world");
-			properties.put("relation", "none");
-			properties.put("homepage", "none");
-			feature.put("properties", properties);
-			feature.put("geometry", dataWORLD);
+			properties.put("relation", "unknown");
+			properties.put("homepage", "https://gazetteer.dainst.org/place/2042600");
+			featureWorld.remove("properties");
+			featureWorld.put("properties", properties);
 			spatialData.add(featureWorld);
 		}
 		return spatialData;
