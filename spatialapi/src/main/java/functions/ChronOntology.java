@@ -98,7 +98,9 @@ public class ChronOntology {
 									String prefNameTitleParent = (String) prefNameParent.get("title");
 									parentURLStr = (String) propertiesDAIparent.get("parent");
 									if (geometriesDAIparent.size() > 0) {
-										parentGeometry.put("url", parentURLStrOrigin);
+										parentGeometry.put("uri", parentURLStrOrigin);
+										String[] idSplit = parentURLStrOrigin.split("/");
+										parentGeometry.put("id", idSplit[idSplit.length-1]);
 										parentGeometry.put("name", prefNameTitleParent);
 										geometriesDAI = geometriesDAIparent;
 									}
@@ -110,9 +112,13 @@ public class ChronOntology {
 							JSONObject properties = new JSONObject();
 							properties.put("name", (String) prefName.get("title"));
 							properties.put("relation", item);
-							properties.put("homepage", (String) dataDAI.get("id"));
-							if (parentGeometry.size() == 0) {
-								parentGeometry.put("url", null);
+							properties.put("uri", (String) dataDAI.get("id"));
+							String idStr = (String) dataDAI.get("id");
+							String[] idSplit = idStr.split("/");
+							properties.put("id", idSplit[idSplit.length-1]);
+							if (parentGeometry.isEmpty()) {
+								parentGeometry.put("uri", null);
+								parentGeometry.put("id", null);
 								parentGeometry.put("name", "geom origin");
 								properties.put("parentGeometry", parentGeometry);
 							} else {
@@ -146,12 +152,14 @@ public class ChronOntology {
 			JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
 			JSONObject properties = new JSONObject();
 			JSONObject parentGeometry = new JSONObject();
-			parentGeometry.put("url", null);
-			parentGeometry.put("name", "Welt GeoJSON");
+			parentGeometry.put("uri", null);
+			parentGeometry.put("id", null);
+			parentGeometry.put("name", "geom origin");
 			properties.put("parentGeometry", parentGeometry);
 			properties.put("name", "world");
 			properties.put("relation", "unknown");
-			properties.put("homepage", "https://gazetteer.dainst.org/place/2042600");
+			properties.put("uri", "https://gazetteer.dainst.org/place/2042600");
+			properties.put("id", "2042600");
 			featureWorld.remove("properties");
 			featureWorld.put("properties", properties);
 			spatialData.add(featureWorld);
