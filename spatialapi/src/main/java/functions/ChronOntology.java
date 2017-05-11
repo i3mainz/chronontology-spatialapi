@@ -66,7 +66,7 @@ public class ChronOntology {
 							JSONObject geometryDAI = (JSONObject) dataDAI.get("geometry");
 							JSONArray geometriesDAI = (JSONArray) geometryDAI.get("geometries");
 							JSONObject parentGeometry = new JSONObject();
-							while (geometriesDAI.size() == 0) {
+							while (geometriesDAI.isEmpty()) {
 								// of geometry is empty get geometry from parent and loop it
 								String parentURLStrOrigin = parentURLStr;
 								// if URI is "Welt" quit loop
@@ -100,7 +100,7 @@ public class ChronOntology {
 									if (geometriesDAIparent.size() > 0) {
 										parentGeometry.put("uri", parentURLStrOrigin);
 										String[] idSplit = parentURLStrOrigin.split("/");
-										parentGeometry.put("id", idSplit[idSplit.length-1]);
+										parentGeometry.put("id", idSplit[idSplit.length - 1]);
 										parentGeometry.put("name", prefNameTitleParent);
 										geometriesDAI = geometriesDAIparent;
 									}
@@ -115,7 +115,7 @@ public class ChronOntology {
 							properties.put("uri", (String) dataDAI.get("id"));
 							String idStr = (String) dataDAI.get("id");
 							String[] idSplit = idStr.split("/");
-							properties.put("id", idSplit[idSplit.length-1]);
+							properties.put("id", idSplit[idSplit.length - 1]);
 							if (parentGeometry.isEmpty()) {
 								parentGeometry.put("uri", null);
 								parentGeometry.put("id", null);
@@ -132,6 +132,25 @@ public class ChronOntology {
 								} else if (geomEntry.get("type").equals("Point")) {
 									feature.put("geometry", geomEntry);
 								}
+							}
+							if (geometriesDAI.isEmpty()) {
+								BufferedReader reader = new BufferedReader(new FileReader(ChronOntology.class.getClassLoader().getResource("world.json").getFile()));
+								String line;
+								String json = "";
+								while ((line = reader.readLine()) != null) {
+									json += line;
+								}
+								JSONObject dataWORLD = (JSONObject) new JSONParser().parse(json.toString());
+								JSONArray featureWorldArray = (JSONArray) dataWORLD.get("features");
+								JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
+								feature.put("geometry", featureWorld.get("geometry"));
+								JSONObject propertiesWorld = (JSONObject) feature.get("properties");
+								propertiesWorld.remove("parentGeometry");
+								JSONObject parentGeometryWorld = new JSONObject();
+								parentGeometryWorld.put("uri", "https://gazetteer.dainst.org/place/2042600");
+								parentGeometryWorld.put("id", "2042600");
+								parentGeometryWorld.put("name", "Welt");
+								propertiesWorld.put("parentGeometry", parentGeometryWorld);
 							}
 							spatialData.add(feature);
 						}
