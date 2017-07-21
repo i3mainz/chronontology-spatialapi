@@ -16,6 +16,10 @@
         <servlet-name>world</servlet-name>
         <servlet-class>tools.world</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getGeoJSON</servlet-name>
+        <servlet-class>servelets.getGeoJSON</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>geowidget</servlet-name>
         <url-pattern>/geowidget</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>world</servlet-name>
         <url-pattern>/world</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getGeoJSON</servlet-name>
+        <url-pattern>/getGeoJSON</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

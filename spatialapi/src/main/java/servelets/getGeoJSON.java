@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
-public class geowidget extends HttpServlet {
+public class getGeoJSON extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,7 +31,7 @@ public class geowidget extends HttpServlet {
 			geojson.put("features", ChronOntology.getSpatialData(req_uri));
 			out.print(geojson);
 		} catch (Exception e) {
-			out.print(Logging.getMessageJSON(e, "servlets.geowidget"));
+			out.print(Logging.getMessageJSON(e, "servlets.getGeoJSON"));
 		} finally {
 			out.close();
 		}
