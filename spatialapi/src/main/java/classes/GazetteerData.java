@@ -1,12 +1,19 @@
 package classes;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 public class GazetteerData {
 
 	private String URI = "";
+	private String ID = "";
 	private String NAME = "";
+	private JSONObject PREFNAME = new JSONObject();
+	private JSONArray NAMES = new JSONArray();
 	private String LAT = "";
 	private String LON = "";
 	private String GEOMETRY = "";
+	private JSONObject GEOM = new JSONObject();
 	private String PROVENANCE = "";
 	private double DISTANCE = -1.0;
 	private double Levenshtein = -1.0;
@@ -23,11 +30,20 @@ public class GazetteerData {
 		this.PROVENANCE = provenance;
 	}
 	
-	public GazetteerData(String uri, String name, String geometry, String provenance) {
+	public GazetteerData(String uri, String name, String geometry, String provenance, JSONObject prefName) {
 		this.URI = uri;
 		this.NAME = name;
 		this.GEOMETRY = geometry;
 		this.PROVENANCE = provenance;
+	}
+	
+	public GazetteerData(String uri, String id, String provenance, JSONObject prefName, JSONArray names, JSONObject geom) {
+		this.URI = uri;
+		this.ID = id;
+		this.PROVENANCE = provenance;
+		this.PREFNAME = prefName;
+		this.NAMES = names;
+		this.GEOM = geom;
 	}
 
 	public String getURI() {
@@ -124,6 +140,38 @@ public class GazetteerData {
 
 	public void setOPTIONAL(String OPTIONAL) {
 		this.OPTIONAL = OPTIONAL;
+	}
+
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String ID) {
+		this.ID = ID;
+	}
+
+	public JSONObject getPREFNAME() {
+		return PREFNAME;
+	}
+
+	public void setPREFNAME(JSONObject PREFNAME) {
+		this.PREFNAME = PREFNAME;
+	}
+
+	public JSONArray getNAMES() {
+		return NAMES;
+	}
+
+	public void setNAMES(JSONArray NAMES) {
+		this.NAMES = NAMES;
+	}
+
+	public JSONObject getGEOM() {
+		return GEOM;
+	}
+
+	public void setGEOM(JSONObject GEOM) {
+		this.GEOM = GEOM;
 	}
 
 }
