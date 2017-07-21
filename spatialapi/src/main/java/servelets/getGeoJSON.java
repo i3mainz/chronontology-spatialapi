@@ -2,6 +2,7 @@ package servelets;
 
 import errorlog.Logging;
 import functions.ChronOntology;
+import functions.GazetteerDAI;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
@@ -20,15 +21,22 @@ public class getGeoJSON extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			// parse params
-			String req_uri = "";
-			if (request.getParameter("uri") != null) {
-				req_uri = request.getParameter("uri");
+			String req_type = "";
+			if (request.getParameter("type") != null) {
+				req_type = request.getParameter("type");
 			}
-			req_uri = URLDecoder.decode(req_uri, "UTF-8");
+			req_type = URLDecoder.decode(req_type, "UTF-8");
+			String req_id = "";
+			if (request.getParameter("id") != null) {
+				req_id = request.getParameter("id");
+			}
+			req_id = URLDecoder.decode(req_id, "UTF-8");
 			// get geojson
 			JSONObject geojson = new JSONObject();
 			geojson.put("type", "FeatureCollection");
-			geojson.put("features", ChronOntology.getSpatialData(req_uri));
+			if (req_type.equals("dai")) {
+				geojson.put("features", GazetteerDAI.getGeoJSON(req_id));
+			}
 			out.print(geojson);
 		} catch (Exception e) {
 			out.print(Logging.getMessageJSON(e, "servlets.getGeoJSON"));
