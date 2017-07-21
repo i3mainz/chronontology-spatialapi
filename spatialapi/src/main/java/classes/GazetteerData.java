@@ -30,13 +30,22 @@ public class GazetteerData {
 		this.PROVENANCE = provenance;
 	}
 	
-	public GazetteerData(String uri, String name, String geometry, String provenance, JSONObject prefName) {
+	public GazetteerData(String uri, String name, String geometry, String provenance) {
 		this.URI = uri;
 		this.NAME = name;
 		this.GEOMETRY = geometry;
 		this.PROVENANCE = provenance;
 	}
 	
+	/**
+	 * constructor for GeoJSON query of a ressource
+	 * @param uri
+	 * @param id
+	 * @param provenance
+	 * @param prefName
+	 * @param names
+	 * @param geom 
+	 */
 	public GazetteerData(String uri, String id, String provenance, JSONObject prefName, JSONArray names, JSONObject geom) {
 		this.URI = uri;
 		this.ID = id;

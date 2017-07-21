@@ -35,7 +35,7 @@ public class getGeoJSON extends HttpServlet {
 			JSONObject geojson = new JSONObject();
 			geojson.put("type", "FeatureCollection");
 			if (req_type.equals("dai")) {
-				geojson.put("features", GazetteerDAI.getGeoJSON(req_id));
+				//geojson.put("features", GazetteerDAI.getGeoJSON(req_id));
 			}
 			out.print(geojson);
 		} catch (Exception e) {
