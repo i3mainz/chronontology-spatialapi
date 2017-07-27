@@ -191,11 +191,7 @@ public class ChronOntology {
 			properties.put("id", "2042600");
 			featureWorld.remove("properties");
 			featureWorld.put("properties", properties);
-			if (resource.get("id") != null) {
-				featureWorld.put("id", resource.get("id"));
-			} else {
-				featureWorld.put("id", null);
-			}
+			featureWorld.put("id", resource.get("id"));
 			spatialData.add(featureWorld);
 		}
 		return spatialData;
