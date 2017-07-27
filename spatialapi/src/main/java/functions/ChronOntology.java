@@ -111,6 +111,7 @@ public class ChronOntology {
 							// create output geojson
 							JSONObject feature = new JSONObject();
 							feature.put("type", "Feature");
+							feature.put("id", resource.get("id"));
 							JSONObject properties = new JSONObject();
 							properties.put("data", data);
 							properties.put("name", (String) prefName.get("title"));
@@ -185,6 +186,11 @@ public class ChronOntology {
 			properties.put("id", "2042600");
 			featureWorld.remove("properties");
 			featureWorld.put("properties", properties);
+			if (resource.get("id") != null) {
+				featureWorld.put("id", resource.get("id"));
+			} else {
+				featureWorld.put("id", null);
+			}
 			spatialData.add(featureWorld);
 		}
 		return spatialData;
