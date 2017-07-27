@@ -21,7 +21,7 @@ public class ChronOntology {
 		// init output
 		JSONArray spatialData = new JSONArray();
 		// get data from chronontology
-		JSONObject data = new JSONObject();
+		JSONObject data = null;
 		String url = uri.replace("period", "data/period");
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -172,6 +172,7 @@ public class ChronOntology {
 			JSONArray featureWorldArray = (JSONArray) dataWORLD.get("features");
 			JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
 			JSONObject properties = new JSONObject();
+			properties.put("data", data);
 			JSONObject parentGeometry = new JSONObject();
 			parentGeometry.put("uri", null);
 			parentGeometry.put("id", null);
