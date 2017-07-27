@@ -162,6 +162,11 @@ public class ChronOntology {
 				}
 			}
 		}
+		// if no 200 OK available
+		if (con.getResponseCode() > 200) {
+			spatialData = null;
+			return spatialData;
+		}
 		// if no geom available load world json
 		if (spatialData.isEmpty()) {
 			BufferedReader reader = new BufferedReader(new FileReader(ChronOntology.class.getClassLoader().getResource("world.json").getFile()));
