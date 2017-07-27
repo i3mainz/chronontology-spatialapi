@@ -21,6 +21,7 @@ public class ChronOntology {
 		// init output
 		JSONArray spatialData = new JSONArray();
 		// get data from chronontology
+		JSONObject data = new JSONObject();
 		String url = uri.replace("period", "data/period");
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -35,7 +36,7 @@ public class ChronOntology {
 			}
 			in.close();
 			// parse data
-			JSONObject data = (JSONObject) new JSONParser().parse(response.toString());
+			data = (JSONObject) new JSONParser().parse(response.toString());
 			JSONObject resource = (JSONObject) data.get("resource");
 			for (String item : TYPES) {
 				JSONArray spatial = (JSONArray) resource.get(item);
@@ -110,6 +111,7 @@ public class ChronOntology {
 							JSONObject feature = new JSONObject();
 							feature.put("type", "Feature");
 							JSONObject properties = new JSONObject();
+							properties.put("data", data);
 							properties.put("name", (String) prefName.get("title"));
 							properties.put("relation", item);
 							properties.put("uri", (String) dataDAI.get("id"));
