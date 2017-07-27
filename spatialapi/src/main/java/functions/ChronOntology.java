@@ -164,7 +164,7 @@ public class ChronOntology {
 		}
 		// if no 200 OK available
 		if (con.getResponseCode() > 200) {
-			spatialData = null;
+			spatialData = new JSONArray();
 			return spatialData;
 		}
 		// if no geom available load world json
