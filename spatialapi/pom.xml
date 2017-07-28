@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.i3mainz</groupId>
-	<artifactId>spatialapi</artifactId>
+	<artifactId>spi</artifactId>
 	<version>0.1</version>
 	<packaging>war</packaging>
 
-	<name>spatialapi</name>
+	<name>spi</name>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -46,6 +46,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
