@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class GetGeoJSONT extends HttpServlet {
@@ -28,7 +29,11 @@ public class GetGeoJSONT extends HttpServlet {
             // get geojson
             JSONObject geojson = new JSONObject();
             geojson.put("type", "FeatureCollection");
-            geojson.put("features", ChronOntology.getGeoJSONT(req_id));
+            if (!req_id.equals("")) {
+                geojson.put("features", ChronOntology.getGeoJSONT(req_id));
+            } else {
+                geojson.put("features", new JSONArray());
+            }
             out.print(geojson);
         } catch (Exception e) {
             out.print(Logging.getMessageJSON(e, "servlets.GetGeoJSONT"));
