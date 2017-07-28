@@ -1,8 +1,7 @@
-package servelets;
+package servlets;
 
 import errorlog.Logging;
 import functions.ChronOntology;
-import functions.GazetteerDAI;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
@@ -10,9 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class GetGazetteerData extends HttpServlet {
+public class GetGeoJSONT extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -21,11 +21,6 @@ public class GetGazetteerData extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             // parse params
-            String req_type = "";
-            if (request.getParameter("type") != null) {
-                req_type = request.getParameter("type");
-            }
-            req_type = URLDecoder.decode(req_type, "UTF-8");
             String req_id = "";
             if (request.getParameter("id") != null) {
                 req_id = request.getParameter("id");
@@ -34,12 +29,14 @@ public class GetGazetteerData extends HttpServlet {
             // get geojson
             JSONObject geojson = new JSONObject();
             geojson.put("type", "FeatureCollection");
-            if (req_type.equals("dai")) {
-                //geojson.put("features", GazetteerDAI.GetGazetteerData(req_id));
+            if (!req_id.equals("")) {
+                geojson.put("features", ChronOntology.getGeoJSONT(req_id));
+            } else {
+                geojson.put("features", new JSONArray());
             }
             out.print(geojson);
         } catch (Exception e) {
-            out.print(Logging.getMessageJSON(e, "servlets.GetGazetteerGeoJSON"));
+            out.print(Logging.getMessageJSON(e, "servlets.GetGeoJSONT"));
         } finally {
             out.close();
         }

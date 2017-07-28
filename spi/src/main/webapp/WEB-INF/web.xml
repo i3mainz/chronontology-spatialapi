@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>GetGeoJSONT</servlet-name>
-        <servlet-class>servelets.GetGeoJSONT</servlet-class>
+        <servlet-class>servlets.GetGeoJSONT</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>gazetteerlookup</servlet-name>
@@ -18,15 +18,15 @@
     </servlet>
     <servlet>
         <servlet-name>GetGazetteerData</servlet-name>
-        <servlet-class>servelets.GetGazetteerData</servlet-class>
+        <servlet-class>servlets.GetGazetteerData</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetGazetteerSearchResult</servlet-name>
-        <servlet-class>servelets.GetGazetteerSearchResult</servlet-class>
+        <servlet-class>servlets.GetGazetteerSearchResult</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetStatus</servlet-name>
-        <servlet-class>servelets.GetStatus</servlet-class>
+        <servlet-class>servlets.GetStatus</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetGeoJSONT</servlet-name>
