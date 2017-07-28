@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
-public class GetGazetteerGeoJSON extends HttpServlet {
+public class GetGazetteerData extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class GetGazetteerGeoJSON extends HttpServlet {
             JSONObject geojson = new JSONObject();
             geojson.put("type", "FeatureCollection");
             if (req_type.equals("dai")) {
-                //geojson.put("features", GazetteerDAI.GetGazetteerGeoJSON(req_id));
+                //geojson.put("features", GazetteerDAI.GetGazetteerData(req_id));
             }
             out.print(geojson);
         } catch (Exception e) {

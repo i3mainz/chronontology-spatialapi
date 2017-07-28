@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>getGeoJSON</servlet-name>
-        <servlet-class>servelets.GetGazetteerGeoJSON</servlet-class>
+        <servlet-class>servelets.GetGazetteerData</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetGazetteerSearchResult</servlet-name>
