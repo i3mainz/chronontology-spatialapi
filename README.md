@@ -1,4 +1,4 @@
-# ChronOntology Spatial API
+# ChronOntology Spatial API - SPI
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ The following components need to be installed:
 
 ## Development Hints
 
-The project was developed in NetBeans IDE 8.1, using Java EE 7 Web, JDK 1.7 and Maven 4.0.
+The project was developed in NetBeans IDE 8.2, using Java EE 7 Web, JDK 1.7 and Maven 4.0.
 
 ## Installation of Dependencies
 
