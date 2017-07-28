@@ -37,38 +37,14 @@ Build
 
 After building, the psatialapi lies inside the target directory as war-file.
 
-## Tools
-
-### Time Concept Search
-
-http://localhost:8080/spatialapi/tools/timeconceptSearch
-
-[demo](http://chronontology.i3mainz.hs-mainz.de/spatialapi/tools/timeconceptSearch/)
-
-### Gazetteer Search
-
-http://localhost:8080/spatialapi/tools/gazetteerSearch [demo](http://chronontology.i3mainz.hs-mainz.de/spatialapi/tools/gazetteerSearch/)
-
-### Gazetteer Compare (Map)
-
-http://localhost:8080/spatialapi/tools/gazetteerCompare
-
-[demo](http://chronontology.i3mainz.hs-mainz.de/spatialapi/tools/gazetteerCompare/)
-
-### Gazetteer Compare (Table)
-
-http://localhost:8080/spatialapi/tools/gazetteerCompareTable
-
-[demo](http://chronontology.i3mainz.hs-mainz.de/spatialapi/tools/gazetteerCompareTable/)
-
 ## API
 
-### Geo Widget (GeoJSON)
+### Geo Widget (GeoJSON-T)
 
 ```
-GET http://localhost:8084/spatialapi/geowidget
+GET http://localhost:8084/spi/GetGeoJSONT
 
-demo: http://localhost:8084/spatialapi/geowidget?uri=http://chronontology.dainst.org/period/FD6JS3cmi2Wc
+demo: http://localhost:8084/spi/GetGeoJSONT?id=FD6JS3cmi2Wc
 
 param: uri [String]
 
@@ -80,9 +56,9 @@ Content-Type: application/json
 ### Gazetter Compare (GeoJSON)
 
 ```
-GET http://localhost:8084/spatialapi/gazetteercompare
+GET http://localhost:8084/spi/gazetteercompare
 
-demo: http://localhost:8084/spatialapi/gazetteercompare?lat=49.9987&lon=8.27399&name=Mainzer%20Dom
+demo: http://localhost:8084/spi/gazetteercompare?lat=49.9987&lon=8.27399&name=Mainzer%20Dom
 
 param: lat [Double], lon [Double], name [String]
 
@@ -96,11 +72,11 @@ Content-Type: application/json
 ### Gazetter Lookup (GeoJSON)
 
 ```
-GET http://localhost:8084/spatialapi/gazetteerlookup
+GET http://localhost:8084/spi/gazetteerlookup
 
 param: upperleft [String], lowerleft [String], upperright [String], lowerright [String]
 
-demo: http://localhost:8084/spatialapi/gazetteerlookup?upperleft=50.082665;8.161050&lowerleft=50.082665;8.371850&upperright=49.903887;8.161050&lowerright=49.903887;8.371850
+demo: http://localhost:8084/spi/gazetteerlookup?upperleft=50.082665;8.161050&lowerleft=50.082665;8.371850&upperright=49.903887;8.161050&lowerright=49.903887;8.371850
 
 upperleft: lat/lon of the upper left corner (e.g. 50.082665;8.161050)
 lowerleft: lat/lon of the upper left corner (e.g. 50.082665;8.371850)
@@ -113,10 +89,34 @@ Content-Type: application/json
 ### World JSON (GeoJSON)
 
 ```
-GET http://localhost:8084/spatialapi/world
+GET http://localhost:8084/spi/world
 
 Content-Type: application/json
 ```
+
+## Tools
+
+### Time Concept Search
+
+http://localhost:8080/spi/tools/timeconceptSearch
+
+[demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/timeconceptSearch/)
+
+### Gazetteer Search
+
+http://localhost:8080/spi/tools/gazetteerSearch [demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/gazetteerSearch/)
+
+### Gazetteer Compare (Map)
+
+http://localhost:8080/spi/tools/gazetteerCompare
+
+[demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/gazetteerCompare/)
+
+### Gazetteer Compare (Table)
+
+http://localhost:8080/spi/tools/gazetteerCompareTable
+
+[demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/gazetteerCompareTable/)
 
 ## Credits
 
