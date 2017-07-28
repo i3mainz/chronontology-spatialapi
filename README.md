@@ -48,7 +48,7 @@ demo: http://localhost:8084/spi/GetGeoJSONT?id=FD6JS3cmi2Wc
 
 param: id [String]
 
-id: ChronOntology ID (e.g. `FD6JS3cmi2Wc` from http://chronontology.dainst.org/period/FD6JS3cmi2Wc)
+id: ChronOntology ID (e.g. FD6JS3cmi2Wc from http://chronontology.dainst.org/period/FD6JS3cmi2Wc)
 
 Content-Type: application/json
 ```
