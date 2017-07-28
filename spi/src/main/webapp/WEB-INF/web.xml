@@ -20,6 +20,10 @@
         <servlet-name>getGeoJSON</servlet-name>
         <servlet-class>servelets.GetGazetteerGeoJSON</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetGazetteerSearchResult</servlet-name>
+        <servlet-class>servelets.GetGazetteerSearchResult</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>geowidget</servlet-name>
         <url-pattern>/geowidget</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>getGeoJSON</servlet-name>
         <url-pattern>/getGeoJSON</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetGazetteerSearchResult</servlet-name>
+        <url-pattern>/GetGazetteerSearchResult</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
