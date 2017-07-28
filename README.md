@@ -4,14 +4,14 @@
 
 The following components need to be installed:
 
-* Netbeans
-* Tomcat 7.x
-* Java 7.x
-* Maven
+* Netbeans 8.2
+* Apache Tomcat 8.0.27.0
+* Java EE 7 Web
+* JDK 1.8
 
 ## Development Hints
 
-The project was developed in NetBeans IDE 8.2, using Java EE 7 Web, JDK 1.7 and Maven 4.0.
+The project was developed in NetBeans IDE 8.2, using Java EE 7 Web, source binary format JDK 1.7 and Maven 4.0.
 
 ## Installation of Dependencies
 
