@@ -31,7 +31,7 @@ public class GetGeoJSONT extends HttpServlet {
             geojson.put("features", ChronOntology.getSpatialData(req_uri));
             out.print(geojson);
         } catch (Exception e) {
-            out.print(Logging.getMessageJSON(e, "servlets.geowidget"));
+            out.print(Logging.getMessageJSON(e, "servlets.GetGeoJSONT"));
         } finally {
             out.close();
         }

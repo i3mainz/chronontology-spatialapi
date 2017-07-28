@@ -39,7 +39,7 @@ public class GetGazetteerGeoJSON extends HttpServlet {
             }
             out.print(geojson);
         } catch (Exception e) {
-            out.print(Logging.getMessageJSON(e, "servlets.getGeoJSON"));
+            out.print(Logging.getMessageJSON(e, "servlets.GetGazetteerGeoJSON"));
         } finally {
             out.close();
         }
