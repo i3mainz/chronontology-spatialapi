@@ -26,7 +26,8 @@ public class GetStatus extends HttpServlet {
             status.put("owner", "i3mainz");
 			out.print(status);
 		} catch (Exception e) {
-			out.print(Logging.getMessageJSON(e, "servlets.GetStatus"));
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            out.print(Logging.getMessageJSON(e, "servlets.GetStatus"));
 		} finally {
 			out.close();
 		}

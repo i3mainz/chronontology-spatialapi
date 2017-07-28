@@ -39,6 +39,7 @@ public class GetGazetteerData extends HttpServlet {
             }
             out.print(geojson);
         } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             out.print(Logging.getMessageJSON(e, "servlets.GetGazetteerGeoJSON"));
         } finally {
             out.close();
