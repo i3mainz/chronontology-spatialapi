@@ -17,13 +17,13 @@ public class ChronOntology {
 	public static final String GAZETTEER_DATA_INTERFACE = "doc";
 	public static final String GAZETTEER_RESOURCE_INTERFACE = "place";
 
-	public static JSONArray getSpatialData(String uri) throws Exception {
-		// init output
+	public static JSONArray getGeoJSONT(String id) throws Exception {
+        // init output
 		JSONArray spatialData = new JSONArray();
 		// get data from chronontology
 		JSONObject data = null;
 		JSONObject resource = null;
-		String url = uri.replace("period", "data/period");
+		String url = id = "http://chronontology.dainst.org/data/period/" + id;
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
