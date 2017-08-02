@@ -17,7 +17,7 @@ public class ChronOntology {
 	public static final String GAZETTEER_DATA_INTERFACE = "doc";
 	public static final String GAZETTEER_RESOURCE_INTERFACE = "place";
 
-	public static JSONArray getGeoJSONT(String id) throws Exception {
+	public static JSONArray getGeoJSON(String id) throws Exception {
         // init output
 		JSONArray spatialData = new JSONArray();
 		// get data from chronontology

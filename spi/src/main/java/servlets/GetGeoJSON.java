@@ -28,10 +28,16 @@ public class GetGeoJSON extends HttpServlet {
             req_id = URLDecoder.decode(req_id, "UTF-8");
             // get geojson
             JSONObject geojson = new JSONObject();
-            geojson.put("type", "FeatureCollection");
             if (!req_id.equals("")) {
-                geojson.put("features", ChronOntology.getGeoJSONT(req_id));
+                if (req_id.equals("dummy")) {
+                    geojson.put("type", "FeatureCollection");
+                    geojson.put("features", ChronOntology.getGeoJSON(req_id));
+                } else {
+                    geojson.put("type", "FeatureCollection");
+                    geojson.put("features", ChronOntology.getGeoJSON(req_id));
+                }
             } else {
+                geojson.put("type", "FeatureCollection");
                 geojson.put("features", new JSONArray());
             }
             out.print(geojson);
