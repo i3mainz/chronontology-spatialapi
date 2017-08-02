@@ -120,12 +120,7 @@ public class ChronOntology {
 							String idStr = (String) dataDAI.get("id");
 							String[] idSplit = idStr.split("/");
 							properties.put("id", idSplit[idSplit.length - 1]);
-							if (parentGeometry.isEmpty()) {
-								parentGeometry.put("uri", null);
-								parentGeometry.put("id", null);
-								parentGeometry.put("name", "geom origin");
-								properties.put("parentGeometry", parentGeometry);
-							} else {
+							if (!parentGeometry.isEmpty()) {
 								properties.put("parentGeometry", parentGeometry);
 							}
 							feature.put("properties", properties);
@@ -180,11 +175,6 @@ public class ChronOntology {
 			JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
 			JSONObject properties = new JSONObject();
 			properties.put("chronontology", data);
-			JSONObject parentGeometry = new JSONObject();
-			parentGeometry.put("uri", null);
-			parentGeometry.put("id", null);
-			parentGeometry.put("name", "geom origin");
-			properties.put("parentGeometry", parentGeometry);
 			properties.put("name", "world");
 			properties.put("relation", "unknown");
 			properties.put("uri", "https://gazetteer.dainst.org/place/2042600");
