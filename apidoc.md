@@ -53,6 +53,7 @@ Ein GeoJSON Objekt.
 * **type** *(DEFAULT)* — [String] hier: FeatureCollection.
 * **features** *(DEFAULT)* — [JSONArray] Geo Features.
 * **properties** *(DEFAULT)* — [JSONObject] standardisierte Werte zur Visualisierung.
+* **parentGeometry** *(optional)* — [JSONObject] Information, wenn Geometrie vererbt wurde.
 
 **Response Codes**
 
