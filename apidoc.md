@@ -1,12 +1,12 @@
 # Spatial API - SPI docs
 
-## GET GetGeoJSON-T
+## GET GetGeoJSON
 
-` GET http://localhost:8084/spi/GetGeoJSONT`
+` GET http://localhost:8084/spi/GetGeoJSON`
 
 **Description**
 
-Gibt ChronOntology Daten als GeoJSON-T zurück. Dies basiert auf [GeoJSON](http://geojson.org) und [GeoJSON-T](https://github.com/kgeographer/geojson-t).
+Gibt ChronOntology Daten als GeoJSON-T zurück. Dies basiert auf [GeoJSON](http://geojson.org).
 
 **Requires authentication**
 
@@ -22,7 +22,7 @@ none
 
 **Return format**
 
-Ein GeoJSON-T Objekt.
+Ein GeoJSON Objekt.
 
 **Response**
 
@@ -43,9 +43,7 @@ Ein GeoJSON-T Objekt.
         "name": "",
         "uri": ""
       }
-    },
-	  "id": "",
-		"when": {coming soon}
+    }
 	}]
 }
 ```
@@ -55,7 +53,6 @@ Ein GeoJSON-T Objekt.
 * **type** *(DEFAULT)* — [String] hier: FeatureCollection.
 * **features** *(DEFAULT)* — [JSONArray] Geo Features.
 * **properties** *(DEFAULT)* — [JSONObject] standardisierte Werte zur Visualisierung.
-* **when** *(DEFAULT)* — [JSONObject] Teil aus der GeoJSON-T Spezifikation.
 
 **Response Codes**
 
@@ -64,4 +61,4 @@ Ein GeoJSON-T Objekt.
 
 **Examples**
 
-* http://localhost:8084/spi/GetGeoJSONT?id=FD6JS3cmi2Wc
+* http://localhost:8084/spi/GetGeoJSON?id=FD6JS3cmi2Wc
