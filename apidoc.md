@@ -6,7 +6,7 @@
 
 **Description**
 
-Gibt ChronOntology Daten als GeoJSON-T zurück. Dies basiert auf [GeoJSON](http://geojson.org).
+Gibt ChronOntology Daten als GeoJSON zurück. Dies basiert auf [GeoJSON](http://geojson.org).
 
 **Requires authentication**
 
@@ -63,3 +63,55 @@ Ein GeoJSON Objekt.
 **Examples**
 
 * http://localhost:8084/spi/GetGeoJSON?id=FD6JS3cmi2Wc
+
+## GET GetGeoJSON Dummy
+
+` GET http://localhost:8084/spi/GetDummy`
+
+**Description**
+
+Gibt ChronOntology Daten als GeoJSON zurück. Dies basiert auf [GeoJSON](http://geojson.org).
+
+**Requires authentication**
+
+none
+
+**Parameters**
+
+* **multi** *(optional)* — [boolean] if set, more than one geom is in output.
+
+**Headers**
+
+`Accept: application/json;charset=UTF-8`
+
+**Return format**
+
+Ein GeoJSON Objekt.
+
+**Response**
+
+```json
+{
+	"type": "FeatureCollection",
+	"features": [{
+		"type": "Feature",
+	  "geometry": {},
+		"properties": {
+      "periodid": "",
+      "names": { "language": ["name1", "name2"] },
+			"chronontology": {chronontology object},
+			"@id": "uri",
+      "relation": ""
+    }
+	}]
+}
+```
+
+**Response Codes**
+
+* *200 OK* — Everything worked fine.
+* *500 Internal Server Error* — Some error on server side.
+
+**Examples**
+
+* http://localhost:8084/spi/GetGeoJSON?multi=true
