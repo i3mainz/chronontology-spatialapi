@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class GetGeoJSON extends HttpServlet {
+public class GetDummy extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -21,24 +21,23 @@ public class GetGeoJSON extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             // parse params
-            String req_id = "";
-            if (request.getParameter("id") != null) {
-                req_id = request.getParameter("id");
+            String req_multi = "";
+            if (request.getParameter("multi") != null) {
+                req_multi = request.getParameter("multi");
             }
-            req_id = URLDecoder.decode(req_id, "UTF-8");
             // get geojson
             JSONObject geojson = new JSONObject();
-            if (!req_id.equals("")) {
+            if (!req_multi.equals("")) {
                 geojson.put("type", "FeatureCollection");
-                geojson.put("features", ChronOntology.getGeoJSON(req_id));
+                geojson.put("features", ChronOntology.getGeoJSONDummy(true));
             } else {
-                geojson.put("type", "FeatureCollection");
-                geojson.put("features", new JSONArray());
+                geojson.put("type", "FeatureCollection"); // TODO no Feature Collection
+                geojson.put("features", ChronOntology.getGeoJSONDummy(false));
             }
             out.print(geojson);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print(Logging.getMessageJSON(e, "servlets.GetGeoJSON"));
+            out.print(Logging.getMessageJSON(e, "servlets.GetDummy"));
         } finally {
             out.close();
         }

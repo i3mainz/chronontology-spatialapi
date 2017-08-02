@@ -24,6 +24,10 @@
         <servlet-name>GetStatus</servlet-name>
         <servlet-class>servlets.GetStatus</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetDummy</servlet-name>
+        <servlet-class>servlets.GetDummy</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetGeoJSON</servlet-name>
         <url-pattern>/GetGeoJSON</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>GetStatus</servlet-name>
         <url-pattern>/GetStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDummy</servlet-name>
+        <url-pattern>/GetDummy</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
