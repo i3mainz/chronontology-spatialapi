@@ -37,7 +37,7 @@ Ein GeoJSON Objekt.
       "name": "",
       "relation": "",
       "uri": "",
-      "data": {chronontology object},
+      "chronontology": {chronontology object},
       "parentGeometry": {
         "id": "",
         "name": "",

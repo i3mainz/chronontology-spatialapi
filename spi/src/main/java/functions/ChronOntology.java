@@ -113,7 +113,7 @@ public class ChronOntology {
 							feature.put("type", "Feature");
 							// add GeoJSON-T see https://github.com/kgeographer/geojson-t#adding-time
 							JSONObject properties = new JSONObject();
-							properties.put("data", data);
+							properties.put("chronontology", data);
 							properties.put("name", (String) prefName.get("title"));
 							properties.put("relation", item);
 							properties.put("uri", (String) dataDAI.get("id"));
@@ -179,7 +179,7 @@ public class ChronOntology {
 			JSONArray featureWorldArray = (JSONArray) dataWORLD.get("features");
 			JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
 			JSONObject properties = new JSONObject();
-			properties.put("data", data);
+			properties.put("chronontology", data);
 			JSONObject parentGeometry = new JSONObject();
 			parentGeometry.put("uri", null);
 			parentGeometry.put("id", null);
