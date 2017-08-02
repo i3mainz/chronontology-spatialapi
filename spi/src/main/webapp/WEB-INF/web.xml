@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>GetGeoJSONT</servlet-name>
-        <servlet-class>servlets.GetGeoJSONT</servlet-class>
+        <servlet-name>GetGeoJSON</servlet-name>
+        <servlet-class>servlets.GetGeoJSON</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>gazetteerlookup</servlet-name>
@@ -17,10 +17,6 @@
         <servlet-class>tools.world</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetGazetteerData</servlet-name>
-        <servlet-class>servlets.GetGazetteerData</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetGazetteerSearchResult</servlet-name>
         <servlet-class>servlets.GetGazetteerSearchResult</servlet-class>
     </servlet>
@@ -29,12 +25,8 @@
         <servlet-class>servlets.GetStatus</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetGeoJSONT</servlet-name>
-        <url-pattern>/GetGeoJSONT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetGazetteerData</servlet-name>
-        <url-pattern>/GetGazetteerData</url-pattern>
+        <servlet-name>GetGeoJSON</servlet-name>
+        <url-pattern>/GetGeoJSON</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetGazetteerSearchResult</servlet-name>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class GetGeoJSONT extends HttpServlet {
+public class GetGeoJSON extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class GetGeoJSONT extends HttpServlet {
             out.print(geojson);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print(Logging.getMessageJSON(e, "servlets.GetGeoJSONT"));
+            out.print(Logging.getMessageJSON(e, "servlets.GetGeoJSON"));
         } finally {
             out.close();
         }
