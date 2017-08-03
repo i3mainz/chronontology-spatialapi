@@ -66,11 +66,9 @@ public class ChronOntology {
                             JSONObject prefName = (JSONObject) propertiesDAI.get("prefName");
                             JSONObject geometryDAI = (JSONObject) dataDAI.get("geometry");
                             JSONArray geometriesDAI = (JSONArray) geometryDAI.get("geometries");
-                            JSONObject parentGeometry = new JSONObject();
                             // create output geojson
                             JSONObject feature = new JSONObject();
                             feature.put("type", "Feature");
-                            // add GeoJSON-T see https://github.com/kgeographer/geojson-t#adding-time
                             JSONObject properties = new JSONObject();
                             properties.put("chronontology", data);
                             properties.put("name", (String) prefName.get("title"));
@@ -79,9 +77,6 @@ public class ChronOntology {
                             String idStr = (String) dataDAI.get("id");
                             String[] idSplit = idStr.split("/");
                             properties.put("id", idSplit[idSplit.length - 1]);
-                            if (!parentGeometry.isEmpty()) {
-                                properties.put("parentGeometry", parentGeometry);
-                            }
                             feature.put("properties", properties);
                             for (Object geom : geometriesDAI) {
                                 JSONObject geomEntry = (JSONObject) geom;
@@ -92,25 +87,10 @@ public class ChronOntology {
                                 }
                             }
                             if (geometriesDAI.isEmpty()) {
-                                BufferedReader reader = new BufferedReader(new FileReader(ChronOntology.class.getClassLoader().getResource("world.json").getFile()));
-                                String line;
-                                String json = "";
-                                while ((line = reader.readLine()) != null) {
-                                    json += line;
-                                }
-                                JSONObject dataWORLD = (JSONObject) new JSONParser().parse(json.toString());
-                                JSONArray featureWorldArray = (JSONArray) dataWORLD.get("features");
-                                JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
-                                feature.put("geometry", featureWorld.get("geometry"));
-                                JSONObject propertiesWorld = (JSONObject) feature.get("properties");
-                                propertiesWorld.remove("parentGeometry");
-                                JSONObject parentGeometryWorld = new JSONObject();
-                                parentGeometryWorld.put("uri", "https://gazetteer.dainst.org/place/2042600");
-                                parentGeometryWorld.put("id", "2042600");
-                                parentGeometryWorld.put("name", "Welt");
-                                propertiesWorld.put("parentGeometry", parentGeometryWorld);
+                                spatialData = new JSONArray();
+                            } else {
+                                spatialData.add(feature);
                             }
-                            spatialData.add(feature);
                         }
                     }
                 }
