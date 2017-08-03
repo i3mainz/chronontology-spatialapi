@@ -162,27 +162,10 @@ public class ChronOntology {
             spatialData = new JSONArray();
             return spatialData;
         }
-        // if no geom available load world json
+        // if no geom available
         if (spatialData.isEmpty()) {
-            BufferedReader reader = new BufferedReader(new FileReader(ChronOntology.class.getClassLoader().getResource("world.json").getFile()));
-            String line;
-            String json = "";
-            while ((line = reader.readLine()) != null) {
-                json += line;
-            }
-            JSONObject dataWORLD = (JSONObject) new JSONParser().parse(json.toString());
-            JSONArray featureWorldArray = (JSONArray) dataWORLD.get("features");
-            JSONObject featureWorld = (JSONObject) featureWorldArray.get(0);
-            JSONObject properties = new JSONObject();
-            properties.put("chronontology", data);
-            properties.put("name", "world");
-            properties.put("relation", "unknown");
-            properties.put("uri", "https://gazetteer.dainst.org/place/2042600");
-            properties.put("id", "2042600");
-            featureWorld.remove("properties");
-            featureWorld.put("properties", properties);
-            // add GeoJSON-T see https://github.com/kgeographer/geojson-t#adding-time
-            spatialData.add(featureWorld);
+            spatialData = new JSONArray();
+            return spatialData;
         }
         return spatialData;
     }
