@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class GazetteerGeonames {
+public class Geonames {
 	
 	public static StringBuffer getResultsFromGeonames(String south, String north, String west, String east) throws Exception {
 		String url = "http://api.geonames.org/searchJSON";

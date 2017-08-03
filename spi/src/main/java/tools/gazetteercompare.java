@@ -3,9 +3,9 @@ package tools;
 import classes.BoundingBox;
 import classes.GazetteerData;
 import errorlog.Logging;
-import gazetteer.GazetteerDAI;
-import gazetteer.GazetteerGeonames;
-import gazetteer.GazetteerGettyTGN;
+import gazetteer.IdaiGazetteer;
+import gazetteer.Geonames;
+import gazetteer.GettyTGN;
 import functions.Functions;
 import functions.StringSimilarity;
 import java.io.IOException;
@@ -44,13 +44,13 @@ public class gazetteercompare extends HttpServlet {
 			bb.getBoundingBoxFromLatLon(Double.parseDouble(req_lat), Double.parseDouble(req_lon), 0.1);
 			// HARVEST DATA
 			//StringBuffer resultTGN = getResultsFromGettyTGN(lowerleftSplit[0], lowerleftSplit[1], upperrightSplit[0], upperrightSplit[1]);
-			StringBuffer resultTGN = GazetteerGettyTGN.getResultsFromGettyTGN(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()));
-			List<GazetteerData> tgn = GazetteerGettyTGN.ParseTGNJSON(resultTGN);
-			StringBuffer resultGEONAMES = GazetteerGeonames.getResultsFromGeonames(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lon()));
-			List<GazetteerData> geonames = GazetteerGeonames.ParseGEONAMESJSON(resultGEONAMES);
+			StringBuffer resultTGN = GettyTGN.getResultsFromGettyTGN(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()));
+			List<GazetteerData> tgn = GettyTGN.ParseTGNJSON(resultTGN);
+			StringBuffer resultGEONAMES = Geonames.getResultsFromGeonames(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lon()));
+			List<GazetteerData> geonames = Geonames.ParseGEONAMESJSON(resultGEONAMES);
 			//StringBuffer resultDAI = getResultsFromDaiGazetteer(upperleftSplit[0], upperleftSplit[1], upperrightSplit[0], upperrightSplit[1], lowerrightSplit[0], lowerrightSplit[1], lowerleftSplit[0], lowerleftSplit[1]);
-			StringBuffer resultDAI = GazetteerDAI.getResultsFromDaiGazetteer(String.valueOf(bb.getUpperleft_lat()), String.valueOf(bb.getUpperleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerright_lat()), String.valueOf(bb.getLowerright_lon()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()));
-			List<GazetteerData> daigazetteer = GazetteerDAI.ParseDAIJSON(resultDAI);
+			StringBuffer resultDAI = IdaiGazetteer.getResultsFromDaiGazetteer(String.valueOf(bb.getUpperleft_lat()), String.valueOf(bb.getUpperleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerright_lat()), String.valueOf(bb.getLowerright_lon()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()));
+			List<GazetteerData> daigazetteer = IdaiGazetteer.ParseDAIJSON(resultDAI);
 			// CALCULATE AND SET DISTANCES
 			// SET GETTY TGN
 			for (GazetteerData element : tgn) {

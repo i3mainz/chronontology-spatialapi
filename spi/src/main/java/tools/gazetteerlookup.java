@@ -3,9 +3,9 @@ package tools;
 import classes.BoundingBox;
 import classes.GazetteerData;
 import errorlog.Logging;
-import gazetteer.GazetteerDAI;
-import gazetteer.GazetteerGeonames;
-import gazetteer.GazetteerGettyTGN;
+import gazetteer.IdaiGazetteer;
+import gazetteer.Geonames;
+import gazetteer.GettyTGN;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -47,12 +47,12 @@ public class gazetteerlookup extends HttpServlet {
 			// GET BOUNDINGBOX
 			BoundingBox bb = new BoundingBox(Double.parseDouble(upperleftSplit[0]), Double.parseDouble(upperleftSplit[1]), Double.parseDouble(lowerleftSplit[0]), Double.parseDouble(lowerleftSplit[1]), Double.parseDouble(upperrightSplit[0]), Double.parseDouble(upperrightSplit[1]), Double.parseDouble(lowerrightSplit[0]), Double.parseDouble(lowerrightSplit[1]));
 			// HARVEST DATA
-			StringBuffer resultTGN = GazetteerGettyTGN.getResultsFromGettyTGN(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()));
-			List<GazetteerData> tgn = GazetteerGettyTGN.ParseTGNJSON(resultTGN);
-			StringBuffer resultGEONAMES = GazetteerGeonames.getResultsFromGeonames(String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerleft_lon()));
-			List<GazetteerData> geonames = GazetteerGeonames.ParseGEONAMESJSON(resultGEONAMES);
-			StringBuffer resultDAI = GazetteerDAI.getResultsFromDaiGazetteer(String.valueOf(bb.getUpperleft_lat()), String.valueOf(bb.getUpperleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerright_lat()), String.valueOf(bb.getLowerright_lon()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()));
-			List<GazetteerData> daigazetteer = GazetteerDAI.ParseDAIJSON(resultDAI);
+			StringBuffer resultTGN = GettyTGN.getResultsFromGettyTGN(String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()));
+			List<GazetteerData> tgn = GettyTGN.ParseTGNJSON(resultTGN);
+			StringBuffer resultGEONAMES = Geonames.getResultsFromGeonames(String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerleft_lon()));
+			List<GazetteerData> geonames = Geonames.ParseGEONAMESJSON(resultGEONAMES);
+			StringBuffer resultDAI = IdaiGazetteer.getResultsFromDaiGazetteer(String.valueOf(bb.getUpperleft_lat()), String.valueOf(bb.getUpperleft_lon()), String.valueOf(bb.getUpperright_lat()), String.valueOf(bb.getUpperright_lon()), String.valueOf(bb.getLowerright_lat()), String.valueOf(bb.getLowerright_lon()), String.valueOf(bb.getLowerleft_lat()), String.valueOf(bb.getLowerleft_lon()));
+			List<GazetteerData> daigazetteer = IdaiGazetteer.ParseDAIJSON(resultDAI);
 			// CREATE GEOJSON
 			JSONObject outObject = new JSONObject();
 			outObject.put("type", "FeatureCollection");

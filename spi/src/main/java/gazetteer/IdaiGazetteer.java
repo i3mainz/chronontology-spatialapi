@@ -19,7 +19,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class GazetteerDAI {
+public class IdaiGazetteer {
 
 	//private String host = "localhost:8084";
 	private static String host = "chronontology.i3mainz.hs-mainz.de";

@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class GazetteerGettyTGN {
+public class GettyTGN {
 	
 	public static StringBuffer getResultsFromGettyTGN(String lowerleftLat, String lowerleftLon, String upperrightLat, String upperrightLon) throws Exception {
 		String url = "http://vocab.getty.edu/sparql.json";
