@@ -13,10 +13,6 @@
         <servlet-class>tools.gazetteercompare</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>world</servlet-name>
-        <servlet-class>tools.world</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetGazetteerSearchResult</servlet-name>
         <servlet-class>servlets.GetGazetteerSearchResult</servlet-class>
     </servlet>
@@ -43,10 +39,6 @@
     <servlet-mapping>
         <servlet-name>gazetteercompare</servlet-name>
         <url-pattern>/gazetteercompare</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>world</servlet-name>
-        <url-pattern>/world</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetStatus</servlet-name>
