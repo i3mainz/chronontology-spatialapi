@@ -64,50 +64,9 @@ public class ChronOntology {
                             JSONObject dataDAI = (JSONObject) new JSONParser().parse(response2.toString());
                             JSONObject propertiesDAI = (JSONObject) dataDAI.get("properties");
                             JSONObject prefName = (JSONObject) propertiesDAI.get("prefName");
-                            String parentURLStr = (String) propertiesDAI.get("parent");
                             JSONObject geometryDAI = (JSONObject) dataDAI.get("geometry");
                             JSONArray geometriesDAI = (JSONArray) geometryDAI.get("geometries");
                             JSONObject parentGeometry = new JSONObject();
-                            while (geometriesDAI.isEmpty()) {
-                                // of geometry is empty get geometry from parent and loop it
-                                String parentURLStrOrigin = parentURLStr;
-                                // if URI is "Welt" quit loop
-                                if (parentURLStrOrigin.equals(WELT_URI)) {
-                                    // set spatialData to length zero if uri is "Welt"
-                                    spatialData = new JSONArray();
-                                    break;
-                                }
-                                parentURLStr = parentURLStr.replace("/" + GAZETTEER_RESOURCE_INTERFACE + "/", "/" + GAZETTEER_DATA_INTERFACE + "/");
-                                parentURLStr += ".geojson";
-                                URL parentURL = new URL(parentURLStr);
-                                HttpURLConnection con3 = (HttpURLConnection) parentURL.openConnection();
-                                con3.setRequestMethod("GET");
-                                con3.setRequestProperty("Accept", "application/json");
-                                if (con3.getResponseCode() < 400) {
-                                    BufferedReader in3 = new BufferedReader(new InputStreamReader(con3.getInputStream(), "UTF-8"));
-                                    String inputLine3;
-                                    StringBuilder response3 = new StringBuilder();
-                                    while ((inputLine3 = in3.readLine()) != null) {
-                                        response3.append(inputLine3);
-                                    }
-                                    in3.close();
-                                    // parse data
-                                    JSONObject dataDAIparent = (JSONObject) new JSONParser().parse(response3.toString());
-                                    JSONObject geometryDAIparent = (JSONObject) dataDAIparent.get("geometry");
-                                    JSONArray geometriesDAIparent = (JSONArray) geometryDAIparent.get("geometries");
-                                    JSONObject propertiesDAIparent = (JSONObject) dataDAIparent.get("properties");
-                                    JSONObject prefNameParent = (JSONObject) propertiesDAIparent.get("prefName");
-                                    String prefNameTitleParent = (String) prefNameParent.get("title");
-                                    parentURLStr = (String) propertiesDAIparent.get("parent");
-                                    if (geometriesDAIparent.size() > 0) {
-                                        parentGeometry.put("uri", parentURLStrOrigin);
-                                        String[] idSplit = parentURLStrOrigin.split("/");
-                                        parentGeometry.put("id", idSplit[idSplit.length - 1]);
-                                        parentGeometry.put("name", prefNameTitleParent);
-                                        geometriesDAI = geometriesDAIparent;
-                                    }
-                                }
-                            }
                             // create output geojson
                             JSONObject feature = new JSONObject();
                             feature.put("type", "Feature");
