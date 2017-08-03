@@ -1,4 +1,4 @@
-package functions;
+package chronontology;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,10 +1,10 @@
 package gazetteer;
 
 import classes.GazetteerData;
-import static functions.ChronOntology.GAZETTEER_DATA_INTERFACE;
-import static functions.ChronOntology.GAZETTEER_HOST;
-import static functions.ChronOntology.GAZETTEER_RESOURCE_INTERFACE;
-import static functions.ChronOntology.WELT_URI;
+import static chronontology.ChronOntology.GAZETTEER_DATA_INTERFACE;
+import static chronontology.ChronOntology.GAZETTEER_HOST;
+import static chronontology.ChronOntology.GAZETTEER_RESOURCE_INTERFACE;
+import static chronontology.ChronOntology.WELT_URI;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
