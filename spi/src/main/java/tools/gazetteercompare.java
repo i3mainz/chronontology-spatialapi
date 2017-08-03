@@ -3,12 +3,11 @@ package tools;
 import classes.BoundingBox;
 import classes.GazetteerData;
 import errorlog.Logging;
-import functions.DistanceCalc;
 import functions.GazetteerDAI;
 import functions.GazetteerGeonames;
 import functions.GazetteerGettyTGN;
-import functions.General;
-import functions.StringDistanceCalc;
+import functions.Functions;
+import functions.StringSimilarity;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -56,44 +55,44 @@ public class gazetteercompare extends HttpServlet {
 			// SET GETTY TGN
 			for (GazetteerData element : tgn) {
 				// Point1: Point, Point2: Data
-				double distance = DistanceCalc.getKilometers(Double.parseDouble(req_lat), Double.parseDouble(req_lon), Double.parseDouble(element.getLAT()), Double.parseDouble(element.getLON()));
-				element.setDISTANCE(General.round(distance, 3));
-				double levenshtein = StringDistanceCalc.Levenshtein(req_name, element.getNAME());
-				double normalizedlevenshtein = StringDistanceCalc.NormalizedLevenshtein(req_name, element.getNAME());
-				double dameraulevenshtein = StringDistanceCalc.Damerau(req_name, element.getNAME());
-				double jarowinkler = StringDistanceCalc.JaroWinkler(req_name, element.getNAME());
-				element.setLevenshtein(General.round(levenshtein, 2));
-				element.setNormalizedLevenshtein(General.round(normalizedlevenshtein, 2));
-				element.setDamerauLevenshtein(General.round(dameraulevenshtein, 2));
-				element.setJaroWinkler(General.round(jarowinkler, 2));
+				double distance = Functions.getKilometers(Double.parseDouble(req_lat), Double.parseDouble(req_lon), Double.parseDouble(element.getLAT()), Double.parseDouble(element.getLON()));
+				element.setDISTANCE(Functions.round(distance, 3));
+				double levenshtein = StringSimilarity.Levenshtein(req_name, element.getNAME());
+				double normalizedlevenshtein = StringSimilarity.NormalizedLevenshtein(req_name, element.getNAME());
+				double dameraulevenshtein = StringSimilarity.Damerau(req_name, element.getNAME());
+				double jarowinkler = StringSimilarity.JaroWinkler(req_name, element.getNAME());
+				element.setLevenshtein(Functions.round(levenshtein, 2));
+				element.setNormalizedLevenshtein(Functions.round(normalizedlevenshtein, 2));
+				element.setDamerauLevenshtein(Functions.round(dameraulevenshtein, 2));
+				element.setJaroWinkler(Functions.round(jarowinkler, 2));
 			}
 			// SET GEONAMES
 			for (GazetteerData element : geonames) {
 				// Point1: Point, Point2: Data
-				double distance = DistanceCalc.getKilometers(Double.parseDouble(req_lat), Double.parseDouble(req_lon), Double.parseDouble(element.getLAT()), Double.parseDouble(element.getLON()));
-				element.setDISTANCE(General.round(distance, 3));
-				double levenshtein = StringDistanceCalc.Levenshtein(req_name, element.getNAME());
-				double normalizedlevenshtein = StringDistanceCalc.NormalizedLevenshtein(req_name, element.getNAME());
-				double dameraulevenshtein = StringDistanceCalc.Damerau(req_name, element.getNAME());
-				double jarowinkler = StringDistanceCalc.JaroWinkler(req_name, element.getNAME());
-				element.setLevenshtein(General.round(levenshtein, 2));
-				element.setNormalizedLevenshtein(General.round(normalizedlevenshtein, 2));
-				element.setDamerauLevenshtein(General.round(dameraulevenshtein, 2));
-				element.setJaroWinkler(General.round(jarowinkler, 2));
+				double distance = Functions.getKilometers(Double.parseDouble(req_lat), Double.parseDouble(req_lon), Double.parseDouble(element.getLAT()), Double.parseDouble(element.getLON()));
+				element.setDISTANCE(Functions.round(distance, 3));
+				double levenshtein = StringSimilarity.Levenshtein(req_name, element.getNAME());
+				double normalizedlevenshtein = StringSimilarity.NormalizedLevenshtein(req_name, element.getNAME());
+				double dameraulevenshtein = StringSimilarity.Damerau(req_name, element.getNAME());
+				double jarowinkler = StringSimilarity.JaroWinkler(req_name, element.getNAME());
+				element.setLevenshtein(Functions.round(levenshtein, 2));
+				element.setNormalizedLevenshtein(Functions.round(normalizedlevenshtein, 2));
+				element.setDamerauLevenshtein(Functions.round(dameraulevenshtein, 2));
+				element.setJaroWinkler(Functions.round(jarowinkler, 2));
 			}
 			// DAI GAZETTEER
 			for (GazetteerData element : daigazetteer) {
 				// Point1: Point, Point2: Data
-				double distance = DistanceCalc.getKilometers(Double.parseDouble(req_lat), Double.parseDouble(req_lon), Double.parseDouble(element.getLAT()), Double.parseDouble(element.getLON()));
-				element.setDISTANCE(General.round(distance, 3));
-				double levenshtein = StringDistanceCalc.Levenshtein(req_name, element.getNAME());
-				double normalizedlevenshtein = StringDistanceCalc.NormalizedLevenshtein(req_name, element.getNAME());
-				double dameraulevenshtein = StringDistanceCalc.Damerau(req_name, element.getNAME());
-				double jarowinkler = StringDistanceCalc.JaroWinkler(req_name, element.getNAME());
-				element.setLevenshtein(General.round(levenshtein, 2));
-				element.setNormalizedLevenshtein(General.round(normalizedlevenshtein, 2));
-				element.setDamerauLevenshtein(General.round(dameraulevenshtein, 2));
-				element.setJaroWinkler(General.round(jarowinkler, 2));
+				double distance = Functions.getKilometers(Double.parseDouble(req_lat), Double.parseDouble(req_lon), Double.parseDouble(element.getLAT()), Double.parseDouble(element.getLON()));
+				element.setDISTANCE(Functions.round(distance, 3));
+				double levenshtein = StringSimilarity.Levenshtein(req_name, element.getNAME());
+				double normalizedlevenshtein = StringSimilarity.NormalizedLevenshtein(req_name, element.getNAME());
+				double dameraulevenshtein = StringSimilarity.Damerau(req_name, element.getNAME());
+				double jarowinkler = StringSimilarity.JaroWinkler(req_name, element.getNAME());
+				element.setLevenshtein(Functions.round(levenshtein, 2));
+				element.setNormalizedLevenshtein(Functions.round(normalizedlevenshtein, 2));
+				element.setDamerauLevenshtein(Functions.round(dameraulevenshtein, 2));
+				element.setJaroWinkler(Functions.round(jarowinkler, 2));
 			}
 			// CREATE GEOJSON
 			JSONObject outObject = new JSONObject();

@@ -13,7 +13,7 @@ import info.debatty.java.stringsimilarity.*;
  * https://github.com/tdebatty/java-string-similarity/blob/master/LICENSE.md
  *
  */
-public class StringDistanceCalc {
+public class StringSimilarity {
 
 	// distance, normalized [no], metric [yes]
 

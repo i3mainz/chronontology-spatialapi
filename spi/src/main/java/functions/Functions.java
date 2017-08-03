@@ -1,11 +1,15 @@
 package functions;
 
-public class DistanceCalc {
+public class Functions {
 	
 	private static final double rho = Math.PI / 180;
 	private static final double r_earth = 6378.388; // Hayford-Ellipsoid, 1910/24, Äquatorradius
-	
-	public static double getKilometers(double lat1, double lon1, double lat2, double lon2) {
+    
+    public static double round(final double value, final int frac) {
+		return Math.round(Math.pow(10.0, frac) * value) / Math.pow(10.0, frac);
+	}
+    
+    public static double getKilometers(double lat1, double lon1, double lat2, double lon2) {
 		lat1 = lat1 * rho;
 		lon1 = lon1 * rho;
 		lat2 = lat2 * rho;
