@@ -2,7 +2,7 @@ package servlets;
 
 import errorlog.Logging;
 import functions.ChronOntology;
-import functions.GazetteerDAI;
+import gazetteer.GazetteerDAI;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;

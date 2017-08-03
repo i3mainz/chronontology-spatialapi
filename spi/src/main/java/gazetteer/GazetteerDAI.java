@@ -1,4 +1,4 @@
-package functions;
+package gazetteer;
 
 import classes.GazetteerData;
 import static functions.ChronOntology.GAZETTEER_DATA_INTERFACE;

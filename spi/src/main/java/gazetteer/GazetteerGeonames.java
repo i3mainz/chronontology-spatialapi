@@ -1,4 +1,4 @@
-package functions;
+package gazetteer;
 
 import classes.GazetteerData;
 import java.io.BufferedReader;
