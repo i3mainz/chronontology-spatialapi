@@ -1,5 +1,7 @@
 # ChronOntology Spatial API - SPI
 
+[![Build Status](https://travis-ci.org/i3mainz/chronontology-spatialapi.svg?branch=master)](https://travis-ci.org/i3mainz/chronontology-spatialapi)
+
 ## Prerequisites
 
 The following components need to be installed:
