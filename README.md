@@ -18,7 +18,7 @@ The `spi` web application is build using `maven` as WAR-file.
 
 For details have a look at [pom.xml]((https://github.com/i3mainz/chronontology-spatialapi/blob/master/spi/pom.xml).
 
-[Download](http://maven.apache.org/download.cgi) and  [install]((https://www.mkyong.com/maven/how-to-install-maven-in-windows/) `maven` and [run](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) it.
+[Download](http://maven.apache.org/download.cgi) and [install](https://www.mkyong.com/maven/how-to-install-maven-in-windows/) `maven` and [run](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) it.
 
 ## Setup
 
