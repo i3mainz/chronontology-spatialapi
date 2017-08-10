@@ -26,7 +26,7 @@ Run git clone https://github.com/i3mainz/chronontology-spatialapi.git to create 
 
 Run `mvn install` to install all required dependencies.
 
-Run `mvn clean install site generate-sources javadoc:javadoc` for cleaning, building, testing and generating the documentation files.
+Run `mvn clean install site` for cleaning, building, testing and generating the documentation files.
 
 Run the war-file as in Tomcat using Netbeans with `Run / Debug` or deploy it to an existing Tomcat. Normally Tomcat will use port 8080.
 
