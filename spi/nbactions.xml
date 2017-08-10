@@ -9,6 +9,8 @@
                 <goal>clean</goal>
                 <goal>install</goal>
                 <goal>site</goal>
+                <goal>generate-sources</goal>
+                <goal>javadoc:javadoc</goal>
             </goals>
         </action>
     </actions>
