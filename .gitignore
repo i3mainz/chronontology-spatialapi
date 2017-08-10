@@ -1,2 +1,3 @@
-/spi/target/
-/spi/build
+!spi/target/
+/spi/target/*
+!spi/target/site
