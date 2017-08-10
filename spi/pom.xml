@@ -44,6 +44,18 @@
 			<version>1.2.1</version>
 		</dependency>
 	</dependencies>
+	
+	<profiles>
+		<profile>
+			<id>java8-doclint-disabled</id>
+			<activation>
+				<jdk>[1.8,)</jdk>
+			</activation>
+			<properties>
+				<javadoc.opts>-Xdoclint:none</javadoc.opts>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<finalName>${artifactId}</finalName>
@@ -109,6 +121,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.0.0-M1</version>
 				<configuration>
+					<additionalparam>${javadoc.opts}</additionalparam>
 				</configuration>
 			</plugin>
 		</plugins>
