@@ -6,40 +6,35 @@
 
 The following components need to be installed:
 
+* maven 3.x
 * Netbeans 8.2
 * Apache Tomcat 8.0.27.0
-* Java EE 7 Web
 * JDK 1.8
+* Java EE 7 Web
 
-## Development Hints
+## Maven
 
-The project was developed in NetBeans IDE 8.2, using Java EE 7 Web, source binary format JDK 1.7 and Maven 4.0.
+The `spi` web application is build using `maven` as WAR-file.
 
-## Installation of Dependencies
+For details have a look at [pom.xml]((https://github.com/i3mainz/chronontology-spatialapi/blob/master/spi/pom.xml).
 
-Install development and production dependencies using Netbeans and Maven. Open the project in Netbeans.
-```
-Build with Dependencies
-```
+[Download](http://maven.apache.org/download.cgi) and  [install]((https://www.mkyong.com/maven/how-to-install-maven-in-windows/) `maven` and [run](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) it.
 
-## Running the development server
+## Setup
 
-In order to run the spatial API use the following command in Netbeans.
-```
-Run / Debug
-```
-Normally Tomcat will use port 8080, accessivle at localhost:8080.
+Run git clone https://github.com/i3mainz/chronontology-spatialapi.git to create a local copy of this repository.
 
-## Deployment
+Run `mvn install` to install all required dependencies.
 
-Build the application using the following command in Netbeans.
-```
-Build
-```
+Run `mvn clean install site generate-sources javadoc:javadoc` for cleaning, building, testing and generating the documentation files.
 
-After building, the psatialapi lies inside the target directory as war-file.
+Run the war-file as in Tomcat using Netbeans with `Run / Debug` or deploy it to an existing Tomcat. Normally Tomcat will use port 8080.
 
-## API
+## Unit tests
+
+Running `mvn test` will run the unit tests with `JUnit`.
+
+## API (deprecated)
 
 ### Geo Widget (GeoJSON-T)
 
@@ -87,38 +82,6 @@ lowerright: lat/lon of the upper left corner (e.g. 49.903887;8.371850)
 
 Content-Type: application/json
 ```
-
-### World JSON (GeoJSON)
-
-```
-GET http://localhost:8084/spi/world
-
-Content-Type: application/json
-```
-
-## Tools
-
-### Time Concept Search
-
-http://localhost:8080/spi/tools/timeconceptSearch
-
-[demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/timeconceptSearch/)
-
-### Gazetteer Search
-
-http://localhost:8080/spi/tools/gazetteerSearch [demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/gazetteerSearch/)
-
-### Gazetteer Compare (Map)
-
-http://localhost:8080/spi/tools/gazetteerCompare
-
-[demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/gazetteerCompare/)
-
-### Gazetteer Compare (Table)
-
-http://localhost:8080/spi/tools/gazetteerCompareTable
-
-[demo](http://chronontology.i3mainz.hs-mainz.de/spi/tools/gazetteerCompareTable/)
 
 ## Credits
 
