@@ -4,9 +4,9 @@
 
 ## Prerequisites
 
-The following components need to be installed:
+The code is developed using and tested with:
 
-* maven 3.x
+* maven 3.5.0
 * Netbeans 8.2
 * Apache Tomcat 8.0.27.0
 * JDK 1.8
@@ -22,6 +22,8 @@ For details have a look at [pom.xml]((https://github.com/i3mainz/chronontology-s
 
 ## Setup
 
+Download and install `maven`.
+
 Run git clone https://github.com/i3mainz/chronontology-spatialapi.git to create a local copy of this repository.
 
 Run `mvn install` to install all required dependencies.
@@ -30,9 +32,11 @@ Run `mvn clean install site` for cleaning, building, testing and generating the 
 
 Run the war-file as in Tomcat using Netbeans with `Run / Debug` or deploy it to an existing Tomcat. Normally Tomcat will use port 8080.
 
-## Unit tests
-
 Running `mvn test` will run the unit tests with `JUnit`.
+
+## Developer Hints
+
+Look at [Gist](http://roughdraft.io/0f8c0c015555939c96eb13428bbf1cd4) hints for `Configurations for JAVA projects using Maven`.
 
 ## API (deprecated)
 
@@ -83,6 +87,6 @@ lowerright: lat/lon of the upper left corner (e.g. 49.903887;8.371850)
 Content-Type: application/json
 ```
 
-## Credits
+## Repo Developers
 
-Florian Thiery M.Sc. (i3mainz - Institut für Raumbezogene Informations- und Messtechnik)
+Florian Thiery M.Sc. (i3mainz)
