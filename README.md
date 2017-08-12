@@ -1,6 +1,6 @@
 # ChronOntology Spatial API - SPI
 
-[![build](https://travis-ci.org/i3mainz/chronontology-spatialapi.svg?branch=master)](https://travis-ci.org/i3mainz/chronontology-spatialapi) [![version](https://img.shields.io/badge/version-1.0--SNAPSHOT-green.svg)](#)  [![java](https://img.shields.io/badge/jdk-8.x-red.svg)](#)  [![maven](https://img.shields.io/badge/maven-3.x-orange.svg)](#) [![output](https://img.shields.io/badge/output-war-red.svg)](#) [![docs](https://img.shields.io/badge/apidoc-d4a4f52-blue.svg)](https://i3mainz.github.io/chronontology-spatialapi/)  [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/i3mainz/chronontology-spatialapi/blob/master/LICENSE)
+[![build](https://travis-ci.org/i3mainz/chronontology-spatialapi.svg?branch=master)](https://travis-ci.org/i3mainz/chronontology-spatialapi) [![version](https://img.shields.io/badge/version-1.0--SNAPSHOT-green.svg)](#)  [![java](https://img.shields.io/badge/jdk-1.8-red.svg)](#)  [![maven](https://img.shields.io/badge/maven-3.5.0-orange.svg)](#) [![output](https://img.shields.io/badge/output-war-red.svg)](#) [![docs](https://img.shields.io/badge/apidoc-d4a4f52-blue.svg)](https://i3mainz.github.io/chronontology-spatialapi/)  [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/i3mainz/chronontology-spatialapi/blob/master/LICENSE)
 
 ## Prerequisites
 
@@ -14,9 +14,9 @@ The code is developed using and tested with:
 
 ## Maven
 
-The `spi` web application is build using `maven` as WAR-file.
+The `chronontology-spatialapi` web application is build using `maven` as WAR-file.
 
-For details have a look at [pom.xml]((https://github.com/i3mainz/chronontology-spatialapi/blob/master/spi/pom.xml).
+For details have a look at [pom.xml](https://github.com/i3mainz/chronontology-spatialapi/blob/master/spi/pom.xml).
 
 [Download](http://maven.apache.org/download.cgi) and [install](https://www.mkyong.com/maven/how-to-install-maven-in-windows/) `maven` and [run](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) it.
 
@@ -24,7 +24,7 @@ For details have a look at [pom.xml]((https://github.com/i3mainz/chronontology-s
 
 Download and install `maven`.
 
-Run git clone https://github.com/i3mainz/chronontology-spatialapi.git to create a local copy of this repository.
+Run `git clone https://github.com/i3mainz/chronontology-spatialapi.git` to create a local copy of this repository.
 
 Run `mvn install` to install all required dependencies.
 
