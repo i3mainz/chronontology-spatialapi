@@ -1,50 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>de.i3mainz</groupId>
-	<artifactId>spi</artifactId>
-	<version>0.1</version>
-	<packaging>war</packaging>
-
-	<name>spi</name>
-
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-    
-	<dependencies>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
-			<version>7.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>1.7.1</version>
-		</dependency>
-		<!-- String Similarity -->
-		<dependency>
-			<groupId>info.debatty</groupId>
-			<artifactId>java-string-similarity</artifactId>
-			<version>RELEASE</version>
-		</dependency>
-		<!-- https://github.com/Esri/geometry-api-java -->
-		<dependency>
-			<groupId>com.esri.geometry</groupId>
-			<artifactId>esri-geometry-api</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-	</dependencies>
+
+	<artifactId>chronontology-spatialapi</artifactId>
+	<groupId>de.i3mainz.chronontology</groupId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 	
+	<name>ChronOntology Spatial API</name>
+	<description>An API representing spatial data in the ChronOntology project</description>
+	<url>https://github.com/i3mainz/chronontology-spatialapi.git</url>
+	<licenses>
+		<license>
+			<name>Apache License 2.0</name>
+			<url>https://github.com/i3mainz/chronontology-spatialapi/blob/master/LICENSE</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>i3mainz - Institut für Raumbezogene Informations- und Messtechnik</name>
+		<url>http://i3mainz.hs-mainz.de</url>
+	</organization>
+	<scm>
+		<connection>scm:git:https://github.com/i3mainz/chronontology-spatialapi.git</connection>
+	</scm>
+	<developers>
+		<developer>
+			<name>Florian Thiery</name>
+			<url>http://orcid.org/0000-0002-3246-3531</url>
+		</developer>
+	</developers>
+
 	<profiles>
 		<profile>
 			<id>java8-doclint-disabled</id>
@@ -56,9 +46,9 @@
 			</properties>
 		</profile>
 	</profiles>
-
+	
 	<build>
-		<finalName>${artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -105,8 +95,77 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- plugin: get git commit number via http://www.mojohaus.org/buildnumber-maven-plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+					<!-- set commit no. to short version with X digits -->
+					<!--<shortRevisionLength>7</shortRevisionLength>-->
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
+		<resources>
+			<!-- get config.properties access to pom.xml -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
+    
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+		<!-- String Similarity -->
+		<dependency>
+			<groupId>info.debatty</groupId>
+			<artifactId>java-string-similarity</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+		<!-- https://github.com/Esri/geometry-api-java -->
+		<dependency>
+			<groupId>com.esri.geometry</groupId>
+			<artifactId>esri-geometry-api</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+	</dependencies>
 	
 	<reporting>
 		<plugins>
