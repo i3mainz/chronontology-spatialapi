@@ -19,7 +19,6 @@ public class Logging {
             errMessage.put("method", element.getMethodName());
             errMessage.put("line", element.getLineNumber());
             jsonarray_element.add(errMessage);
-            //jsonarray_element.add(element.getClassName() + " / " + element.getMethodName() + "() / " + element.getLineNumber());
             if (element.getClassName().equals(endClass)) {
                 break;
             }
@@ -32,7 +31,7 @@ public class Logging {
             userMessage = "some value is not available";
         } else if (exception.toString().contains("ValidateJSONObjectException")) {
             code = "2";
-			String[] ex = exception.toString().split(": ");
+            String[] ex = exception.toString().split(": ");
             userMessage = "validate JSON object exception: " + ex[1];
         }
         // output
@@ -44,6 +43,5 @@ public class Logging {
         // OUTPUT AS pretty print JSON 
         return gson.toJson(jsonobj_error);
     }
-
 
 }

@@ -1,5 +1,6 @@
 package servlets;
 
+import de.i3mainz.chronontology.pom.POM;
 import errorlog.Logging;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,11 +18,7 @@ public class GetStatus extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter out = response.getWriter();
 		try {
-			JSONObject status = new JSONObject();
-            status.put("status", "ok");
-            status.put("type", "api");
-            status.put("owner", "i3mainz");
-			out.print(status);
+			out.print(POM.getInfo());
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             out.print(Logging.getMessageJSON(e, "servlets.GetStatus"));
