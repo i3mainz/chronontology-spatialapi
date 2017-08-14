@@ -40,7 +40,7 @@ Look at [GitHub Pages](https://i3mainz.github.io/chronontology-spatialapi/) for 
 
 ## Developer Hints
 
-Look at [Gist](http://roughdraft.io/0f8c0c015555939c96eb13428bbf1cd4) hints for `Configurations for JAVA projects using Maven`.
+Look at [Gist](https://gist.github.com/florianthiery/0f8c0c015555939c96eb13428bbf1cd4) hints for `Configurations for JAVA projects using Maven`.
 
 ## Repo Developers
 
