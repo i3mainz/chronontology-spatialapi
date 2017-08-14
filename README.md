@@ -16,7 +16,7 @@ The code is developed using and tested with:
 
 The `chronontology-spatialapi` web application is build using `maven` as WAR-file.
 
-For details have a look at [pom.xml]https://github.com/i3mainz/chronontology-spatialapi/blob/master/pom.xml).
+For details have a look at [pom.xml](https://github.com/i3mainz/chronontology-spatialapi/blob/master/pom.xml).
 
 [Download](http://maven.apache.org/download.cgi) and [install](https://www.mkyong.com/maven/how-to-install-maven-in-windows/) `maven` and [run](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) it.
 
@@ -33,6 +33,10 @@ Run `mvn clean install site` for cleaning, building, testing and generating the 
 Run the war-file as in Tomcat using Netbeans with `Run / Debug` or deploy it to an existing Tomcat. Normally Tomcat will use port 8080.
 
 Running `mvn test` will run the unit tests with `JUnit`.
+
+## Documentation
+
+Look at [GitHub Pages](https://i3mainz.github.io/chronontology-spatialapi/) for the latest developer documentation like `maven` and `javadoc`.
 
 ## Developer Hints
 
