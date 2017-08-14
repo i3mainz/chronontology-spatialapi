@@ -127,6 +127,15 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<!-- run tomcat on port 8080 -> http://localhost:8080 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<path>/</path>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<!-- get config.properties access to pom.xml -->
