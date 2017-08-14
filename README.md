@@ -16,7 +16,7 @@ The code is developed using and tested with:
 
 The `chronontology-spatialapi` web application is build using `maven` as WAR-file.
 
-For details have a look at [pom.xml](https://github.com/i3mainz/chronontology-spatialapi/blob/master/spi/pom.xml).
+For details have a look at [pom.xml]https://github.com/i3mainz/chronontology-spatialapi/blob/master/pom.xml).
 
 [Download](http://maven.apache.org/download.cgi) and [install](https://www.mkyong.com/maven/how-to-install-maven-in-windows/) `maven` and [run](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) it.
 
