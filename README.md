@@ -30,7 +30,9 @@ Run `mvn install` to install all required dependencies.
 
 Run `mvn clean install site` for cleaning, building, testing and generating the documentation files.
 
-Run the war-file as in Tomcat using Netbeans with `Run / Debug` or deploy it to an existing Tomcat. Normally Tomcat will use port 8080.
+Run the war-file using maven with `mvn tomcat7:run` in an installed Tomcat. Usually Tomcat will use port 8080 on `http://localhost:8080/`.
+
+Run the war-file as in Tomcat using Netbeans with `Run / Debug` or deploy it to an existing Tomcat. Using Netbeans, usually Tomcat will use port 8084 on `http://localhost:8084/`.
 
 Running `mvn test` will run the unit tests with `JUnit`.
 
