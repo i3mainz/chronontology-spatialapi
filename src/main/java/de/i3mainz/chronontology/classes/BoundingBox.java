@@ -1,4 +1,4 @@
-package classes;
+package de.i3mainz.chronontology.classes;
 
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Point;

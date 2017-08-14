@@ -1,4 +1,4 @@
-package chronontology;
+package de.i3mainz.chronontology.chronontology;
 
 import org.json.simple.JSONObject;
 

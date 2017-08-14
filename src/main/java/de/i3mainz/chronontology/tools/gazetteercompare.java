@@ -1,13 +1,13 @@
-package tools;
+package de.i3mainz.chronontology.tools;
 
-import classes.BoundingBox;
-import classes.GazetteerData;
-import errorlog.Logging;
-import gazetteer.IdaiGazetteer;
-import gazetteer.Geonames;
-import gazetteer.GettyTGN;
-import functions.Functions;
-import functions.StringSimilarity;
+import de.i3mainz.chronontology.classes.BoundingBox;
+import de.i3mainz.chronontology.classes.GazetteerData;
+import de.i3mainz.chronontology.errorlog.Logging;
+import de.i3mainz.chronontology.gazetteer.IdaiGazetteer;
+import de.i3mainz.chronontology.gazetteer.Geonames;
+import de.i3mainz.chronontology.gazetteer.GettyTGN;
+import de.i3mainz.chronontology.functions.Functions;
+import de.i3mainz.chronontology.functions.StringSimilarity;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

@@ -1,4 +1,4 @@
-package chronontology;
+package de.i3mainz.chronontology.chronontology;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package gazetteer;
+package de.i3mainz.chronontology.gazetteer;
 
 import org.json.simple.JSONObject;
 

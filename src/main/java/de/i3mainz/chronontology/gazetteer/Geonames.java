@@ -1,6 +1,6 @@
-package gazetteer;
+package de.i3mainz.chronontology.gazetteer;
 
-import classes.GazetteerData;
+import de.i3mainz.chronontology.classes.GazetteerData;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package errorlog;
+package de.i3mainz.chronontology.errorlog;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

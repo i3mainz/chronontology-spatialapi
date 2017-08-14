@@ -1,7 +1,7 @@
-package servlets;
+package de.i3mainz.chronontology.servlets;
 
-import errorlog.Logging;
-import chronontology.ChronOntology;
+import de.i3mainz.chronontology.errorlog.Logging;
+import de.i3mainz.chronontology.chronontology.ChronOntology;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;

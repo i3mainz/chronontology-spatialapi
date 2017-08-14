@@ -1,4 +1,4 @@
-package functions;
+package de.i3mainz.chronontology.functions;
 
 public class Functions {
 	

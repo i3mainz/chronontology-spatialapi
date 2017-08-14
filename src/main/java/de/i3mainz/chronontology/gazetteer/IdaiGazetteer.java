@@ -1,10 +1,10 @@
-package gazetteer;
+package de.i3mainz.chronontology.gazetteer;
 
-import classes.GazetteerData;
-import static chronontology.ChronOntology.GAZETTEER_DATA_INTERFACE;
-import static chronontology.ChronOntology.GAZETTEER_HOST;
-import static chronontology.ChronOntology.GAZETTEER_RESOURCE_INTERFACE;
-import static chronontology.ChronOntology.WELT_URI;
+import de.i3mainz.chronontology.classes.GazetteerData;
+import static de.i3mainz.chronontology.chronontology.ChronOntology.GAZETTEER_DATA_INTERFACE;
+import static de.i3mainz.chronontology.chronontology.ChronOntology.GAZETTEER_HOST;
+import static de.i3mainz.chronontology.chronontology.ChronOntology.GAZETTEER_RESOURCE_INTERFACE;
+import static de.i3mainz.chronontology.chronontology.ChronOntology.WELT_URI;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

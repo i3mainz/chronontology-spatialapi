@@ -1,7 +1,8 @@
-package servlets;
+package de.i3mainz.chronontology.servlets;
 
-import errorlog.Logging;
-import chronontology.ChronOntology;
+import de.i3mainz.chronontology.errorlog.Logging;
+import de.i3mainz.chronontology.chronontology.ChronOntology;
+import de.i3mainz.chronontology.gazetteer.IdaiGazetteer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
@@ -9,10 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class GetGeoJSON extends HttpServlet {
+public class GetGazetteerSearchResult extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -21,6 +21,11 @@ public class GetGeoJSON extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             // parse params
+            String req_type = "";
+            if (request.getParameter("type") != null) {
+                req_type = request.getParameter("type");
+            }
+            req_type = URLDecoder.decode(req_type, "UTF-8");
             String req_id = "";
             if (request.getParameter("id") != null) {
                 req_id = request.getParameter("id");
@@ -28,17 +33,11 @@ public class GetGeoJSON extends HttpServlet {
             req_id = URLDecoder.decode(req_id, "UTF-8");
             // get geojson
             JSONObject geojson = new JSONObject();
-            if (!req_id.equals("")) {
-                geojson.put("type", "FeatureCollection");
-                geojson.put("features", ChronOntology.getGeoJSON(req_id));
-            } else {
-                geojson.put("type", "FeatureCollection");
-                geojson.put("features", new JSONArray());
-            }
+            geojson.put("type", "FeatureCollection");
             out.print(geojson);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print(Logging.getMessageJSON(e, "servlets.GetGeoJSON"));
+            out.print(Logging.getMessageJSON(e, "servlets.GetGazetteerSearchResult"));
         } finally {
             out.close();
         }
