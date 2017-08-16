@@ -28,13 +28,25 @@ public class GenericResource {
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
     public Response getGeoJSON(@HeaderParam("Accept-Encoding") String acceptEncoding,
                                @HeaderParam("Accept") String acceptHeader,
-                               @QueryParam("periodid") String periodid) {
+                               @QueryParam("periodid") String periodid,
+                               @QueryParam("bbox") String bbox) {
         try {
             JSONObject geojson = new JSONObject();
             if (periodid != null) {
                 if (!periodid.equals("")) {
                     geojson.put("type", "FeatureCollection");
                     geojson.put("features", ChronOntology.getGeoJSON(periodid));
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                } else {
+                    geojson.put("type", "FeatureCollection");
+                    geojson.put("features", new JSONArray());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                }
+            } else if (bbox != null) {
+                if (!bbox.equals("")) {
+                    geojson.put("type", "FeatureCollection");
+                    // TODO query gazetteers
+                    geojson.put("features", new JSONArray());
                     return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
                 } else {
                     geojson.put("type", "FeatureCollection");
