@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,7 +15,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 @Path("/place")
-public class GenericResource {
+public class PlaceResource {
 
     /**
      * creates a GeoJSON out of a query
@@ -59,7 +60,26 @@ public class GenericResource {
                 return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.GenericResource"))
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
+                    .header("Content-Type", "application/json;charset=UTF-8").build();
+        }
+    }
+    
+    @GET
+    @Path("/{type}/{id}")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+    public Response getGeoJSONfromGazetteer(@HeaderParam("Accept-Encoding") String acceptEncoding,
+                               @HeaderParam("Accept") String acceptHeader,
+                               @PathParam("type") String type,
+                               @PathParam("id") String id) {
+        try {
+            JSONObject geojson = new JSONObject();
+            // TODO query gazetteers
+            geojson.put("type", type);
+            geojson.put("id", id);
+            return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
                     .header("Content-Type", "application/json;charset=UTF-8").build();
         }
     }
