@@ -30,7 +30,8 @@ public class PlaceResource {
     public Response getGeoJSON(@HeaderParam("Accept-Encoding") String acceptEncoding,
                                @HeaderParam("Accept") String acceptHeader,
                                @QueryParam("periodid") String periodid,
-                               @QueryParam("bbox") String bbox) {
+                               @QueryParam("bbox") String bbox,
+                               @QueryParam("q") String q) {
         try {
             JSONObject geojson = new JSONObject();
             if (periodid != null) {
@@ -46,7 +47,18 @@ public class PlaceResource {
             } else if (bbox != null) {
                 if (!bbox.equals("")) {
                     geojson.put("type", "FeatureCollection");
-                    // TODO query gazetteers
+                    // TODO query gazetteers for bbox
+                    geojson.put("features", new JSONArray());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                } else {
+                    geojson.put("type", "FeatureCollection");
+                    geojson.put("features", new JSONArray());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                }
+            } else if (q != null) {
+                if (!q.equals("")) {
+                    geojson.put("type", "FeatureCollection");
+                    // TODO query gazetteers for string
                     geojson.put("features", new JSONArray());
                     return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
                 } else {
