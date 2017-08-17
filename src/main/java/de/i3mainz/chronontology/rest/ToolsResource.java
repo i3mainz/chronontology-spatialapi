@@ -8,7 +8,6 @@ import de.i3mainz.chronontology.functions.StringSimilarity;
 import de.i3mainz.chronontology.gazetteer.Geonames;
 import de.i3mainz.chronontology.gazetteer.GettyTGN;
 import de.i3mainz.chronontology.gazetteer.IdaiGazetteer;
-import de.i3mainz.chronontology.pom.POM;
 import de.i3mainz.chronontology.restconfig.ResponseGZIP;
 import java.io.IOException;
 import java.util.List;
@@ -21,6 +20,10 @@ import javax.ws.rs.core.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+/**
+ * testing class for tools, will be included in place resource
+ * @author florian.thiery
+ */
 @Path("/tools")
 public class ToolsResource {
 
