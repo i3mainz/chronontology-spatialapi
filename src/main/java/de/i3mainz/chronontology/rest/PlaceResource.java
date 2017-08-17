@@ -41,33 +41,33 @@ public class PlaceResource {
                 if (!periodid.equals("")) {
                     geojson.put("type", "FeatureCollection");
                     geojson.put("features", ChronOntology.getGeoJSON(periodid));
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 } else {
                     geojson.put("type", "FeatureCollection");
                     geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 }
             } else if (bbox != null) {
                 if (!bbox.equals("")) {
                     geojson.put("type", "FeatureCollection");
                     // TODO query gazetteers for bbox
                     geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 } else {
                     geojson.put("type", "FeatureCollection");
                     geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 }
             } else if (q != null) {
                 if (!q.equals("")) {
                     geojson.put("type", "FeatureCollection");
                     // TODO query gazetteers for string
                     geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 } else {
                     geojson.put("type", "FeatureCollection");
                     geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 }
             } else if (dummyFeature != null && dummyType != null) {
                 if (!dummyFeature.equals("") && !dummyType.equals("")) {
@@ -78,16 +78,16 @@ public class PlaceResource {
                         geojson.put("type", "FeatureCollection"); // TODO no Feature Collection
                         geojson.put("features", ChronOntology.getGeoJSONDummy(false));
                     }
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 } else {
                     geojson.put("type", "FeatureCollection");
                     geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 }
             } else {
                 geojson.put("type", "FeatureCollection");
                 geojson.put("features", new JSONArray());
-                return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+                return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
             }
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
@@ -107,7 +107,7 @@ public class PlaceResource {
             // TODO query gazetteers
             geojson.put("type", type);
             geojson.put("id", id);
-            return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString());
+            return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
                     .header("Content-Type", "application/json;charset=UTF-8").build();

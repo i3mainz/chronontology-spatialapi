@@ -9,7 +9,7 @@ import javax.ws.rs.core.StreamingOutput;
 
 public class ResponseGZIP {
 
-	public static Response setResponse(String acceptEncoding, String output) {
+	public static Response setResponse(String acceptEncoding, String output, Response.Status ResponseCode) {
 		if (acceptEncoding.contains("gzip")) {
 			// set outputstream
 			final String OUTSTRING_FINAL = output;
@@ -23,9 +23,11 @@ public class ResponseGZIP {
 					}
 				}
 			};
-			return Response.ok(stream).header("Content-Type", "application/json;charset=UTF-8").header("Content-Encoding", "gzip").build();
+			return Response.status(ResponseCode).entity(stream)
+                    .header("Content-Type", "application/json;charset=UTF-8").header("Content-Encoding", "gzip").build();
 		} else {
-			return Response.ok(output).header("Content-Type", "application/json;charset=UTF-8").build();
+			return Response.status(ResponseCode).entity(output)
+                    .header("Content-Type", "application/json;charset=UTF-8").build();
 		}
 	}
 
