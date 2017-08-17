@@ -175,6 +175,12 @@
 			<groupId>com.esri.geometry</groupId>
 			<artifactId>esri-geometry-api</artifactId>
 			<version>1.2.1</version>
+		 <exclusions>
+		  <exclusion>
+		   <groupId>org.codehaus.jackson</groupId>
+		   <artifactId>jackson-core-asl</artifactId>
+		  </exclusion>
+		 </exclusions>
 		</dependency>
 		<!-- Jersey 1.19.1 -->
 		<dependency>
@@ -186,6 +192,12 @@
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-json</artifactId>
 			<version>${jersey.version}</version>
+		 <exclusions>
+		  <exclusion>
+		   <groupId>org.codehaus.jackson</groupId>
+		   <artifactId>jackson-core-asl</artifactId>
+		  </exclusion>
+		 </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
