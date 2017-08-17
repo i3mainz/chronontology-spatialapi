@@ -1,4 +1,4 @@
-# Spatial API - SPI docs *deprecated*
+# Spatial API *deprecated*
 
 ## GET GetGeoJSON
 
