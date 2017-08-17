@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
-	<!-- Servlets -->
-	
-	<servlet>
+    <!-- Servlets -->
+    <servlet>
         <servlet-name>GetGeoJSON</servlet-name>
         <servlet-class>de.i3mainz.chronontology.servlets.GetGeoJSON</servlet-class>
     </servlet>
@@ -20,15 +18,10 @@
         <servlet-class>de.i3mainz.chronontology.servlets.GetGazetteerSearchResult</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetStatus</servlet-name>
-        <servlet-class>de.i3mainz.chronontology.servlets.GetStatus</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetDummy</servlet-name>
         <servlet-class>de.i3mainz.chronontology.servlets.GetDummy</servlet-class>
     </servlet>
-
-	<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetGeoJSON</servlet-name>
         <url-pattern>/GetGeoJSON</url-pattern>
     </servlet-mapping>
@@ -45,17 +38,11 @@
         <url-pattern>/gazetteercompare</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetStatus</servlet-name>
-        <url-pattern>/GetStatus</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetDummy</servlet-name>
         <url-pattern>/GetDummy</url-pattern>
     </servlet-mapping>
-		
-	<!-- Jersey -->
-	
-	<servlet>
+    <!-- Jersey -->
+    <servlet>
         <servlet-name>SPI</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
@@ -77,16 +64,13 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-	
-	<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SPI</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-	
     <session-config>
         <session-timeout>
 			30
 		</session-timeout>
     </session-config>
-	
 </web-app>
