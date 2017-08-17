@@ -4,5 +4,5 @@ de.i3mainz.chronontology.errorlog
 de.i3mainz.chronontology.functions
 de.i3mainz.chronontology.gazetteer
 de.i3mainz.chronontology.pom
-de.i3mainz.chronontology.servlets
-de.i3mainz.chronontology.tools
+de.i3mainz.chronontology.rest
+de.i3mainz.chronontology.restconfig
