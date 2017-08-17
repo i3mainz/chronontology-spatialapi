@@ -13,10 +13,6 @@
         <servlet-name>gazetteercompare</servlet-name>
         <servlet-class>de.i3mainz.chronontology.tools.gazetteercompare</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>GetDummy</servlet-name>
-        <servlet-class>de.i3mainz.chronontology.servlets.GetDummy</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>GetGeoJSON</servlet-name>
         <url-pattern>/GetGeoJSON</url-pattern>
@@ -28,10 +24,6 @@
     <servlet-mapping>
         <servlet-name>gazetteercompare</servlet-name>
         <url-pattern>/gazetteercompare</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetDummy</servlet-name>
-        <url-pattern>/GetDummy</url-pattern>
     </servlet-mapping>
     <!-- Jersey -->
     <servlet>
