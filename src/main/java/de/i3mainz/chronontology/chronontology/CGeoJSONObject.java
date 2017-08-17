@@ -7,14 +7,14 @@ import org.json.simple.JSONObject;
  * JSONObject to represent spatial data of a chronontology period
  * @author Florian Thiery
  */
-public class CJSONObject extends JSONObject {
+public class CGeoJSONObject extends JSONObject {
     
     private JSONObject geojson = new JSONObject();
     private String type = "";
     private JSONArray features = new JSONArray();
     private JSONObject metadata = new JSONObject();
     
-    public CJSONObject() {
+    public CGeoJSONObject() {
         super();
         geojson = new JSONObject();
         geojson.put("type", type);
