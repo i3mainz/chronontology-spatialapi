@@ -71,11 +71,11 @@ public class PlaceResource {
                 }
             } else if (dummyFeature != null && dummyType != null) {
                 if (!dummyFeature.equals("") && !dummyType.equals("")) {
-                    if (!dummyFeature.equals("Feature")) {
+                    if (!dummyFeature.equals("FeatureCollection")) {
                         geojson.put("type", "FeatureCollection");
                         geojson.put("features", ChronOntology.getGeoJSONDummy(true));
                     } else {
-                        geojson.put("type", "FeatureCollection"); // TODO no Feature Collection
+                        geojson.put("type", "Feature"); // TODO no Feature Collection
                         geojson.put("features", ChronOntology.getGeoJSONDummy(false));
                     }
                     return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
