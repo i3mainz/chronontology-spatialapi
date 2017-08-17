@@ -14,20 +14,12 @@
         <servlet-class>de.i3mainz.chronontology.tools.gazetteercompare</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetGazetteerSearchResult</servlet-name>
-        <servlet-class>de.i3mainz.chronontology.servlets.GetGazetteerSearchResult</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetDummy</servlet-name>
         <servlet-class>de.i3mainz.chronontology.servlets.GetDummy</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetGeoJSON</servlet-name>
         <url-pattern>/GetGeoJSON</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetGazetteerSearchResult</servlet-name>
-        <url-pattern>/GetGazetteerSearchResult</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>gazetteerlookup</servlet-name>
