@@ -37,7 +37,7 @@ public class ToolsResource {
     String lowerright = "49.903887;8.371850";
 
     @GET
-    @Path("/tools/gazetteercompare")
+    @Path("/gazetteercompare")
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
     public Response gazetteercompare(@QueryParam("lat") String req_lat,
                             @QueryParam("lon") String req_lon,
@@ -222,7 +222,7 @@ public class ToolsResource {
     }
     
     @GET
-    @Path("/tools/gazetteerlookup")
+    @Path("/gazetteerlookup")
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
     public Response gazetteerlookup(@QueryParam("upperleft") String upperleft,
                             @QueryParam("lowerleft") String lowerleft,
