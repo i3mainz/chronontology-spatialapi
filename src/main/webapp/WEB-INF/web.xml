@@ -2,10 +2,6 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <!-- Servlets -->
     <servlet>
-        <servlet-name>GetGeoJSON</servlet-name>
-        <servlet-class>de.i3mainz.chronontology.servlets.GetGeoJSON</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>gazetteerlookup</servlet-name>
         <servlet-class>de.i3mainz.chronontology.tools.gazetteerlookup</servlet-class>
     </servlet>
@@ -13,10 +9,6 @@
         <servlet-name>gazetteercompare</servlet-name>
         <servlet-class>de.i3mainz.chronontology.tools.gazetteercompare</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>GetGeoJSON</servlet-name>
-        <url-pattern>/GetGeoJSON</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>gazetteerlookup</servlet-name>
         <url-pattern>/gazetteerlookup</url-pattern>
