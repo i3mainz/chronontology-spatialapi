@@ -2,11 +2,11 @@
 
 ## Inhaltsverzeichnis
 
-* GET status
-* GET place by searching
-* GET gazetteer place
-* GET tools gazetteerlookup
-* GET tools gazetteercompare
+* [GET status](#get-status)
+* [GET place by searching](#get-place-by-searching)
+* [GET gazetteer place](#get-gazetteer-place)
+* [GET tools gazetteerlookup](#get-tools-gazetteercompare-will-be-replaced-by-placesbbox)
+* [GET tools gazetteercompare](#get-tools-gazetteerlookup-will-be-replaced-by-placesbbox)
 
 ## GET status
 
