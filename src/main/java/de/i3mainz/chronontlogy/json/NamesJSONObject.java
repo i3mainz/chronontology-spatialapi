@@ -28,5 +28,14 @@ public class NamesJSONObject extends JSONObject {
         }
         super.put(language, namesArray);
     }
+    
+    /**
+     * get array of names by language
+     * @param language
+     * @return 
+     */
+    public JSONArray getNamesByLanguage(String language) {
+        return (JSONArray) super.get(language);
+    }
 
 }
