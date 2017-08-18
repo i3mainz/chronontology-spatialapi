@@ -6,7 +6,7 @@
 
 Look at the [API documentation](https://github.com/i3mainz/chronontology-spatialapi/blob/master/apidoc.md) for API usage.
 
-Look at the [JSON Data Model](https://github.com/i3mainz/chronontology-spatialapi/blob/master/jsonobjects.md) fpr the GeoJSON structure.
+Look at the [JSON Data Model](https://github.com/i3mainz/chronontology-spatialapi/blob/master/jsonobjects.md) for GeoJSON structure.
 
 ## Prerequisites
 
