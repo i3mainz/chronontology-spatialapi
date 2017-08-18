@@ -25,8 +25,6 @@ GeoJSON das Gazetter Suchergebnisse enthält.
 }
 ```
 
-*Auswahl*
-
 * **type** *(DEFAULT)* — [String] GeoJSON "Feature".
 * **geometry** *(DEFAULT)* — [JSONObject] GeoJSON "geometry".
 * **properties** *(DEFAULT)* — [JSONObject] GeoJSON "properties".
@@ -69,8 +67,6 @@ GeoJSON einer ChronOntology Ressource.
   }
 }
 ```
-
-*Auswahl*
 
 * **type** *(DEFAULT)* — [String] GeoJSON "Feature".
 * **features** *(DEFAULT)* — [JSONObject] GeoJSON "geometry".
