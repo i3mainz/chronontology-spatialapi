@@ -17,23 +17,6 @@ public class GGeoJSONObject extends JSONObject {
     }
 
     /**
-     * set GeoJSON type
-     * @param type 
-     */
-    public void setType(String type) {
-        super.remove("type");
-        super.put("type", type);
-    }
-    
-    /**
-     * get type
-     * @return type string
-     */
-    public String getType() {
-        return (String) super.get("type");
-    }
-
-    /**
      * set GeoJSON geometry
      * @param geometry 
      */
