@@ -70,7 +70,7 @@ public class GeojsonResource {
         f3.setProperties("http://mydummygeojson.org/f632876f", "f632876f", "dummy", "hasCoreArea");
         // set geojson
         CGeoJSONObject c = new CGeoJSONObject();
-        c.setMetadata("FD6JS3cmi2Wc", co_object, co_when, co_names);
+        c.setMetadata("http://chronontology.dainst.org/period/0iRdmlr38uau", "0iRdmlr38uau", co_object, co_when, co_names);
         //c.setMetadata("FD6JS3cmi2Wc", new JSONObject(), new JSONArray(), new JSONObject());
         c.setFeature(f1);
         c.setFeature(f2);

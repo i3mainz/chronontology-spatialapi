@@ -46,9 +46,10 @@ public class CGeoJSONObject extends JSONObject {
      * @param when
      * @param names
      */
-    public void setMetadata(String periodid, JSONObject chronontology, JSONArray when, JSONObject names) {
+    public void setMetadata(String url, String periodid, JSONObject chronontology, JSONArray when, JSONObject names) {
         JSONObject metadata = new JSONObject();
         super.remove("metadata");
+        metadata.put("@id", url);
         metadata.put("periodid", periodid);
         metadata.put("chronontology", chronontology);
         metadata.put("when", when);
