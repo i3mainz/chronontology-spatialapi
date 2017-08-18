@@ -76,7 +76,7 @@ GeoJSON einer ChronOntology Ressource.
     * **@id** *(DEFAULT)* — [String] URI zur Gazetteer Ressource.
     * **gazetteerid** *(DEFAULT)* — [String] Gazetteer Ressource ID.
     * **type** *(DEFAULT)* — [String] Gazetteer Typ: dai, getty, geonames, pleiades.
-    * **relation** *(DEFAULT)* — [String] [ChronOntology Relation](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#12-connections-to-the-gazetteer)
+    * **relation** *(DEFAULT)* — [String] [ChronOntology Relation](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#12-connections-to-the-gazetteer).
 * **metadata** *(DEFAULT)* — [JSONObject] Metadaten.
   * **@id** *(DEFAULT)* — [String] URI zur ChronOntology Ressource.
   * **periodid** *(DEFAULT)* — [String] ChronOntology Ressource ID.
