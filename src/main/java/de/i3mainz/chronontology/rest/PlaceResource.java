@@ -23,6 +23,10 @@ public class PlaceResource {
      * @param acceptEncoding
      * @param acceptHeader
      * @param periodid
+     * @param bbox
+     * @param q
+     * @param dummyFeature
+     * @param dummyType
      * @return GeoJSON
      */
     @GET
@@ -63,21 +67,6 @@ public class PlaceResource {
                     geojson.put("type", "FeatureCollection");
                     // TODO query gazetteers for string
                     geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
-                } else {
-                    geojson.put("type", "FeatureCollection");
-                    geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
-                }
-            } else if (dummyFeature != null && dummyType != null) {
-                if (!dummyFeature.equals("") && !dummyType.equals("")) {
-                    if (!dummyFeature.equals("FeatureCollection")) {
-                        geojson.put("type", "FeatureCollection");
-                        geojson.put("features", ChronOntology.getGeoJSONDummy(true));
-                    } else {
-                        geojson.put("type", "Feature"); // TODO no Feature Collection
-                        geojson.put("features", ChronOntology.getGeoJSONDummy(false));
-                    }
                     return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
                 } else {
                     geojson.put("type", "FeatureCollection");
