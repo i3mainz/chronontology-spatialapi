@@ -22,13 +22,12 @@ public class CGeoJSONFeatureObject extends GGeoJSONObject {
      * @param names
      * @param relation
      */
-    public void setProperties(String url, String gazetteerid, String type, NamesJSONObject names, String relation) {
+    public void setProperties(String url, String gazetteerid, String type, String relation) {
         JSONObject properties = new JSONObject();
         super.remove("properties");
         properties.put("@id", url);
         properties.put("gazetteerid", gazetteerid);
         properties.put("type", type);
-        properties.put("names", names);
         properties.put("relation", relation);
         super.put("properties", properties);
     }

@@ -5,74 +5,64 @@ import org.json.simple.JSONObject;
 
 /**
  * JSONObject to represent spatial data of a chronontology period
+ *
  * @author Florian Thiery
  */
 public class CGeoJSONObject extends JSONObject {
-    
+
     public CGeoJSONObject() {
         super();
-        super.put("type", "Feature");
-        super.put("geometry", new JSONObject());
-        super.put("properties", new JSONObject());
+        super.put("type", "FeatureCollection");
+        super.put("features", new JSONArray());
+        super.put("metadata", new JSONObject());
     }
 
     /**
-     * set GeoJSON type
-     * @param type 
+     * set GeoJSON features
+     *
+     * @param geometry
      */
-    public void setType(String type) {
-        super.remove("type");
-        super.put("type", type);
-    }
-    
-    /**
-     * get type
-     * @return type string
-     */
-    public String getType() {
-        return (String) super.get("type");
+    public void setFeature(JSONObject feature) {
+        JSONArray features = (JSONArray) super.get("features");
+        features.add(feature);
+        super.remove("features");
+        super.put("features", features);
     }
 
     /**
-     * set GeoJSON geometry
-     * @param geometry 
+     * get features
+     *
+     * @return features json object
      */
-    public void setGeometry(JSONObject geometry) {
-        super.remove("geometry");
-        super.put("geometry", geometry);
-    }
-    
-    /**
-     * get geometry
-     * @return geometry json object
-     */
-    public JSONObject getGeometry() {
-        return (JSONObject) super.get("geometry");
+    public JSONObject getFeatures() {
+        return (JSONObject) super.get("features");
     }
 
     /**
-     * set GeoJSON properties
-     * @param url
-     * @param gazetteerid
-     * @param type
-     * @param names 
+     * set metadata
+     *
+     * @param periodid
+     * @param chronontology
+     * @param when
+     * @param names
      */
-    public void setProperties(String url, String gazetteerid, String type, NamesJSONObject names) {
-        JSONObject properties = new JSONObject();
-        super.remove("properties");
-        properties.put("@id", url);
-        properties.put("gazetteerid", gazetteerid);
-        properties.put("type", type);
-        properties.put("names", names);
-        super.put("properties", properties);
+    public void setMetadata(String periodid, JSONObject chronontology, JSONArray when, JSONObject names) {
+        JSONObject metadata = new JSONObject();
+        super.remove("metadata");
+        metadata.put("periodid", periodid);
+        metadata.put("chronontology", chronontology);
+        metadata.put("when", when);
+        metadata.put("names", names);
+        super.put("metadata", metadata);
     }
-    
+
     /**
-     * get properties
-     * @return properties json object
+     * get metadata
+     *
+     * @return metadata json object
      */
-    public JSONObject getProperties() {
-        return (JSONObject) super.get("properties");
+    public JSONObject getMetadata() {
+        return (JSONObject) super.get("metadata");
     }
 
 }
