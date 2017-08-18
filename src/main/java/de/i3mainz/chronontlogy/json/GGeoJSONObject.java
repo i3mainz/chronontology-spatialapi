@@ -46,15 +46,15 @@ public class GGeoJSONObject extends JSONObject {
      *
      * @param url
      * @param gazetteerid
-     * @param type
+     * @param gazetteertype
      * @param names
      */
-    public void setProperties(String url, String gazetteerid, String type, NamesJSONObject names) {
+    public void setProperties(String url, String gazetteerid, String gazetteertype, NamesJSONObject names) {
         JSONObject properties = new JSONObject();
         super.remove("properties");
         properties.put("@id", url);
         properties.put("gazetteerid", gazetteerid);
-        properties.put("type", type);
+        properties.put("gazetteertype", gazetteertype);
         properties.put("names", names);
         super.put("properties", properties);
     }
@@ -111,7 +111,7 @@ public class GGeoJSONObject extends JSONObject {
             jsonld.remove("geometry");
             jsonld.remove("properties");
             // set test properties from geojson-lg
-            jsonld.put("relation", "test");
+            jsonld.put("gazetteerrelation", "test");
             jsonld.put("metadata", new JSONObject());
             return jsonld;
         } catch (Exception e) {

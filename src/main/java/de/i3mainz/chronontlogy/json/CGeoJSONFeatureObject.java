@@ -18,17 +18,17 @@ public class CGeoJSONFeatureObject extends GGeoJSONObject {
      *
      * @param url
      * @param gazetteerid
-     * @param type
+     * @param gazetteertype
      * @param names
-     * @param relation
+     * @param gazetteerrelation
      */
-    public void setProperties(String url, String gazetteerid, String type, String relation) {
+    public void setProperties(String url, String gazetteerid, String gazetteertype, String gazetteerrelation) {
         JSONObject properties = new JSONObject();
         super.remove("properties");
         properties.put("@id", url);
         properties.put("gazetteerid", gazetteerid);
-        properties.put("type", type);
-        properties.put("relation", relation);
+        properties.put("gazetteertype", gazetteertype);
+        properties.put("gazetteerrelation", gazetteerrelation);
         super.put("properties", properties);
     }
 
