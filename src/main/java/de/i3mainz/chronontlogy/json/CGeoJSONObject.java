@@ -9,41 +9,70 @@ import org.json.simple.JSONObject;
  */
 public class CGeoJSONObject extends JSONObject {
     
-    private JSONObject geojson = new JSONObject();
-    private String type = "";
-    private JSONArray features = new JSONArray();
-    private JSONObject metadata = new JSONObject();
-    
     public CGeoJSONObject() {
         super();
-        geojson = new JSONObject();
-        geojson.put("type", type);
-        geojson.put("features", features);
-        geojson.put("metadata", metadata);
+        super.put("type", "Feature");
+        super.put("geometry", new JSONObject());
+        super.put("properties", new JSONObject());
     }
 
-    public String getType() {
-        return type;
-    }
-
+    /**
+     * set GeoJSON type
+     * @param type 
+     */
     public void setType(String type) {
-        this.type = type;
-    }
-
-    public JSONArray getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(JSONArray features) {
-        this.features = features;
-    }
-
-    public JSONObject getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(JSONObject metadata) {
-        this.metadata = metadata;
+        super.remove("type");
+        super.put("type", type);
     }
     
+    /**
+     * get type
+     * @return type string
+     */
+    public String getType() {
+        return (String) super.get("type");
+    }
+
+    /**
+     * set GeoJSON geometry
+     * @param geometry 
+     */
+    public void setGeometry(JSONObject geometry) {
+        super.remove("geometry");
+        super.put("geometry", geometry);
+    }
+    
+    /**
+     * get geometry
+     * @return geometry json object
+     */
+    public JSONObject getGeometry() {
+        return (JSONObject) super.get("geometry");
+    }
+
+    /**
+     * set GeoJSON properties
+     * @param url
+     * @param gazetteerid
+     * @param type
+     * @param names 
+     */
+    public void setProperties(String url, String gazetteerid, String type, NamesJSONObject names) {
+        JSONObject properties = new JSONObject();
+        super.remove("properties");
+        properties.put("@id", url);
+        properties.put("gazetteerid", gazetteerid);
+        properties.put("type", type);
+        properties.put("names", names);
+        super.put("properties", properties);
+    }
+    
+    /**
+     * get properties
+     * @return properties json object
+     */
+    public JSONObject getProperties() {
+        return (JSONObject) super.get("properties");
+    }
+
 }
