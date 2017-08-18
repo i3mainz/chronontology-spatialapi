@@ -1,5 +1,6 @@
 package de.i3mainz.chronontology.rest;
 
+import de.i3mainz.chronontlogy.json.CGeoJSONFeatureObject;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import de.i3mainz.chronontlogy.json.GGeoJSONObject;
@@ -35,7 +36,6 @@ public class GeojsonResource {
         names.setName("en", en);
         // crate GGeoJSONObject
         GGeoJSONObject g = new GGeoJSONObject();
-        g.setType("Feature");
         g.setGeometry(geom);
         g.setProperties("http://mydummygeojson.org/130630f3", "130630f3", "dummy", names);
         return ResponseGZIP.setResponse("gzip", g.toJSONString(), Response.Status.OK);
@@ -58,12 +58,12 @@ public class GeojsonResource {
         NamesJSONObject names = new NamesJSONObject();
         names.setName("de", de);
         names.setName("en", en);
-        // crate GGeoJSONObject
-        GGeoJSONObject g = new GGeoJSONObject();
-        g.setType("Feature");
-        g.setGeometry(geom);
-        g.setProperties("http://mydummygeojson.org/130630f3", "130630f3", "dummy", names);
-        return ResponseGZIP.setResponse("gzip", g.toJSONString(), Response.Status.OK);
+        // crate CGeoJSONObject
+        // set single feature
+        CGeoJSONFeatureObject c = new CGeoJSONFeatureObject();
+        c.setGeometry(geom);
+        c.setProperties("http://mydummygeojson.org/130630f3", "130630f3", "dummy", names, "coreArea");
+        return ResponseGZIP.setResponse("gzip", c.toJSONString(), Response.Status.OK);
     }
 
 }
