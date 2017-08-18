@@ -88,7 +88,6 @@ none
 * **periodid** *(optional)* — [String] Chronontology ID.
 * **bbox** *(optional)* — [String] BoundingBox. *not yet implemented*
 * **q** *(optional)* — [String] Buchstabenfolge. *not yet implemented*
-* **dummy** *(optional)* — [String] Feature / FeatureCollection. *not yet implemented*
 * **type** *(dummy mandatory && type optional)* — [String] cjson / gjson. *not yet implemented*
 
 * *BoundingBox (Beispiel):*
