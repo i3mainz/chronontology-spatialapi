@@ -36,6 +36,14 @@
 			<url>http://orcid.org/0000-0002-3246-3531</url>
 		</developer>
 	</developers>
+	
+	<repositories>
+		<!-- add https://jitpack.io -->
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<profiles>
 		<profile>
@@ -268,6 +276,12 @@
 			<groupId>com.github.jsonld-java</groupId>
 			<artifactId>jsonld-java-jena</artifactId>
 			<version>0.4.1</version>
+		</dependency>
+		<!-- GitHub dependencies via https://jitpack.io - version: last commit number-->
+		<dependency>
+			<groupId>com.github.linkedgeodesy</groupId>
+			<artifactId>jena-ext</artifactId>
+			<version>60bbd0639c</version>
 		</dependency>
 	</dependencies>
 	
