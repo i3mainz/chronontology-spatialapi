@@ -6,8 +6,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import de.i3mainz.chronontlogy.json.GGeoJSONObject;
 import de.i3mainz.chronontlogy.json.NamesJSONObject;
-import de.i3mainz.chronontology.errorlog.JenaModelException;
-import de.i3mainz.chronontology.rdf.JenaModel;
 import de.i3mainz.chronontology.restconfig.ResponseGZIP;
 import java.io.IOException;
 import java.util.HashSet;
@@ -19,6 +17,8 @@ import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
+import org.linkedgeodesy.jenaext.log.JenaModelException;
+import org.linkedgeodesy.jenaext.model.JenaModel;
 
 @Path("/geojson")
 public class GeojsonResource {
