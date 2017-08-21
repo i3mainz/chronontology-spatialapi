@@ -50,6 +50,8 @@ Look at [GitHub Pages](https://i3mainz.github.io/chronontology-spatialapi/) for 
 
 Look at [Gist](https://gist.github.com/florianthiery/0f8c0c015555939c96eb13428bbf1cd4) hints for `Configurations for JAVA projects using Maven`.
 
+Modify [prefixes.csv](https://github.com/i3mainz/chronontology-spatialapi/blob/master/src/main/resources/prefixes.csv) into the `resources` folder.
+
 ## Repo Developers
 
 Florian Thiery M.Sc. (i3mainz)
