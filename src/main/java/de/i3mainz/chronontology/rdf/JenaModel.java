@@ -3,11 +3,15 @@ package de.i3mainz.chronontology.rdf;
 import com.github.jsonldjava.jena.JenaJSONLD;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import de.i3mainz.chronontology.errorlog.JenaModelException;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 
 /**
  * CLASS for set up a JenaModel graph and export it
@@ -15,12 +19,32 @@ import java.io.UnsupportedEncodingException;
  */
 public class JenaModel {
 
-    private Model model = null;
+    private Model model;
+
+    public JenaModel() {
+        model = ModelFactory.createDefaultModel();
+    }
+
+    public void readRDF(String rdf, Lang format) throws JenaModelException {
+        try {
+            RDFDataMgr.read(model, new ByteArrayInputStream(rdf.getBytes()), null, format);
+        } catch (Exception e) {
+            throw new JenaModelException(e.getMessage());
+        }
+    }
+    
+    public void readJSONLD(String jsonld) throws JenaModelException {
+        try {
+            RDFDataMgr.read(model, new ByteArrayInputStream(jsonld.getBytes()), null, Lang.JSONLD);
+        } catch (Exception e) {
+            throw new JenaModelException(e.getMessage());
+        }
+    }
 
     public void setModel(Model model) {
         this.model = model;
     }
-    
+
     public void setModelLiteral(String subject, String predicate, String object) throws JenaModelException {
         try {
             Resource s = model.createResource(subject);
@@ -72,7 +96,7 @@ public class JenaModel {
     public Model getModelObject() {
         return model;
     }
-    
+
     public String getModel() throws JenaModelException {
         try {
             JenaJSONLD.init();
@@ -90,6 +114,17 @@ public class JenaModel {
             JenaJSONLD.init();
             ByteArrayOutputStream o = new ByteArrayOutputStream();
             model.write(o, format);
+            return o.toString("UTF-8");
+        } catch (Exception e) {
+            throw new JenaModelException(e.getMessage());
+        }
+    }
+    
+    public String getModelAsJSONLD() throws UnsupportedEncodingException, JenaModelException {
+        try {
+            JenaJSONLD.init();
+            ByteArrayOutputStream o = new ByteArrayOutputStream();
+            model.write(o, "JSON-LD");
             return o.toString("UTF-8");
         } catch (Exception e) {
             throw new JenaModelException(e.getMessage());
