@@ -281,7 +281,7 @@
 		<dependency>
 			<groupId>com.github.linkedgeodesy</groupId>
 			<artifactId>jena-ext</artifactId>
-			<version>60bbd0639c</version>
+			<version>v0.1</version>
 		</dependency>
 	</dependencies>
 	

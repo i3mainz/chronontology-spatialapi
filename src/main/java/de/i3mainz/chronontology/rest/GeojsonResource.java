@@ -91,8 +91,8 @@ public class GeojsonResource {
         JenaModel jm = new JenaModel();
         JenaModel jm2 = new JenaModel();
         jm.readRDF(turtle, Lang.TURTLE);
-        System.out.println(jm.getModel("JSON-LD"));
-        String turtleld = jm.getModel("JSON-LD");
+        System.out.println(jm.getModelAsRDFFormatedString("JSON-LD"));
+        String turtleld = jm.getModelAsRDFFormatedString("JSON-LD");
         jm2.readRDF(turtleld, Lang.JSONLD);
         System.out.println(jm2.getModel());
         // test with ls json-ld
@@ -175,8 +175,8 @@ public class GeojsonResource {
                 + "  }\n"
                 + "}";
         jm3.readJSONLD(ld);
-        System.out.println(jm3.getModel("N-Triples"));
-        return ResponseGZIP.setResponse("gzip", jm3.getModel("JSON-LD"), Response.Status.OK);
+        System.out.println(jm3.getModelAsRDFFormatedString("N-Triples"));
+        return ResponseGZIP.setResponse("gzip", jm3.getModelAsRDFFormatedString("JSON-LD"), Response.Status.OK);
     }
 
 }
