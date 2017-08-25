@@ -283,6 +283,11 @@
 			<artifactId>jena-ext</artifactId>
 			<version>v0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.linkedgeodesy</groupId>
+			<artifactId>gazetteer-json</artifactId>
+			<version>v0.1</version>
+		</dependency>
 	</dependencies>
 	
 	<reporting>
