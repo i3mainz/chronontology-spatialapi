@@ -2,8 +2,8 @@ language: java
 script:
   - mvn clean install site
 notifications:
-  recipients:
-    email:
-      - kontakt@florian-thiery.de
-  on_success: always # default: change
-  on_failure: always # default: always
+  email:
+    recipients:
+      - git@linkedgeodesy.org
+    on_success: always
+    on_failure: always
