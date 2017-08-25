@@ -1,4 +1,4 @@
-package de.i3mainz.chronontlogy.json;
+package de.i3mainz.chronontology.json;
 
 import java.util.HashSet;
 import org.json.simple.JSONArray;

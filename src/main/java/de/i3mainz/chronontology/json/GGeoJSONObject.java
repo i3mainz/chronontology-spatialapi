@@ -1,4 +1,4 @@
-package de.i3mainz.chronontlogy.json;
+package de.i3mainz.chronontology.json;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,11 +1,11 @@
 package de.i3mainz.chronontology.rest;
 
-import de.i3mainz.chronontlogy.json.CGeoJSONFeatureObject;
-import de.i3mainz.chronontlogy.json.CGeoJSONObject;
+import de.i3mainz.chronontology.json.CGeoJSONFeatureObject;
+import de.i3mainz.chronontology.json.CGeoJSONObject;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import de.i3mainz.chronontlogy.json.GGeoJSONObject;
-import de.i3mainz.chronontlogy.json.NamesJSONObject;
+import de.i3mainz.chronontology.json.GGeoJSONObject;
+import de.i3mainz.chronontology.json.NamesJSONObject;
 import de.i3mainz.chronontology.restconfig.ResponseGZIP;
 import java.io.IOException;
 import java.util.HashSet;
