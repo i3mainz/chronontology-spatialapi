@@ -18,6 +18,9 @@ public class POM {
         JSONObject outObj = new JSONObject();
         JSONObject maven = new JSONObject();
         maven.put("modelVersion", ConfigProperties.getPropertyParam("modelVersion"));
+        maven.put("maven-compiler-plugin", "3.1");
+        maven.put("source", "1.8");
+        maven.put("target", "1.8");
         outObj.put("maven", maven);
         JSONObject project = new JSONObject();
         project.put("buildNumber", ConfigProperties.getPropertyParam("buildNumber"));
