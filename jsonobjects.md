@@ -116,7 +116,8 @@ GeoJSON einer ChronOntology Ressource.
     "periodid": "",
     "chronontology": {},
     "names": {},
-    "when": []
+    "when": [],
+    "coverage": []
   }
 }
 ```
@@ -136,6 +137,7 @@ GeoJSON einer ChronOntology Ressource.
   * **chronontology** *(DEFAULT)* — [JSONObject] [ChronOntology Object](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#the-chronontology-data-model).
   * **names** *(DEFAULT)* — [JSONObject] [ChronOntology Names Object](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#names).
   * **when** *(DEFAULT)* — [JSONArray] [ChronOntology TimeSpan](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#timespan-fields).
+  * **coverage** *(DEFAULT)* — [JSONArray] Liste von Gazetteer Einträgen, welche die Periode abdecken.
 
 ## Names JSON
 
