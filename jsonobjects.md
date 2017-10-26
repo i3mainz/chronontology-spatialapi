@@ -3,6 +3,8 @@
 ## Inhaltsverzeichnis
 
 * [Gazetteer GeoJSON](#gazetteer-geojson)
+ * [Gazetteer Ressource](##gazetteer-ressource)
+ * [Gazetteer Suche](##gazetteer-suche)
 * [ChronOntology GeoJSON](#chronontology-geojson)
 * [Names JSON](#names-json)
 
@@ -35,7 +37,7 @@ GeoJSON einer Gazetteer Ressource
   * **gazetteertype** *(DEFAULT)* — [String] Gazetteer Typ: dai, getty, geonames, pleiades.
   * **names** *(DEFAULT)* — [JSONObject] siehe [Names JSON](#names-json).
 
-### Gazetteer Ressource
+### Gazetteer Suche
 
 GeoJSON einer Gazetteer Suche.
 
