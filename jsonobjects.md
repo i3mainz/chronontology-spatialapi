@@ -8,7 +8,9 @@
 
 ## Gazetteer GeoJSON
 
-GeoJSON das Gazetter Suchergebnisse enthält.
+### Gazetteer Ressource
+
+GeoJSON einer Gazetteer Ressource
 
 **Struktur**
 
@@ -33,9 +35,55 @@ GeoJSON das Gazetter Suchergebnisse enthält.
   * **gazetteertype** *(DEFAULT)* — [String] Gazetteer Typ: dai, getty, geonames, pleiades.
   * **names** *(DEFAULT)* — [JSONObject] siehe [Names JSON](#names-json).
 
-**Beispiel**
+### Gazetteer Ressource
 
-* http://localhost:8084/spi/geojson/g
+GeoJSON einer Gazetteer Suche.
+
+**Struktur**
+
+```json
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {},
+      "properties": {
+        "@id": "",
+        "gazetteerid": "",
+        "gazetteertype": "",
+        "names": {},
+        "similarity": {}
+      }
+    }
+  ],
+  "metadata": {
+    "gazetteertype": "",
+    "searchstring": "",
+    "upperleftLon": "",
+    "lowerleftLon": "",
+    "lowerrightLat": "",
+    "upperrightLon": "",
+    "upperleftLat": "",
+    "lowerleftLat": "",
+    "lowerrightLon": "",
+    "upperrightLat": ""
+  }
+}
+```
+
+* **type** *(DEFAULT)* — [String] GeoJSON "Feature".
+* **geometry** *(DEFAULT)* — [JSONObject] GeoJSON "geometry".
+* **properties** *(DEFAULT)* — [JSONObject] GeoJSON "properties".
+  * **@id** *(DEFAULT)* — [String] URI zur Gazetteer Ressource.
+  * **gazetteerid** *(DEFAULT)* — [String] Gazetteer Ressource ID.
+  * **gazetteertype** *(DEFAULT)* — [String] Gazetteer Typ: dai, getty, geonames, pleiades.
+  * **names** *(DEFAULT)* — [JSONObject] siehe [Names JSON](#names-json).
+  * **similarity** *(DEFAULT)* — [JSONObject] siehe [Similarity JSON](#similarity-json).
+* **metadata** *(DEFAULT)* — [JSONObject] Metadaten zur Suche.
+  * **gazetteertype** *(DEFAULT)* — [String] Gazetteer Typ: dai, getty, geonames, pleiades.
+  * **searchstring** *(OPTIONAL)* — [String] String für Suche.
+  * **upperleftLon**, **lowerleftLon**, **lowerrightLat**, **upperrightLon**, **upperleftLat**, **lowerleftLat**, **lowerrightLon**, **upperrightLat**, *(OPTIONAL)* — [Double] BoundingBox Koordinaten.
 
 ## ChronOntology GeoJSON
 
@@ -83,10 +131,6 @@ GeoJSON einer ChronOntology Ressource.
   * **chronontology** *(DEFAULT)* — [JSONObject] [ChronOntology Object](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#the-chronontology-data-model).
   * **names** *(DEFAULT)* — [JSONObject] [ChronOntology Names Object](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#names).
   * **when** *(DEFAULT)* — [JSONArray] [ChronOntology TimeSpan](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#timespan-fields).
-
-**Beispiel**
-
-* http://localhost:8084/spi/geojson/c
 
 ## Names JSON
 
