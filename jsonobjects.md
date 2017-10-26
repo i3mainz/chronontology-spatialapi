@@ -3,13 +3,13 @@
 ## Inhaltsverzeichnis
 
 * [Gazetteer GeoJSON](#gazetteer-geojson)
- * [Gazetteer Ressource](##gazetteer-ressource)
- * [Gazetteer Suche](##gazetteer-suche)
+  * [Gazetteer Ressource](##gazetteer-ressource)
+  * [Gazetteer Suche](##gazetteer-suche)
 * [ChronOntology GeoJSON](#chronontology-geojson)
 * [Names JSON](#names-json)
 * [Similarity JSON](#similarity-json)
- * [Point Distance](#point-distance)
- * [String Distance](#string-distance)
+  * [Point Distance](#point-distance)
+  * [String Distance](#string-distance)
 
 ## Gazetteer GeoJSON
 
