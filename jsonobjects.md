@@ -180,7 +180,7 @@ Das Similarity JSON kann aus zwei verschiendenen Varianten bestehen. Beim Vergle
 
 ```json
 {
-	"distance": 1.3575298120814572,
+	"distance": 1.36,
 	"bboxcenter": [8.266449999999999, 49.993275999999994],
 	"point": [8.2791, 49.98419]
 }
