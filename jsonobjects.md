@@ -7,6 +7,9 @@
  * [Gazetteer Suche](##gazetteer-suche)
 * [ChronOntology GeoJSON](#chronontology-geojson)
 * [Names JSON](#names-json)
+* [Similarity JSON](#similarity-json)
+ * [Point Distance](#point-distance)
+ * [String Distance](#string-distance)
 
 ## Gazetteer GeoJSON
 
@@ -138,11 +141,81 @@ GeoJSON einer ChronOntology Ressource.
 
 JSONObject nach ChronOntology [names object](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#names).
 
+```json
+{
+  "language1": [],
+  "language2": []
+}
+```
+* **language** *(DEFAULT)* — [JSONArray] Sprachvarianten.
+
 **Beispiel**
 
 ```json
 {
   "de": ["Römisch", "römisch"],
   "en": ["greek", "Greek"]
+}
+```
+
+## Similarity JSON
+
+Das Similarity JSON kann aus zwei verschiendenen Varianten bestehen. Beim Vergleich der Zeichenkette werden verschiedene Distanzen berechnet, bei einer Suche mit der Bounding Box die Distanz zum Zentrum der BBox.
+
+### Point Distance
+
+```json
+{
+	"distance": "",
+	"bboxcenter": ["", ""],
+	"point": ["", ""]
+}
+```
+
+* **distance** *(DEFAULT)* — [Double] Errechnete Distanz in Kilometern zwischen bboxcenter und Point.
+* **bboxcenter** *(DEFAULT)* — [JSONArray] lon, lat des Mittelpunkts der Bounding Box.
+* **point** *(DEFAULT)* — [String] lon, lat eines Punktes in der Bounding Box.
+
+**Beispiel**
+
+```json
+{
+	"distance": 1.3575298120814572,
+	"bboxcenter": [8.266449999999999, 49.993275999999994],
+	"point": [8.2791, 49.98419]
+}
+```
+
+### String Distance
+
+```json
+{
+  "searchString": "",
+  "gazetteerString": "",
+  "levenshtein": "",
+  "normalizedlevenshtein": "",
+  "dameraulevenshtein": "",
+  "jarowinkler": ""
+}
+```
+
+* **searchString** *(DEFAULT)* — [String] String nach dem gesucht werden soll.
+* **gazetteerString** *(DEFAULT)* — [String] Resultierender String aus dem Gazetteer Suchergebnis.
+* **levenshtein** *(DEFAULT)* — [Double] [Levenshtein Distanz](https://github.com/tdebatty/java-string-similarity#levenshtein).
+* **normalizedlevenshtein** *(DEFAULT)* — [Double] [Normalisierte Levenshtein Distanz](https://github.com/tdebatty/java-string-similarity#normalized-levenshtein).
+* **dameraulevenshtein** *(DEFAULT)* — [Double] [Damerau-Levenshtein Distanz](https://github.com/tdebatty/java-string-similarity#damerau-levenshtein).
+* **jarowinkler** *(DEFAULT)* — [Double] [Jaro-Winkler Distanz](https://github.com/tdebatty/java-string-similarity#jaro-winkler).
+
+
+**Beispiel**
+
+```json
+{
+  "searchString": "Mainz",
+  "gazetteerString": "Wiesbaden-Mainz-Kastel",
+  "levenshtein": 17.0,
+  "dameraulevenshtein": 17.0,
+  "jarowinkler": 0.68,
+  "normalizedlevenshtein": 0.77
 }
 ```
