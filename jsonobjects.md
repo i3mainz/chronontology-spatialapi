@@ -160,6 +160,8 @@ JSONObject nach ChronOntology [names object](https://github.com/dainst/chrononto
   * **lang** *(DEFAULT)* — [String] Sprache des bevorzugten Namens.
 * **language** *(DEFAULT)* — [JSONArray] Sprachvarianten.
 
+*Wenn die Sprache unbekannt ist, wird hierfür "unknown" verwendet.*
+
 **Beispiel**
 
 ```json
