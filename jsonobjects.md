@@ -143,20 +143,31 @@ GeoJSON einer ChronOntology Ressource.
 
 ## Names JSON
 
-JSONObject nach ChronOntology [names object](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#names).
+JSONObject nach ChronOntology [names object](https://github.com/dainst/chronontology-data/blob/master/docs/ChronOntology%20data%20model.md#names), erweitert um einen bevorzugten Namen, prefName.
 
 ```json
 {
+  "prefName": {
+    "name": "",
+    "lang": ""
+  },
   "language1": [],
   "language2": []
 }
 ```
+* **prefName** *(DEFAULT)* — [JSONObject] bevorzugter Name.
+  * **name** *(DEFAULT)* — [String] Label des bevorzugten Namens.
+  * **lang** *(DEFAULT)* — [String] Sprache des bevorzugten Namens.
 * **language** *(DEFAULT)* — [JSONArray] Sprachvarianten.
 
 **Beispiel**
 
 ```json
 {
+  "prefName": {
+    "name": "römisch",
+    "lang": "de"
+  },
   "de": ["Römisch", "römisch"],
   "en": ["greek", "Greek"]
 }
