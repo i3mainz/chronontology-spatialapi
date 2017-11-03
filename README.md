@@ -2,12 +2,6 @@
 
 [![build](https://travis-ci.org/i3mainz/chronontology-spatialapi.svg?branch=master)](https://travis-ci.org/i3mainz/chronontology-spatialapi) [![version](https://img.shields.io/badge/version-1.0--SNAPSHOT-green.svg)](#) [![release](https://img.shields.io/badge/release-v0.6.1-lightgrey.svg)](https://github.com/i3mainz/chronontology-spatialapi/releases/tag/v0.6.1)  [![java](https://img.shields.io/badge/jdk-1.8-red.svg)](#)  [![maven](https://img.shields.io/badge/maven-3.5.0-orange.svg)](#) [![output](https://img.shields.io/badge/output-war-red.svg)](#) [![docs](https://img.shields.io/badge/apidoc-v0.6.1-lightgrey.svg)](https://i3mainz.github.io/chronontology-spatialapi/)  [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/i3mainz/chronontology-spatialapi/blob/master/LICENSE)
 
-## Usage
-
-Look at the [API documentation](https://github.com/i3mainz/chronontology-spatialapi/blob/master/apidoc.md) for API usage.
-
-Look at the [JSON Data Model](https://github.com/i3mainz/chronontology-spatialapi/blob/master/jsonobjects.md) for GeoJSON structure.
-
 ## Prerequisites
 
 The code is developed using and tested with:
