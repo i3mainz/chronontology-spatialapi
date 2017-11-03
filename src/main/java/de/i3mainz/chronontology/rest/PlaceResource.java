@@ -1,6 +1,5 @@
 package de.i3mainz.chronontology.rest;
 
-import de.i3mainz.chronontology.chronontology.ChronOntology;
 import de.i3mainz.chronontology.errorlog.Logging;
 import de.i3mainz.chronontology.restconfig.ResponseGZIP;
 import javax.ws.rs.Produces;
@@ -11,23 +10,26 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.linkedgeodesy.gazetteerjson.gazetteer.GeoNames;
+import org.linkedgeodesy.gazetteerjson.gazetteer.GettyTGN;
+import org.linkedgeodesy.gazetteerjson.gazetteer.IDAIGazetteer;
+import org.linkedgeodesy.gazetteerjson.gazetteer.Pleiades;
+import org.linkedgeodesy.gazetteerjson.gazetteer.ChronOntology;
+import org.linkedgeodesy.org.gazetteerjson.json.GGeoJSONSingleFeature;
 
 @Path("/place")
 public class PlaceResource {
 
     /**
-     * creates a GeoJSON out of a query
+     * creates as GeoJSON+
      *
      * @param acceptEncoding
      * @param acceptHeader
      * @param periodid
      * @param bbox
      * @param q
-     * @param dummyFeature
-     * @param dummyType
-     * @return GeoJSON
+     * @param type
+     * @return
      */
     @GET
     @Path("/")
@@ -37,53 +39,72 @@ public class PlaceResource {
                                @QueryParam("periodid") String periodid,
                                @QueryParam("bbox") String bbox,
                                @QueryParam("q") String q,
-                               @QueryParam("dummy") String dummyFeature,
-                               @QueryParam("type") String dummyType) {
+                               @QueryParam("type") String type) {
         try {
-            JSONObject geojson = new JSONObject();
+            String out = "{}";
+            GGeoJSONSingleFeature dummyjson = new GGeoJSONSingleFeature();
             if (periodid != null) {
                 if (!periodid.equals("")) {
-                    geojson.put("type", "FeatureCollection");
-                    geojson.put("features", ChronOntology.getGeoJSON(periodid));
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+                    out = ChronOntology.getPlacesById(periodid).toJSONString();
                 } else {
-                    geojson.put("type", "FeatureCollection");
-                    geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+                    out = dummyjson.toJSONString();
                 }
             } else if (bbox != null) {
+                String[] bboxSplit = bbox.split(";");
                 if (!bbox.equals("")) {
-                    geojson.put("type", "FeatureCollection");
-                    // TODO query gazetteers for bbox
-                    geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+                    if (bboxSplit.length == 8) {
+                        if (type.equals("dai")) {
+                            out = IDAIGazetteer.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                        } else if (type.equals("geonames")) {
+                            out = GeoNames.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                        } else if (type.equals("getty")) {
+                            out = GettyTGN.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                        } else if (type.equals("pleiades")) {
+                            out = Pleiades.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                        } else {
+                            out = dummyjson.toJSONString();
+                        }
+                    } else {
+                        out = dummyjson.toJSONString();
+                    }
                 } else {
-                    geojson.put("type", "FeatureCollection");
-                    geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+                    out = dummyjson.toJSONString();
                 }
             } else if (q != null) {
                 if (!q.equals("")) {
-                    geojson.put("type", "FeatureCollection");
-                    // TODO query gazetteers for string
-                    geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+                    if (type.equals("dai")) {
+                        out = IDAIGazetteer.getPlacesByString(q).toJSONString();
+                    } else if (type.equals("geonames")) {
+                        out = GeoNames.getPlacesByString(q).toJSONString();
+                    } else if (type.equals("getty")) {
+                        out = GettyTGN.getPlacesByString(q).toJSONString();
+                    } else if (type.equals("pleiades")) {
+                        out = Pleiades.getPlacesByString(q).toJSONString();
+                    } else {
+                        out = dummyjson.toJSONString();
+                    }
                 } else {
-                    geojson.put("type", "FeatureCollection");
-                    geojson.put("features", new JSONArray());
-                    return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+                    out = dummyjson.toJSONString();
                 }
             } else {
-                geojson.put("type", "FeatureCollection");
-                geojson.put("features", new JSONArray());
-                return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+                out = dummyjson.toJSONString();
             }
+            return ResponseGZIP.setResponse(acceptEncoding, out, Response.Status.OK);
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
                     .header("Content-Type", "application/json;charset=UTF-8").build();
         }
     }
 
+    /**
+     * creates as GeoJSON+
+     *
+     * @param acceptEncoding
+     * @param acceptHeader
+     * @param type
+     * @param id
+     * @return
+     */
     @GET
     @Path("/{type}/{id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
@@ -92,11 +113,19 @@ public class PlaceResource {
                                             @PathParam("type") String type,
                                             @PathParam("id") String id) {
         try {
-            JSONObject geojson = new JSONObject();
-            // TODO query gazetteers
-            geojson.put("type", type);
-            geojson.put("id", id);
-            return ResponseGZIP.setResponse(acceptEncoding, geojson.toJSONString(), Response.Status.OK);
+            String out = "{}";
+            if (type.equals("dai")) {
+                out = IDAIGazetteer.getPlaceById(id).toJSONString();
+            } else if (type.equals("geonames")) {
+                out = GeoNames.getPlaceById(id).toJSONString();
+            } else if (type.equals("getty")) {
+                out = GettyTGN.getPlaceById(id).toJSONString();
+            } else if (type.equals("pleiades")) {
+                out = Pleiades.getPlaceById(id).toJSONString();
+            } else if (type.equals("chronontology")) {
+                out = ChronOntology.getPlacesById(id).toJSONString();
+            }
+            return ResponseGZIP.setResponse(acceptEncoding, out, Response.Status.OK);
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
                     .header("Content-Type", "application/json;charset=UTF-8").build();
