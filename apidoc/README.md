@@ -114,29 +114,18 @@ Ein GeoJSON+ Objekt, siehe [Gazetteer Suche Dokumentation](https://github.com/li
 
 **Examples**
 
-*periodid*
-
-* http://localhost:8084/spi/place?periodid=EfFq8qCFODK8
-
-*bbox*
-
-* http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai
-* http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=geonames
-* http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=getty
-* http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=pleiades
-
-*q*
-
-* http://localhost:8084/spi/place?q=Mainz&type=dai
-* http://localhost:8084/spi/place?q=Mainz&type=geonames
-* http://localhost:8084/spi/place?q=Mainz&type=getty
-* http://localhost:8084/spi/place?q=Mainz&type=pleiades
-
-* http://localhost:8084/spi/place?periodid=FD6JS3cmi2Wc
-* http://localhost:8084/spi/place?bbox=50.082665;8.161050,50.082665;8.371850,49.903887;8.161050,49.903887;8.371850
-* http://localhost:8084/spi/place?q=Mainz
-* http://localhost:8084/spi/place?dummy=FeatureCollection&type=cjson
-* http://localhost:8084/spi/place?dummy=Feature&type=gjson
+* periodid
+ * http://localhost:8084/spi/place?periodid=EfFq8qCFODK8
+* bbox
+ * http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai
+ * http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=geonames
+ * http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=getty
+ * http://localhost:8084/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=pleiades
+* q
+ * http://localhost:8084/spi/place?q=Mainz&type=dai
+ * http://localhost:8084/spi/place?q=Mainz&type=geonames
+ * http://localhost:8084/spi/place?q=Mainz&type=getty
+ * http://localhost:8084/spi/place?q=Mainz&type=pleiades
 
 ## GET gazetteer place
 
