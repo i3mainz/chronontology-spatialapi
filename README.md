@@ -60,3 +60,9 @@ Florian Thiery M.Sc.<sup>1</sup>, i3mainz<sup>2</sup>
 
 <sup>2</sup> i3mainz - Institute for Spatial Information and Surveying Technology at School of Technology, Hochschule Mainz
 University of Applied Sciences, [Website](http://i3mainz.hs-mainz.de/)
+
+## More Information
+
+This web service uses the [Gazetteer JSON](https://github.com/linkedgeodesy/gazetteer-json) library.
+
+The resulting JSON data structure is based on [GeoJSON+](https://github.com/linkedgeodesy/geojson-plus) and [GeoJSON+ Linked Data](https://github.com/linkedgeodesy/geojson-plus-ld).
