@@ -170,52 +170,6 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- json -->
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>1.7.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.jaxrs</groupId>
-			<artifactId>jackson-jaxrs-json-provider</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-		<!-- XML -->
-		<dependency>
-			<groupId>org.jdom</groupId>
-			<artifactId>jdom</artifactId>
-			<version>1.1</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>com.jamesmurty.utils</groupId>
-			<artifactId>java-xmlbuilder</artifactId>
-			<version>0.6</version>
-		</dependency>
-		<!-- String Similarity -->
-		<dependency>
-			<groupId>info.debatty</groupId>
-			<artifactId>java-string-similarity</artifactId>
-			<version>RELEASE</version>
-		</dependency>
-		<!-- https://github.com/Esri/geometry-api-java -->
-		<dependency>
-			<groupId>com.esri.geometry</groupId>
-			<artifactId>esri-geometry-api</artifactId>
-			<version>1.2.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.codehaus.jackson</groupId>
-					<artifactId>jackson-core-asl</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<!-- Jersey 1.19.1 -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -249,40 +203,7 @@
 			<artifactId>jersey-multipart</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-		<!-- Semantic Web / Linked Data -->
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-arq</artifactId>
-			<version>2.13.0</version>
-			<type>jar</type>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.httpcomponents</groupId>
-					<artifactId>httpclient</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jcl-over-slf4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- JSON-LD -->
-		<dependency>
-			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java</artifactId>
-			<version>0.10.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java-jena</artifactId>
-			<version>0.4.1</version>
-		</dependency>
 		<!-- GitHub dependencies via https://jitpack.io - version: last commit number-->
-		<dependency>
-			<groupId>com.github.linkedgeodesy</groupId>
-			<artifactId>jena-ext</artifactId>
-			<version>v0.1</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.linkedgeodesy</groupId>
 			<artifactId>gazetteer-json</artifactId>
