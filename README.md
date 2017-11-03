@@ -52,6 +52,11 @@ Look at [Gist](https://gist.github.com/florianthiery/0f8c0c015555939c96eb13428bb
 
 Modify [prefixes.csv](https://github.com/i3mainz/chronontology-spatialapi/blob/master/src/main/resources/prefixes.csv) into the `resources` folder.
 
-## Repo Developers
+## Developers and License Holder
 
-Florian Thiery M.Sc. (i3mainz)
+Florian Thiery M.Sc.<sup>1</sup>,  i3mainz<sup>2</sup>
+
+<sup>1</sup> Florian Thiery M.Sc., [Linked Geodesy](http://linkedgeodesy.org), [ORCID](http://orcid.org/0000-0002-3246-3531)
+
+<sup>2</sup> i3mainz - Institute for Spatial Information and Surveying Technology at School of Technology, Hochschule Mainz
+University of Applied Sciences, [Website](http://i3mainz.hs-mainz.de/)
