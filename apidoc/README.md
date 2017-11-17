@@ -87,6 +87,7 @@ none
 * **bbox** *(optional)* — [String] BoundingBox.
 * **q** *(optional)* — [String] Buchstabenfolge.
 * **type** *(optional, mandatory for "q" and "bbox")* — [String] {dai;getty;geonames;pleiades}.
+* **format** *(optional)* — [String] Linked Data Output Format {json, jsonld, rdf, ttl, n3}.
 
 **Beispiel Bounding Box**
 
@@ -107,6 +108,8 @@ none
 
 Ein GeoJSON+ Objekt, siehe [Gazetteer Suche Dokumentation](https://github.com/linkedgeodesy/geojson-plus/blob/master/datamodel.md#gazetteer-suche).
 
+Wenn "json" angefordert wird, wird ein Ein GeoJSON+ Objekt ausgegeben. Ansonsten sind aber auch die Formate `JSON-LD`, `Turtle`, `RDF/XML` und `N-TRIPLES` möglich.
+
 **Response Codes**
 
 * *200 OK* — Alles ok.
@@ -126,6 +129,9 @@ Ein GeoJSON+ Objekt, siehe [Gazetteer Suche Dokumentation](https://github.com/li
  * http://localhost:8084/spi/place?q=Mainz&type=geonames
  * http://localhost:8084/spi/place?q=Mainz&type=getty
  * http://localhost:8084/spi/place?q=Mainz&type=pleiades
+* Linked Data
+ * http://localhost:8084/spi/place?periodid=EfFq8qCFODK8&format=ttl
+ * http://localhost:8084/spi/place?q=Mainz&type=pleiades&format=rdf
 
 ## GET gazetteer place
 
@@ -143,6 +149,7 @@ none
 
 * **type** *(mandatory)* — [String] {dai;getty;geonames;pleiades;chronontology}.
 * **id** *(mandatory)* — [String] gazetteer id.
+* **format** *(optional)* — [String] Linked Data Output Format {json, jsonld, rdf, ttl, n3}.
 
 **Headers**
 
@@ -153,6 +160,8 @@ none
 **Return format**
 
 Ein GeoJSON+ Objekt, siehe [Gazetteer GeoJSON Dokumentation](https://github.com/linkedgeodesy/geojson-plus/blob/master/datamodel.md#gazetteer-ressource) und [ChronOntology GeoJSON Dokumentation](https://github.com/linkedgeodesy/geojson-plus/blob/master/datamodel.md#chronontology-geojson).
+
+Wenn "json" angefordert wird, wird ein Ein GeoJSON+ Objekt ausgegeben. Ansonsten sind aber auch die Formate `JSON-LD`, `Turtle`, `RDF/XML` und `N-TRIPLES` möglich.
 
 **Response Codes**
 
@@ -166,3 +175,6 @@ Ein GeoJSON+ Objekt, siehe [Gazetteer GeoJSON Dokumentation](https://github.com/
 * http://localhost:8084/spi/place/getty/7004449
 * http://localhost:8084/spi/place/pleiades/109169
 * http://localhost:8084/spi/place/chronontology/EfFq8qCFODK8
+* Linked Data
+ * http://localhost:8084/spi/place/dai/2181124?format=ttl
+ * http://localhost:8084/spi/place/chronontology/EfFq8qCFODK8?format=rdf
