@@ -207,7 +207,7 @@
 		<dependency>
 			<groupId>com.github.linkedgeodesy</groupId>
 			<artifactId>gazetteer-json</artifactId>
-			<version>v0.4</version>
+			<version>f0db2e4</version>
 		</dependency>
 	</dependencies>
 	

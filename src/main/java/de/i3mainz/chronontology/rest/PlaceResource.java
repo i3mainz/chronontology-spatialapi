@@ -16,6 +16,7 @@ import org.linkedgeodesy.gazetteerjson.gazetteer.IDAIGazetteer;
 import org.linkedgeodesy.gazetteerjson.gazetteer.Pleiades;
 import org.linkedgeodesy.gazetteerjson.gazetteer.ChronOntology;
 import org.linkedgeodesy.org.gazetteerjson.json.GGeoJSONSingleFeature;
+import org.linkedgeodesy.org.gazetteerjson.json.JSONLD;
 
 @Path("/place")
 public class PlaceResource {
@@ -111,24 +112,76 @@ public class PlaceResource {
     public Response getGeoJSONfromGazetteer(@HeaderParam("Accept-Encoding") String acceptEncoding,
                                             @HeaderParam("Accept") String acceptHeader,
                                             @PathParam("type") String type,
-                                            @PathParam("id") String id) {
+                                            @PathParam("id") String id,
+                                            @QueryParam("format") String format) {
         try {
             String out = "{}";
+            if (format == null) {
+                format = "json";
+            }
+            format = transformFormat(format);
             if (type.equals("dai")) {
-                out = IDAIGazetteer.getPlaceById(id).toJSONString();
+                if (format == "json") {
+                    out = IDAIGazetteer.getPlaceById(id).toJSONString();
+                } else if (format == "jsonld") {
+                    out = JSONLD.getJSONLDGazetteerResource(IDAIGazetteer.getPlaceById(id)).toJSONString();
+                } else {
+                    out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerResource(IDAIGazetteer.getPlaceById(id)).toString(), format);
+                }
             } else if (type.equals("geonames")) {
-                out = GeoNames.getPlaceById(id).toJSONString();
+                if (format == "json") {
+                    out = GeoNames.getPlaceById(id).toJSONString();
+                } else if (format == "jsonld") {
+                    out = JSONLD.getJSONLDGazetteerResource(GeoNames.getPlaceById(id)).toJSONString();
+                } else {
+                    out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerResource(GeoNames.getPlaceById(id)).toString(), format);
+                }
             } else if (type.equals("getty")) {
-                out = GettyTGN.getPlaceById(id).toJSONString();
+                if (format == "json") {
+                    out = GettyTGN.getPlaceById(id).toJSONString();
+                } else if (format == "jsonld") {
+                    out = JSONLD.getJSONLDGazetteerResource(GettyTGN.getPlaceById(id)).toJSONString();
+                } else {
+                    out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerResource(GettyTGN.getPlaceById(id)).toString(), format);
+                }
             } else if (type.equals("pleiades")) {
-                out = Pleiades.getPlaceById(id).toJSONString();
+                if (format == "json") {
+                    out = Pleiades.getPlaceById(id).toJSONString();
+                } else if (format == "jsonld") {
+                    out = JSONLD.getJSONLDGazetteerResource(Pleiades.getPlaceById(id)).toJSONString();
+                } else {
+                    out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerResource(Pleiades.getPlaceById(id)).toString(), format);
+                }
             } else if (type.equals("chronontology")) {
-                out = ChronOntology.getPlacesById(id).toJSONString();
+                if (format == "json") {
+                    out = ChronOntology.getPlacesById(id).toJSONString();
+                } else if (format == "jsonld") {
+                    out = JSONLD.getJSONLDChronOntologyJSON(ChronOntology.getPlacesById(id)).toJSONString();
+                } else {
+                    out = JSONLD.getRDF(JSONLD.getJSONLDChronOntologyJSON(ChronOntology.getPlacesById(id)).toString(), format);
+                }
             }
             return ResponseGZIP.setResponse(acceptEncoding, out, Response.Status.OK);
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
                     .header("Content-Type", "application/json;charset=UTF-8").build();
+        }
+    }
+
+    private String transformFormat(String format) {
+        switch (format) {
+            case "json":
+                return "json";
+            case "ttl":
+                return "TURTLE";
+            case "jsonld":
+                return "jsonld";
+            case "rdf":
+                return "RDF/XML";
+            case "n3":
+                return "N3";
+            default:
+                return "json";
         }
     }
 
