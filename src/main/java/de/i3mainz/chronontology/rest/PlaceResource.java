@@ -149,7 +149,13 @@ public class PlaceResource {
             } else {
                 out = dummyjson.toJSONString();
             }
-            return ResponseGZIP.setResponse(acceptEncoding, out, Response.Status.OK);
+            if (format.equals("json") || format.equals("jsonld")) {
+                return ResponseGZIP.setResponse(acceptEncoding, out, Response.Status.OK);
+            } else if (format.equals("RDF/XML")) {
+                return Response.status(Response.Status.OK).entity(out).header("Content-Type", "application/xml;charset=UTF-8").build();
+            } else { // n3 / ttl
+                return Response.status(Response.Status.OK).entity(out).header("Content-Type", "text/plain;charset=UTF-8").build();
+            }
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
                     .header("Content-Type", "application/json;charset=UTF-8").build();
@@ -220,7 +226,13 @@ public class PlaceResource {
                     out = JSONLD.getRDF(JSONLD.getJSONLDChronOntologyJSON(ChronOntology.getPlacesById(id)).toString(), format);
                 }
             }
-            return ResponseGZIP.setResponse(acceptEncoding, out, Response.Status.OK);
+            if (format.equals("json") || format.equals("jsonld")) {
+                return ResponseGZIP.setResponse(acceptEncoding, out, Response.Status.OK);
+            } else if (format.equals("RDF/XML")) {
+                return Response.status(Response.Status.OK).entity(out).header("Content-Type", "application/xml;charset=UTF-8").build();
+            } else { // n3 / ttl
+                return Response.status(Response.Status.OK).entity(out).header("Content-Type", "text/plain;charset=UTF-8").build();
+            }
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Logging.getMessageJSON(e, "de.i3mainz.chronontology.rest.PlaceResource"))
                     .header("Content-Type", "application/json;charset=UTF-8").build();
