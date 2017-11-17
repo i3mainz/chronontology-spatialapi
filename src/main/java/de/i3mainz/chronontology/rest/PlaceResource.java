@@ -40,13 +40,24 @@ public class PlaceResource {
                                @QueryParam("periodid") String periodid,
                                @QueryParam("bbox") String bbox,
                                @QueryParam("q") String q,
-                               @QueryParam("type") String type) {
+                               @QueryParam("type") String type,
+                               @QueryParam("format") String format) {
         try {
             String out = "{}";
             GGeoJSONSingleFeature dummyjson = new GGeoJSONSingleFeature();
+            if (format == null) {
+                format = "json";
+            }
+            format = transformFormat(format);
             if (periodid != null) {
                 if (!periodid.equals("")) {
-                    out = ChronOntology.getPlacesById(periodid).toJSONString();
+                    if (format == "json") {
+                        out = ChronOntology.getPlacesById(periodid).toJSONString();
+                    } else if (format == "jsonld") {
+                        out = JSONLD.getJSONLDChronOntologyJSON(ChronOntology.getPlacesById(periodid)).toJSONString();
+                    } else {
+                        out = JSONLD.getRDF(JSONLD.getJSONLDChronOntologyJSON(ChronOntology.getPlacesById(periodid)).toString(), format);
+                    }
                 } else {
                     out = dummyjson.toJSONString();
                 }
@@ -55,13 +66,37 @@ public class PlaceResource {
                 if (!bbox.equals("")) {
                     if (bboxSplit.length == 8) {
                         if (type.equals("dai")) {
-                            out = IDAIGazetteer.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            if (format == "json") {
+                                out = IDAIGazetteer.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            } else if (format == "jsonld") {
+                                out = JSONLD.getJSONLDGazetteerSearch(IDAIGazetteer.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toJSONString();
+                            } else {
+                                out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(IDAIGazetteer.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toString(), format);
+                            }
                         } else if (type.equals("geonames")) {
-                            out = GeoNames.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            if (format == "json") {
+                                out = GeoNames.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            } else if (format == "jsonld") {
+                                out = JSONLD.getJSONLDGazetteerSearch(GeoNames.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toJSONString();
+                            } else {
+                                out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(GeoNames.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toString(), format);
+                            }
                         } else if (type.equals("getty")) {
-                            out = GettyTGN.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            if (format == "json") {
+                                out = GettyTGN.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            } else if (format == "jsonld") {
+                                out = JSONLD.getJSONLDGazetteerSearch(GettyTGN.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toJSONString();
+                            } else {
+                                out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(GettyTGN.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toString(), format);
+                            }
                         } else if (type.equals("pleiades")) {
-                            out = Pleiades.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            if (format == "json") {
+                                out = Pleiades.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3]).toJSONString();
+                            } else if (format == "jsonld") {
+                                out = JSONLD.getJSONLDGazetteerSearch(Pleiades.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toJSONString();
+                            } else {
+                                out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(Pleiades.getPlacesByBBox(bboxSplit[0], bboxSplit[1], bboxSplit[4], bboxSplit[5], bboxSplit[6], bboxSplit[7], bboxSplit[2], bboxSplit[3])).toString(), format);
+                            }
                         } else {
                             out = dummyjson.toJSONString();
                         }
@@ -74,13 +109,37 @@ public class PlaceResource {
             } else if (q != null) {
                 if (!q.equals("")) {
                     if (type.equals("dai")) {
-                        out = IDAIGazetteer.getPlacesByString(q).toJSONString();
+                        if (format == "json") {
+                            out = IDAIGazetteer.getPlacesByString(q).toJSONString();
+                        } else if (format == "jsonld") {
+                            out = JSONLD.getJSONLDGazetteerSearch(IDAIGazetteer.getPlacesByString(q)).toJSONString();
+                        } else {
+                            out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(IDAIGazetteer.getPlacesByString(q)).toString(), format);
+                        }
                     } else if (type.equals("geonames")) {
-                        out = GeoNames.getPlacesByString(q).toJSONString();
+                        if (format == "json") {
+                            out = GeoNames.getPlacesByString(q).toJSONString();
+                        } else if (format == "jsonld") {
+                            out = JSONLD.getJSONLDGazetteerSearch(GeoNames.getPlacesByString(q)).toJSONString();
+                        } else {
+                            out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(GeoNames.getPlacesByString(q)).toString(), format);
+                        }
                     } else if (type.equals("getty")) {
-                        out = GettyTGN.getPlacesByString(q).toJSONString();
+                        if (format == "json") {
+                            out = GettyTGN.getPlacesByString(q).toJSONString();
+                        } else if (format == "jsonld") {
+                            out = JSONLD.getJSONLDGazetteerSearch(GettyTGN.getPlacesByString(q)).toJSONString();
+                        } else {
+                            out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(GettyTGN.getPlacesByString(q)).toString(), format);
+                        }
                     } else if (type.equals("pleiades")) {
-                        out = Pleiades.getPlacesByString(q).toJSONString();
+                        if (format == "json") {
+                            out = Pleiades.getPlacesByString(q).toJSONString();
+                        } else if (format == "jsonld") {
+                            out = JSONLD.getJSONLDGazetteerSearch(Pleiades.getPlacesByString(q)).toJSONString();
+                        } else {
+                            out = JSONLD.getRDF(JSONLD.getJSONLDGazetteerSearch(Pleiades.getPlacesByString(q)).toString(), format);
+                        }
                     } else {
                         out = dummyjson.toJSONString();
                     }
@@ -179,7 +238,7 @@ public class PlaceResource {
             case "rdf":
                 return "RDF/XML";
             case "n3":
-                return "N3";
+                return "N-TRIPLES";
             default:
                 return "json";
         }
