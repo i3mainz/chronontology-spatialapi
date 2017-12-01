@@ -6,12 +6,19 @@ Diese Datei beschreibt die Nutzung der `spatial API` in Angular Components des [
 
 ### GeoMapComponent
 
-Stellt die räumliche Verteilung einer ChronOntology Period dar.
+Stellt die räumliche Verteilung einer ChronOntology Periode dar.
 
 * controller in `js/components/GeoMapComponent.js`
 * template at `partials/geo/map.html`
 * used in `partials/period.html`
-* `<geomap selected-period-id="document.resource.id"></geomap>`
+* tag: `<geomap></geomap>`
+* attribute: `selected-period-id="periodID"`
+
+**component example**
+
+```xml
+<geomap selected-period-id="document.resource.id"></geomap>
+```
 
 **JavaScript libs**
 
@@ -41,7 +48,14 @@ Ermöglicht die Suche in einem Gazetteer in einer Bounding Box.
 * controller in `js/components/GeoSearchComponent.js`
 * template at `partials/geo/search.html`
 * used in `partials/geo/pickerMap.html`
-* `<geosearch datasource="getty"></geosearch>`
+* tag: `<geosearch></geosearch>`
+* attribute: `datasource="gazetterType"`
+
+**component example**
+
+```xml
+<geosearch datasource="getty"></geosearch>
+```
 
 **JavaScript libs**
 
@@ -77,7 +91,16 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Map an.
  * `partials/geo/pickerResource.html`
  * `partials/geo/pickerQuery.html`
  * `partials/geo/pickerMap.html`
-* `<geosearchresultsmap datasource="/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai"></geosearchresultsmap>`
+* tag: `<geosearchresultsmap></geosearchresultsmap>`
+* attribute: `datasource="SPI-URI{bbox,q,resource}"`
+
+ **component example**
+
+ ```xml
+<geosearchresultsmap datasource="/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai"></geosearchresultsmap>
+<geosearchresultsmap datasource="/spi/place?q=Mainz&type=getty"></geosearchresultsmap>
+<geosearchresultsmap datasource="/spi/place/geonames/2874225"></geosearchresultsmap>
+ ```
 
 **JavaScript libs**
 
@@ -88,7 +111,8 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Map an.
   "leaflet": "0.7.7",
   "leaflet-fullscreen": "1.0.2",
   "leaflet-search": "2.3.7",
-  "leaflet.markercluster": "0.5.0"
+  "leaflet.markercluster": "0.5.0",
+  "leaflet-minimap": "3.6.0"
 }
 ```
 
@@ -101,6 +125,7 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Map an.
 * leaflet-search.src.scss
 * MarkerCluster.scss
 * MarkerCluster.Default.scss
+* Control.MiniMap.min.scss
 ```
 
 ### GeoSearchResultsListComponent
@@ -113,7 +138,16 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Tabelle an.
  * `partials/geo/pickerResource.html`
  * `partials/geo/pickerQuery.html`
  * `partials/geo/pickerMap.html`
-* `<geosearchresultslist datasource="/spi/place?q=Mainz&type=getty"></geosearchresultslist>`
+* tag: `<geosearchresultslist></geosearchresultslist>`
+* attribute: `datasource="SPI-URI{bbox,q,resource}"`
+
+ **component example**
+
+ ```xml
+ <geosearchresultslist datasource="/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai"></geosearchresultslist>
+ <geosearchresultslist datasource="/spi/place?q=Mainz&type=getty"></geosearchresultslist>
+ <geosearchresultslist datasource="/spi/place/geonames/2874225"></geosearchresultslist>
+ ```
 
 **JavaScript libs**
 
@@ -134,44 +168,62 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Tabelle an.
 
 ## Picker
 
+Picker dienen dazu, dass ein Nutzer durch eine bestmmtes Auswahlverfahren eine URI eines Gazetters erhalten kann.
+
 ### GeoPickerResourceComponent
 
-* Request-Auswahl
-  * Typ
-  * Gazetteer ID
-* Response
-  * GeoSearchResultsListComponent
-     * URI in frontend
-* `<geopickerresource on-place-selected="$ctrl.pickedLocations[relationName].push(place)"></geopickerresource>`
+* controller in `js/components/GeoPickerResourceComponent.js`
+* template at `partials/geo/pickerResource.html`
+* expected in `partials/period/edit.html`
+* tag: `<geopickerresource></geopickerresource>`
+* attribute: `on-place-selected="*"`
+
+**picker example**
+
+```xml
+<geopickerresource on-place-selected="testValue = place"></geopickerresource>
+```
 
 **Angular Components**
 
 * GeoSearchResultsListComponent
+* GeoSearchResultsMapComponent
 
-### GeoPickerComponent
+### GeoPickerQueryComponent
 
-* Request-Auswahl
- * Typ
- * query string
-* Response
- * GeoSearchResultsListComponent
-   * URI in frontend
-* `<geopicker on-place-selected="$ctrl.pickedLocations[relationName].push(place)"></geopicker>`
+* controller in `js/components/GeoPickerQueryComponent.js`
+* template at `partials/geo/pickerQuery.html`
+* expected in `partials/period/edit.html`
+* tag: `<geopickerquery></geopickerquery>`
+* attribute: `on-place-selected="*"`
+
+**picker example**
+
+```xml
+<geopickerquery on-place-selected="testValue2 = place"></geopickerquery>
+```
 
 **Angular Components**
 
 * GeoSearchResultsListComponent
+* GeoSearchResultsMapComponent
 
 ### GeoPickerMapComponent
 
-* Request-Auswahl
-  * Typ
-  * bbox
-* Response
-  * GeoSearchResultsComponent
-   *  URI in frontend
-* `<geopickermap on-place-selected="$ctrl.pickedLocations[relationName].push(place)"></geopickermap>`
+* controller in `js/components/GeoPickerMapComponent.js`
+* template at `partials/geo/pickerMap.html`
+* expected in `partials/period/edit.html`
+* tag: `<geopickermap></geopickermap>`
+* attribute: `on-place-selected="*"`
+
+**picker example**
+
+```xml
+<geopickermap on-place-selected="testValue3 = place"></geopickermap>
+```
 
 **Angular Components**
 
-* GeoSearchResultsComponent
+* GeoSearchComponent
+* GeoSearchResultsListComponent
+* GeoSearchResultsMapComponent
