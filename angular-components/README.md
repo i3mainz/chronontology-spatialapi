@@ -1,6 +1,8 @@
-# Geo Components
+# Angular Geo Components
 
-## Widgets
+Diese Datei beschreibt die Nutzung der `spatial API` in Angular Components des [ChronOntology Frontends](https://github.com/dainst/chronontology-frontend). Alle Pfade verhalten sich realtiv zum Frontend Repository. Die Geo Components bestehen aus zwei Teilen, Core Components und Picker.
+
+## Core Components
 
 ### GeoMapComponent
 
@@ -65,18 +67,14 @@ Ermöglicht die Suche in einem Gazetteer in einer Bounding Box.
 * MarkerCluster.Default.scss
 ```
 
-#### TODO
-
-* load URL on popup link click
-
-### GeoSearchResultsComponent
+### GeoSearchResultsMapComponent
 
 Zeit die Ergebnisse einer Suche (q,bbox) in einer Map an.
 
-* controller in `js/components/GeoSearchResultsComponent.js`
-* template at `partials/geo/searchResults.html`
+* controller in `js/components/GeoSearchResultsMapComponent.js`
+* template at `partials/geo/searchResultsMap.html`
 * used in `partials/period.html`
-* `<geosearchresults datasource="/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai"></geosearchresults>`
+* `<geosearchresultsmap datasource="/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai"></geosearchresultsmap>`
 
 **JavaScript libs**
 
@@ -101,10 +99,6 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Map an.
 * MarkerCluster.scss
 * MarkerCluster.Default.scss
 ```
-
-#### TODO
-
-* load URL on popup link click
 
 ### GeoSearchResultsListComponent
 
@@ -132,10 +126,6 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Tabelle an.
 * tablesort.scss
 ```
 
-#### TODO
-
-* load URL on name click for frontend
-
 ## Picker
 
 ### GeoPickerResourceComponent
@@ -152,10 +142,6 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Tabelle an.
 
 * GeoSearchResultsListComponent
 
-#### TODO
-
-* load GeoSearchResultsListComponent with datasource on button click
-
 ### GeoPickerComponent
 
 * Request-Auswahl
@@ -170,10 +156,6 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Tabelle an.
 
 * GeoSearchResultsListComponent
 
-#### TODO
-
-* load GeoSearchResultsListComponent with datasource on button click
-
 ### GeoPickerMapComponent
 
 * Request-Auswahl
@@ -187,7 +169,3 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Tabelle an.
 **Angular Components**
 
 * GeoSearchResultsComponent
-
-#### TODO
-
-* load GeoSearchResultsComponent with datasource on button click
