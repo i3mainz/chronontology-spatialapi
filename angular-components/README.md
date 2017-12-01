@@ -40,7 +40,7 @@ Ermöglicht die Suche in einem Gazetteer in einer Bounding Box.
 
 * controller in `js/components/GeoSearchComponent.js`
 * template at `partials/geo/search.html`
-* used in `partials/period.html`
+* used in `partials/geo/pickerMap.html`
 * `<geosearch datasource="getty"></geosearch>`
 
 **JavaScript libs**
@@ -73,7 +73,10 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Map an.
 
 * controller in `js/components/GeoSearchResultsMapComponent.js`
 * template at `partials/geo/searchResultsMap.html`
-* used in `partials/period.html`
+* used in
+ * `partials/geo/pickerResource.html`
+ * `partials/geo/pickerQuery.html`
+ * `partials/geo/pickerMap.html`
 * `<geosearchresultsmap datasource="/spi/place?bbox=50.082665;8.161050;50.082665;8.371850;49.903887;8.161050;49.903887;8.371850&type=dai"></geosearchresultsmap>`
 
 **JavaScript libs**
@@ -106,7 +109,10 @@ Zeit die Ergebnisse einer Suche (q,bbox) in einer Tabelle an.
 
 * controller in `js/components/GeoSearchResultsListComponent.js`
 * template at `partials/geo/searchResultsList.html`
-* used in `partials/period.html`
+* used in
+ * `partials/geo/pickerResource.html`
+ * `partials/geo/pickerQuery.html`
+ * `partials/geo/pickerMap.html`
 * `<geosearchresultslist datasource="/spi/place?q=Mainz&type=getty"></geosearchresultslist>`
 
 **JavaScript libs**
